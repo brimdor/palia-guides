@@ -1,0 +1,22 @@
+name: Deploy Palia Guides
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'guides.json'
+      - '*.html'
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify guides.json
+        run: python3 -c "import json,os; data=json.load(open('guides.json')); print(f'{len(data)} guides'); [print(f'  {\"OK\" if os.path.exists(g[\"slug\"]+\".html\") else \"MISSING\"} {g[\"slug\"]}.html') for g in data]"
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .
+          enable_jekyll: false
