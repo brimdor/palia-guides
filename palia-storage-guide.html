@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Palia — Storage Chest Upgrade Guide</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg-deep: #0a0c14;
+      --bg-card: rgba(255,255,255,0.04);
+      --border: rgba(255,255,255,0.08);
+      --text: #e0e4ec;
+      --text-dim: #7a8399;
+      --accent-blue: #4a9eff;
+      --accent-green: #34d399;
+      --accent-yellow: #fbbf24;
+      --accent-purple: #a78bfa;
+      --accent-orange: #ff8c00;
+      --accent-red: #f87171;
+      --accent-cyan: #22d3ee;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+      background: var(--bg-deep);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 24px 16px 48px;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .header {
+      text-align: center;
+      padding: 28px 16px 20px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .header__icon { font-size: 32px; margin-bottom: 8px; }
+    .header__title {
+      font-size: 22px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #ff8c00 0%, #fbbf24 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .header__sub { font-size: 13px; color: var(--text-dim); margin-top: 6px; }
+
+    .vault {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .vault::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+    }
+    .vault__header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .vault__icon { font-size: 24px; }
+    .vault__title {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .bundle-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-dim);
+      margin: 16px 0 8px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid var(--border);
+    }
+    .bundle-label:first-of-type { margin-top: 0; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    th {
+      text-align: left;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-dim);
+      padding: 6px 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    td {
+      padding: 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      vertical-align: middle;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255,255,255,0.02); }
+
+    .chest-name { font-weight: 600; color: var(--text); white-space: nowrap; }
+
+    .rarity {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .rarity--common { background: rgba(255,255,255,0.05); color: var(--text-dim); border: 1px solid rgba(255,255,255,0.06); }
+    .rarity--uncommon { background: rgba(52,211,153,0.1); color: #34d399; border: 1px solid rgba(52,211,153,0.2); }
+    .rarity--rare { background: rgba(74,158,255,0.1); color: #4a9eff; border: 1px solid rgba(74,158,255,0.15); }
+    .rarity--epic { background: rgba(167,139,250,0.1); color: #a78bfa; border: 1px solid rgba(167,139,250,0.2); }
+
+    .slots { font-variant-numeric: tabular-nums; font-weight: 600; color: var(--text); }
+    .cost { font-variant-numeric: tabular-nums; color: var(--accent-yellow); font-weight: 600; }
+
+    .vault--general { border-left: 3px solid var(--accent-orange); }
+    .vault--lockbox { border-left: 3px solid var(--accent-cyan); }
+    .vault--mechanics { border-left: 3px solid var(--accent-green); }
+    .vault--howto { border-left: 3px solid var(--accent-purple); }
+
+    .vault--general .vault__title { color: var(--accent-orange); }
+    .vault--lockbox .vault__title { color: var(--accent-cyan); }
+    .vault--mechanics .vault__title { color: var(--accent-green); }
+    .vault--howto .vault__title { color: var(--accent-purple); }
+
+    .tip-box {
+      background: rgba(251,191,36,0.06);
+      border: 1px solid rgba(251,191,36,0.12);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-top: 24px;
+      font-size: 13px;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+    .tip-box strong { color: var(--accent-yellow); }
+
+    .upgrade-path {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: 16px;
+      margin: 12px 0;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .upgrade-path__item {
+      padding: 6px 12px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .upgrade-path__arrow { color: var(--text-dim); font-size: 16px; }
+    .upgrade-path__wood { background: rgba(255,255,255,0.05); color: var(--text-dim); border: 1px solid rgba(255,255,255,0.06); }
+    .upgrade-path__copper { background: rgba(255,140,0,0.1); color: #ff8c00; border: 1px solid rgba(255,140,0,0.2); }
+    .upgrade-path__iron { background: rgba(74,158,255,0.1); color: #4a9eff; border: 1px solid rgba(74,158,255,0.15); }
+    .upgrade-path__palium { background: rgba(167,139,250,0.1); color: #a78bfa; border: 1px solid rgba(167,139,250,0.2); }
+
+    .highlight-box {
+      background: rgba(255,140,0,0.06);
+      border: 1px solid rgba(255,140,0,0.15);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      text-align: center;
+      font-size: 15px;
+    }
+    .highlight-box__big {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--accent-orange);
+      display: block;
+      margin-bottom: 4px;
+    }
+    .highlight-box__label {
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+
+    .step-list {
+      list-style: none;
+      counter-reset: step;
+      padding: 0;
+    }
+    .step-list li {
+      counter-increment: step;
+      padding: 12px 0 12px 44px;
+      position: relative;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .step-list li:last-child { border-bottom: none; }
+    .step-list li::before {
+      content: counter(step);
+      position: absolute;
+      left: 0; top: 12px;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: rgba(167,139,250,0.12);
+      color: var(--accent-purple);
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      line-height: 28px;
+    }
+    .step-list .material { color: var(--accent-cyan); font-weight: 600; }
+    .step-list .gold { color: var(--accent-yellow); font-weight: 600; }
+    .step-list .location { color: var(--accent-green); }
+    .step-list .skill-req { color: var(--accent-red); font-size: 12px; }
+
+    .footer {
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-top: 32px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="header__icon">🗄️</div>
+    <div class="header__title">Storage Chest Upgrade Guide</div>
+    <div class="header__sub">How to increase storage beyond 8 chests on your housing plot</div>
+  </div>
+
+  <!-- Key Insight -->
+  <div class="highlight-box">
+    <span class="highlight-box__big">8 ChestsMax</span>
+    <span class="highlight-box__label">You can't place more than 8 general chests — but upgrading them gives up to <strong style="color:#a78bfa;">4.4×</strong> more slots</span>
+  </div>
+
+  <!-- Upgrade Path Visual -->
+  <div class="upgrade-path">
+    <span class="upgrade-path__item upgrade-path__wood">🪵 Wooden 400</span>
+    <span class="upgrade-path__arrow">→</span>
+    <span class="upgrade-path__item upgrade-path__copper">🟤 Copper 825</span>
+    <span class="upgrade-path__arrow">→</span>
+    <span class="upgrade-path__item upgrade-path__iron">⚪ Iron 1,250</span>
+    <span class="upgrade-path__arrow">→</span>
+    <span class="upgrade-path__item upgrade-path__palium">🔵 Palium 1,750</span>
+  </div>
+
+  <!-- General Storage Chests -->
+  <div class="vault vault--general">
+    <div class="vault__header">
+      <div class="vault__icon">📦</div>
+      <div class="vault__title">General Storage Chests</div>
+    </div>
+
+    <div class="bundle-label">Up to 8 per housing plot</div>
+    <table>
+      <thead><tr><th>Chest</th><th>Rarity</th><th>Slots Each</th><th>Total (×8)</th><th>Recipe Cost</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="chest-name">🪵 Wooden Storage Chest</td>
+          <td><span class="rarity rarity--common">Common</span></td>
+          <td class="slots">400</td>
+          <td class="slots">3,200</td>
+          <td class="cost">Free (quest)</td>
+        </tr>
+        <tr>
+          <td class="chest-name">🟤 Copper Storage Chest</td>
+          <td><span class="rarity rarity--uncommon">Uncommon</span></td>
+          <td class="slots">825</td>
+          <td class="slots">6,600</td>
+          <td class="cost">10,000🪙</td>
+        </tr>
+        <tr>
+          <td class="chest-name">⚪ Iron Storage Chest</td>
+          <td><span class="rarity rarity--rare">Rare</span></td>
+          <td class="slots">1,250</td>
+          <td class="slots">10,000</td>
+          <td class="cost">50,000🪙</td>
+        </tr>
+        <tr>
+          <td class="chest-name">🔵 Palium Storage Chest</td>
+          <td><span class="rarity rarity--epic">Epic</span></td>
+          <td class="slots">1,750</td>
+          <td class="slots">14,000</td>
+          <td class="cost">100,000🪙</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Lockbox Chests -->
+  <div class="vault vault--lockbox">
+    <div class="vault__header">
+      <div class="vault__icon">🔒</div>
+      <div class="vault__title">Lockbox Storage Chests</div>
+    </div>
+
+    <div class="bundle-label">Max 3 total across ALL plots</div>
+    <table>
+      <thead><tr><th>Chest</th><th>Rarity</th><th>Slots Each</th><th>Total (×3)</th><th>Recipe Cost</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="chest-name">🔒 Lockbox Storage Chest</td>
+          <td><span class="rarity rarity--common">Common</span></td>
+          <td class="slots">100</td>
+          <td class="slots">300</td>
+          <td class="cost">1,000🪙</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- HOW TO GET EACH CHEST -->
+  <div class="vault vault--howto">
+    <div class="vault__header">
+      <div class="vault__icon">🛠️</div>
+      <div class="vault__title">How to Get Each Chest</div>
+    </div>
+
+    <div class="bundle-label">All recipes from Tish's Furniture Store → Material Store (back register)</div>
+
+    <!-- Wooden -->
+    <div class="bundle-label">🪵 Wooden Storage Chest</div>
+    <ol class="step-list">
+      <li>Recipe is free — granted during the <strong>Welcome to Palia</strong> intro quest</li>
+      <li>Craft at the <strong>Worktable</strong> with: <span class="material">Sapwood ×20</span> + <span class="material">Flint ×2</span></li>
+      <li>Sapwood: Chop trees in <span class="location">Kilima Valley</span> (any tree, basic axe)</li>
+      <li>Flint: Forage from rocks on the ground in <span class="location">Kilima Valley</span></li>
+    </ol>
+
+    <!-- Copper -->
+    <div class="bundle-label">🟤 Copper Storage Chest</div>
+    <ol class="step-list">
+      <li>Buy recipe at <span class="location">Tish's Furniture Store</span> (Material Store) for <span class="gold">10,000🪙</span></li>
+      <li>Craft at the <strong>Worktable</strong> with: <span class="material">Wooden Chest ×1</span> + <span class="material">Sapwood Plank ×20</span> + <span class="material">Copper Bar ×3</span></li>
+      <li>Sapwood Plank: Process Sapwood at a <strong>Sawmill</strong> (1 min each) — Foraging Lv2</li>
+      <li>Copper Bar: Smelt <span class="material">Copper Ore ×5</span> at a <strong>Smelter</strong> (3 min each) — Mining Guild recipe: <span class="gold">25🪙</span></li>
+      <li>Copper Ore: Mine copper nodes in <span class="location">Kilima Valley</span> caves and mines</li>
+    </ol>
+
+    <!-- Iron -->
+    <div class="bundle-label">⚪ Iron Storage Chest</div>
+    <ol class="step-list">
+      <li>Buy recipe at <span class="location">Tish's Furniture Store</span> (Material Store) for <span class="gold">50,000🪙</span></li>
+      <li>Craft at the <strong>Worktable</strong> with: <span class="material">Copper Chest ×1</span> + <span class="material">Heartwood Plank ×20</span> + <span class="material">Iron Bar ×3</span></li>
+      <li>Heartwood Plank: Process Heartwood at a <strong>Sawmill</strong> (2 min each) — Foraging Lv4, recipe: <span class="gold">500🪙</span></li>
+      <li>Heartwood: Chop trees in <span class="location">Bahari Bay</span> (needs Standard Axe+)</li>
+      <li>Iron Bar: Smelt <span class="material">Iron Ore ×5</span> at a <strong>Smelter</strong> (6 min each) — Mining Guild recipe: <span class="gold">100🪙</span></li>
+      <li>Iron Ore: Mine iron nodes in <span class="location">Bahari Bay</span> caves and mines</li>
+    </ol>
+
+    <!-- Palium -->
+    <div class="bundle-label">🔵 Palium Storage Chest</div>
+    <ol class="step-list">
+      <li>Buy recipe at <span class="location">Tish's Furniture Store</span> (Material Store) for <span class="gold">100,000🪙</span></li>
+      <li>Craft at the <strong>Worktable</strong> with: <span class="material">Iron Chest ×1</span> + <span class="material">Ancient Wood Plank ×20</span> + <span class="material">Palium Bar ×3</span></li>
+      <li>Ancient Wood Plank: Process Ancient Wood at a <strong>Sawmill</strong> (3 min each) — Foraging Lv5, recipe: <span class="gold">500🪙</span></li>
+      <li>Ancient Wood: Chop ancient trees in <span class="location">Elderwood</span> zone</li>
+      <li>Palium Bar: Smelt <span class="material">Palium Ore ×5</span> at a <strong>Smelter</strong> (12 min each!) — Mining Lv6, recipe: <span class="gold">500🪙</span></li>
+      <li>Palium Ore: Mine in <span class="location">Elderwood</span> — requires <strong>Fine Pick</strong> or <strong>Exquisite Pick</strong>. Also from Rummage Piles & Temple of the Roots chests</li>
+    </ol>
+
+    <!-- Lockbox -->
+    <div class="bundle-label">🔒 Lockbox Storage Chest</div>
+    <ol class="step-list">
+      <li>Buy recipe at <span class="location">Tish's Furniture Store</span> (Material Store) for <span class="gold">1,000🪙</span></li>
+      <li>Craft at the <strong>Worktable</strong> with: <span class="material">Sapwood Plank ×10</span> + <span class="material">Copper Bar ×2</span></li>
+      <li>Materials are easy — same sources as Copper Chest ingredients</li>
+    </ol>
+  </div>
+
+  <!-- Mechanics -->
+  <div class="vault vault--mechanics">
+    <div class="vault__header">
+      <div class="vault__icon">⚙️</div>
+      <div class="vault__title">How Storage Works</div>
+    </div>
+
+    <div class="bundle-label">Key Mechanics</div>
+    <table>
+      <thead><tr><th>Rule</th><th>Detail</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="chest-name">All chests connected</td>
+          <td style="color:var(--text-dim);font-size:13px;">Contents shared across all chests on all plots — access from any chest</td>
+        </tr>
+        <tr>
+          <td class="chest-name">Crafter access</td>
+          <td style="color:var(--text-dim);font-size:13px;">Crafters can pull from general storage automatically (not lockboxes)</td>
+        </tr>
+        <tr>
+          <td class="chest-name">Lockbox protection</td>
+          <td style="color:var(--text-dim);font-size:13px;">Items in lockboxes are safe from being auto-consumed by crafters</td>
+        </tr>
+        <tr>
+          <td class="chest-name">Multi-plot storage</td>
+          <td style="color:var(--text-dim);font-size:13px;">8 general chests per plot. Chests on other plots give access only — not extra slots</td>
+        </tr>
+        <tr>
+          <td class="chest-name">Chests upgrade in-place</td>
+          <td style="color:var(--text-dim);font-size:13px;">Each tier requires the previous chest as an ingredient — you don't lose your placed chest count</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Quick Tips -->
+  <div class="tip-box">
+    <strong>💡 Storage Tips</strong><br>
+    • You can't go beyond 8 general chests — upgrade existing ones instead of adding more<br>
+    • Upgrading all 8 from Wooden → Palium: 3,200 → 14,000 slots (+10,800!)<br>
+    • <strong>Best value first upgrade:</strong> Wooden → Copper — cheapest at 10K gold, +425 slots each<br>
+    • Each upgrade requires the previous chest as an ingredient, so you keep your same 8 slots<br>
+    • Palium Bars take 12 minutes to smelt — plan ahead and batch smelt<br>
+    • Lockboxes aren't for bulk storage — use them to protect valuables from crafters<br>
+    • Iron recipe was reduced from 100K → 50K gold — Palium may drop in future updates
+  </div>
+
+  <div class="footer">
+    Nova · Palia Storage Chest Reference · 2026-04-17 · Source: palia.wiki.gg
+  </div>
+
+</body>
+</html>

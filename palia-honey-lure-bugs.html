@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Palia — Honey Lure Bug Catching Guide</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg-deep: #0a0c14;
+      --bg-card: rgba(255,255,255,0.04);
+      --border: rgba(255,255,255,0.08);
+      --text: #e0e4ec;
+      --text-dim: #7a8399;
+      --accent-blue: #4a9eff;
+      --accent-green: #34d399;
+      --accent-yellow: #fbbf24;
+      --accent-purple: #a78bfa;
+      --accent-orange: #ff8c00;
+      --accent-red: #f87171;
+      --accent-cyan: #22d3ee;
+      --accent-pink: #f472b6;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+      background: var(--bg-deep);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 24px 16px 48px;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+    .header {
+      text-align: center;
+      padding: 28px 16px 20px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .header__icon { font-size: 32px; margin-bottom: 8px; }
+    .header__title {
+      font-size: 22px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #e0e4ec 0%, #fbbf24 40%, #a78bfa 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .header__sub { font-size: 13px; color: var(--text-dim); margin-top: 6px; }
+
+    .legend {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .legend::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+    }
+    .legend__title {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-dim);
+      margin-bottom: 12px;
+    }
+    .legend__grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+    .legend__row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+    }
+    .legend__label {
+      min-width: 90px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .legend__range {
+      color: var(--text-dim);
+      font-size: 13px;
+      font-variant-numeric: tabular-nums;
+    }
+    .legend__bar {
+      flex: 1;
+      height: 6px;
+      border-radius: 3px;
+      position: relative;
+      background: rgba(255,255,255,0.04);
+    }
+    .legend__bar-fill {
+      height: 100%;
+      border-radius: 3px;
+    }
+    .legend__note {
+      margin-top: 10px;
+      font-size: 12px;
+      color: var(--text-dim);
+      line-height: 1.5;
+    }
+
+    .craft-box {
+      background: rgba(167,139,250,0.06);
+      border: 1px solid rgba(167,139,250,0.12);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      font-size: 13px;
+      color: var(--text-dim);
+      line-height: 1.7;
+      position: relative;
+      overflow: hidden;
+    }
+    .craft-box::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(167,139,250,0.3), transparent);
+    }
+    .craft-box__title {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent-purple);
+      margin-bottom: 10px;
+    }
+    .craft-box strong { color: var(--accent-purple); }
+    .craft-box .materials {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .craft-box .mat {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      background: rgba(167,139,250,0.1);
+      color: var(--accent-purple);
+      border: 1px solid rgba(167,139,250,0.15);
+    }
+
+    .location {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .location::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+    }
+    .location__header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+    .location__rank {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      background: rgba(251,191,36,0.12);
+      color: var(--accent-yellow);
+      border: 1px solid rgba(251,191,36,0.2);
+    }
+    .location__icon { font-size: 24px; }
+    .location__title {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .location__meta {
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-bottom: 14px;
+      margin-left: 38px;
+    }
+    .location__meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .location--gold { border-left: 3px solid var(--accent-yellow); }
+    .location--gold .location__title { color: var(--accent-yellow); }
+    .location--silver { border-left: 3px solid var(--accent-cyan); }
+    .location--silver .location__title { color: var(--accent-cyan); }
+    .location--bronze { border-left: 3px solid var(--accent-orange); }
+    .location--bronze .location__title { color: var(--accent-orange); }
+    .location--blue { border-left: 3px solid var(--accent-blue); }
+    .location--blue .location__title { color: var(--accent-blue); }
+    .location--green { border-left: 3px solid var(--accent-green); }
+    .location--green .location__title { color: var(--accent-green); }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    th {
+      text-align: left;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-dim);
+      padding: 6px 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    td {
+      padding: 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      vertical-align: middle;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255,255,255,0.02); }
+
+    .bug-name { font-weight: 600; color: var(--text); }
+
+    .rarity {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .rarity--epic {
+      background: rgba(167,139,250,0.12);
+      color: var(--accent-purple);
+      border: 1px solid rgba(167,139,250,0.2);
+    }
+    .rarity--rare {
+      background: rgba(251,191,36,0.1);
+      color: var(--accent-yellow);
+      border: 1px solid rgba(251,191,36,0.2);
+    }
+    .rarity--uncommon {
+      background: rgba(74,158,255,0.1);
+      color: var(--accent-blue);
+      border: 1px solid rgba(74,158,255,0.15);
+    }
+    .rarity--common {
+      background: rgba(255,255,255,0.05);
+      color: var(--text-dim);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .method {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .method--smoke {
+      background: rgba(34,211,238,0.1);
+      color: var(--accent-cyan);
+      border: 1px solid rgba(34,211,238,0.15);
+    }
+    .method--honey {
+      background: rgba(251,191,36,0.1);
+      color: var(--accent-yellow);
+      border: 1px solid rgba(251,191,36,0.2);
+    }
+
+    .time-col { color: var(--text-dim); font-size: 13px; }
+
+    .tip-box {
+      background: rgba(251,191,36,0.06);
+      border: 1px solid rgba(251,191,36,0.12);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-top: 24px;
+      font-size: 13px;
+      color: var(--text-dim);
+      line-height: 1.7;
+    }
+    .tip-box strong { color: var(--accent-yellow); }
+
+    .etiquette-box {
+      background: rgba(244,114,182,0.06);
+      border: 1px solid rgba(244,114,182,0.12);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-top: 16px;
+      font-size: 13px;
+      color: var(--text-dim);
+      line-height: 1.7;
+    }
+    .etiquette-box strong { color: var(--accent-pink); }
+
+    .footer {
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-top: 32px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="header__icon">🍯</div>
+    <div class="header__title">Honey Lure — Bug Catching Guide</div>
+    <div class="header__sub">Top 5 locations ranked by rare bug spawn potential</div>
+  </div>
+
+  <!-- Time Legend -->
+  <div class="legend">
+    <div class="legend__title">🕐 In-Game Time Periods</div>
+    <div class="legend__grid">
+      <div class="legend__row">
+        <span class="legend__label">🌅 Dawn</span>
+        <span class="legend__range">6:00 AM – 8:00 AM</span>
+        <div class="legend__bar"><div class="legend__bar-fill" style="width:12%; background: linear-gradient(90deg, #fbbf24, #ff8c00);"></div></div>
+      </div>
+      <div class="legend__row">
+        <span class="legend__label">☀️ Day</span>
+        <span class="legend__range">8:00 AM – 5:00 PM</span>
+        <div class="legend__bar"><div class="legend__bar-fill" style="width:58%; background: linear-gradient(90deg, #fbbf24, #f59e0b);"></div></div>
+      </div>
+      <div class="legend__row">
+        <span class="legend__label">🌇 Evening</span>
+        <span class="legend__range">5:00 PM – 8:00 PM</span>
+        <div class="legend__bar"><div class="legend__bar-fill" style="width:19%; background: linear-gradient(90deg, #ff8c00, #f87171);"></div></div>
+      </div>
+      <div class="legend__row">
+        <span class="legend__label">🌙 Night</span>
+        <span class="legend__range">8:00 PM – 6:00 AM</span>
+        <div class="legend__bar"><div class="legend__bar-fill" style="width:33%; background: linear-gradient(90deg, #6366f1, #4338ca);"></div></div>
+      </div>
+    </div>
+    <div class="legend__note">1 in-game day ≈ 1.5 real-time hours. Go early — Dawn & Day are prime catching windows for most lure spots.</div>
+  </div>
+
+  <!-- Crafting Info -->
+  <div class="craft-box">
+    <div class="craft-box__title">🍯 Honey Lure — Crafting & Unlock</div>
+    <strong>Recipe Unlock:</strong> Bug Catching Level 7 → Buy from <strong>Auni</strong> at the Bug Catching Guild for <strong>2,000 Gold</strong><br>
+    <strong>Alt Purchase:</strong> 75 Bug Catching Medals from Guild Store (Level 10+)<br>
+    <strong>Materials (per lure):</strong>
+    <div class="materials">
+      <span class="mat">🥇 1× Gold Bar</span>
+      <span class="mat">🌿 1× Dragon's Beard Peat</span>
+      <span class="mat">🍎 4× Apple</span>
+    </div>
+  </div>
+
+  <!-- #1 PAVEL MINES ENTRANCE -->
+  <div class="location location--gold">
+    <div class="location__header">
+      <div class="location__rank">1</div>
+      <div class="location__icon">⛏️</div>
+      <div class="location__title">Pavel Mines Entrance</div>
+    </div>
+    <div class="location__meta">
+      <span>📍 Bahari Bay</span> · <span>🕐 Day (early morning best)</span> · <span>⭐ Best Overall</span>
+    </div>
+    <table>
+      <thead><tr><th>Bug</th><th>Rarity</th><th>Method</th><th>Time</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="bug-name">Rainbow Tipped Butterfly</td>
+          <td><span class="rarity rarity--epic">Epic</span></td>
+          <td><span class="method method--smoke">Smoke Bomb</span></td>
+          <td class="time-col">Day</td>
+        </tr>
+        <tr>
+          <td class="bug-name">Ancient Amber Beetle</td>
+          <td><span class="rarity rarity--epic">Epic</span></td>
+          <td><span class="method method--smoke">Smoke Bomb</span></td>
+          <td class="time-col">Day</td>
+        </tr>
+        <tr>
+          <td class="bug-name">Fairy Mantis</td>
+          <td><span class="rarity rarity--epic">Epic</span></td>
+          <td><span class="method method--smoke">Smoke Bomb</span></td>
+          <td class="time-col">Day</td>
+        </tr>
+        <tr>
+          <td class="bug-name">Jewelwing Dragonfly</td>
+          <td><span class="rarity rarity--epic">Epic</span></td>
+          <td><span class="method method--smoke">Smoke Bomb</span></td>
+          <td class="time-col">Day</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- #2 WEST OF HIDEAWAY BLUFFS -->
+  <div class="location location--silver">
+    <div class="location__header">
+      <div class="location__rank">2</div>
+      <div class="location__icon">🏔️</div>
+      <div class="location__title">West of Hideaway Bluffs</div>
+    </div>
+    <div class="location__meta">
+      <span>📍 Bahari Bay</span> · <span>🕐 Day (early morning best)</span> · <span>👥 Great for Groups</span>
+    </div>
+    <table>
+      <thead><tr><th>Bug</th><th>Rarity</th><th>Method</th><th>Time</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="bug-name">Rainbow Tipped Butterfly</td>
+          <td><span class="rarity rarity--epic">Epic</span></td>
+          <td><span class="method method--smoke">Smoke Bomb</span></td>
+          <td class="time-col">Day</td>
+        </tr>
+        <tr>
+          <td class="bug-name">Ancient Amber Beetle</td>
+          <td><span class="rarity rarity--epic">Epic</span></td>
+          <td><span class="method method--smoke">Smoke Bomb</span></td>
+          <td class="time-col">Day</td>
+        </tr>
+        <tr>
+          <td class="bug-name">Fairy Mantis</td>
+          <td><span class="rarity rarity--epic">Epic</span></td>
+          <td><span class="method method--smoke">Smoke Bomb</span></td>
+          <td class="time-col">Day</td>
+        </tr>
+        <tr>
+          <td class="bug-name">Jewelwing Dragonfly</td>
+          <td><span class="rarity rarity--epic">Epic</span></td>
+          <td><span class="method method--smoke">Smoke Bomb</span></td>
+          <td class="time-col">Day</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- #3 PULSEWATER PLAINS -->
+  <div class="location location--bronze">
+    <div class="location__header">
+      <div class="location__rank">3</div>
+      <div class="location__icon">🌅</div>
+      <div class="location__title">Pulsewater Plains</div>
+    </div>
+    <div class="location__meta">
+      <span>📍 Bahari Bay</span> · <span>🕐 Day or Night</span> · <span>👥 Best for Group Lure Sessions</span>
+    </div>
+    <table>
+      <thead><tr><th>Bug</th><th>Rarity</th><th>Method</th><th>Time</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="bug-name">Rainbow Tipped Butterfly</td>
+          <td><span class="rarity rarity--epic">Epic</span></td>
+          <td><span class="method method--smoke">Smoke Bomb</span></td>
+          <td class="time-col">Day / Night</td>
+        </tr>
+        <tr>
+          <td class="bug-name">Fairy Mantis</td>
+          <td><span class="rarity rarity--epic">Epic</span></td>
+          <td><span class="method method--smoke">Smoke Bomb</span></td>
+          <td class="time-col">Day / Night</td>
+        </tr>
+        <tr>
+          <td class="bug-name">Jewelwing Dragonfly</td>
+          <td><span class="rarity rarity--epic">Epic</span></td>
+          <td><span class="method method--smoke">Smoke Bomb</span></td>
+          <td class="time-col">Day / Night</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- #4 PROUDHORN PASS -->
+  <div class="location location--blue">
+    <div class="location__header">
+      <div class="location__rank">4</div>
+      <div class="location__icon">🦌</div>
+      <div class="location__title">Proudhorn Pass</div>
+    </div>
+    <div class="location__meta">
+      <span>📍 Bahari Bay</span> · <span>🕐 Day</span> · <span>🧍 Best for Solo</span>
+    </div>
+    <table>
+      <thead><tr><th>Bug</th><th>Rarity</th><th>Method</th><th>Time</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="bug-name">Ancient Amber Beetle</td>
+          <td><span class="rarity rarity--epic">Epic</span></td>
+          <td><span class="method method--smoke">Smoke Bomb</span></td>
+          <td class="time-col">Day</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- #5 WINDMILL FIELDS -->
+  <div class="location location--green">
+    <div class="location__header">
+      <div class="location__rank">5</div>
+      <div class="location__icon">🌾</div>
+      <div class="location__title">Windmill Fields</div>
+    </div>
+    <div class="location__meta">
+      <span>📍 Kilima Valley</span> · <span>🕐 Day (Evening best)</span> · <span>🦋 Moth Hotspot</span>
+    </div>
+    <table>
+      <thead><tr><th>Bug</th><th>Rarity</th><th>Method</th><th>Time</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="bug-name">Gossamer Veil Moth</td>
+          <td><span class="rarity rarity--rare">Rare</span></td>
+          <td><span class="method method--smoke">Smoke Bomb</span></td>
+          <td class="time-col">Evening</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Quick Tips -->
+  <div class="tip-box">
+    <strong>💡 Pro Tips</strong><br>
+    • <strong>Always party up</strong> — more players = more rare spawns. This is the single biggest factor<br>
+    • Use <strong>smoke candles + sneaky/smoke bombs</strong> — regular bombs scare bugs away and scatter them<br>
+    • <strong>Catch common bugs too</strong> — they occupy spawn slots; clearing them makes room for rares to appear<br>
+    • Pair with a <strong>Buzzy Jar</strong> for rare spawn pings during your lure<br>
+    • Arrive early: <strong>Dawn/early morning</strong> is the best window for #1 and #2 locations<br>
+    • For <strong>Gossamer Veil Moths</strong> specifically, be at Windmill Fields by <strong>5:45 PM</strong> in-game, pop a Buzzy Jar at 6 PM<br>
+    • Bring <strong>80+ smoke bombs</strong> per lure session — don't run out mid-catch
+  </div>
+
+  <div class="etiquette-box">
+    <strong>🤝 Community Etiquette</strong><br>
+    • <strong>Call out in server chat</strong> when you place a lure — others will join and that benefits everyone<br>
+    • <strong>Ask before joining</strong> someone else's lure — they spent gold bars to craft it<br>
+    • For <strong>Rainbow Tipped Butterfly</strong> plush hunts: agree on rules first (catch only butterflies, not grasshoppers/mantis)<br>
+    • Honey lures can cause <strong>lag on Switch</strong> — be mindful of platform mix in groups<br>
+    • Bug sharing is inconsistent — party up to ensure you both get credit
+  </div>
+
+  <div class="footer">
+    Nova · Palia Honey Lure Bug Reference · 2026-04-16
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,119 @@
+[
+  {
+    "slug": "palia-fish-encyclopedia",
+    "title": "Complete Fish Encyclopedia",
+    "description": "All 102 fish across 9 locations — bait, time windows, rod requirements, star quality values, and rarity breakdowns. Wiki-verified.",
+    "category": "fishing",
+    "date": "2026-05-07",
+    "icon": "🐟",
+    "tags": ["fish", "fishing", "encyclopedia", "bait", "locations", "values"]
+  },
+  {
+    "slug": "palia-night-temple-fish",
+    "title": "Night Temple Fish Guide",
+    "description": "Fish required for the Temple of the Waves vault bundles — locations, times, bait, and strategies.",
+    "category": "fishing",
+    "date": "2026-04-14",
+    "icon": "🌙",
+    "tags": ["fish", "temple", "vault", "bundles", "waves"]
+  },
+  {
+    "slug": "palia-epic-fish-guide",
+    "title": "Epic & Legendary Fish Guide",
+    "description": "All epic and legendary fish — Ancient Fish, Maws, Void Ray, Flametongue Ray, and more with exact farming strategies.",
+    "category": "fishing",
+    "date": "2026-04-14",
+    "icon": "⭐",
+    "tags": ["fish", "epic", "legendary", "rare", "farming"]
+  },
+  {
+    "slug": "palia-fishing-leveling-8-to-10",
+    "title": "Fishing Leveling: 8 to 10",
+    "description": "Fastest way to go from fishing level 8 to 10 — optimal bait routes, XP breakdowns, and gear recommendations.",
+    "category": "fishing",
+    "date": "2026-04-14",
+    "icon": "🎣",
+    "tags": ["fishing", "leveling", "xp", "strategy"]
+  },
+  {
+    "slug": "palia-complete-fish-guide",
+    "title": "Complete Fish Guide (Legacy)",
+    "description": "Original comprehensive fish reference. Superseded by the Wiki-Verified Encyclopedia but kept for alternate view.",
+    "category": "fishing",
+    "date": "2026-04-14",
+    "icon": "📋",
+    "tags": ["fish", "fishing", "reference", "legacy"]
+  },
+  {
+    "slug": "palia-honey-lure-bugs",
+    "title": "Honey Lure Bug Guide",
+    "description": "All 51 bugs with locations, times, methods, and rarity — optimized for honey lure farming routes.",
+    "category": "bugs",
+    "date": "2026-04-14",
+    "icon": "🦋",
+    "tags": ["bugs", "honey-lure", "farming", "catching"]
+  },
+  {
+    "slug": "palia-storage-guide",
+    "title": "Storage Upgrade Guide",
+    "description": "Complete storage upgrade path from wooden chest to palium lockbox — materials, costs, and max capacity.",
+    "category": "crafting",
+    "date": "2026-04-14",
+    "icon": "📦",
+    "tags": ["storage", "chests", "upgrades", "crafting", "materials"]
+  },
+  {
+    "slug": "palia-temple-vault-bundle-guide",
+    "title": "Temple Vault Bundle Guide",
+    "description": "All 16 vault bundles across 4 temples — required items, locations, acquisition strategies, and rewards.",
+    "category": "bundles",
+    "date": "2026-04-14",
+    "icon": "🏛️",
+    "tags": ["temple", "vault", "bundles", "rewards", "completion"]
+  },
+  {
+    "slug": "palia-gardening-seeds",
+    "title": "Gardening & Seeds Guide",
+    "description": "Complete seed reference — grow times, seasonal restrictions, yield, and profit analysis for every crop.",
+    "category": "gardening",
+    "date": "2026-04-14",
+    "icon": "🌱",
+    "tags": ["gardening", "seeds", "crops", "farming", "profit"]
+  },
+  {
+    "slug": "palia-tomato-gold-farm",
+    "title": "Tomato Gold Farm",
+    "description": "Optimized tomato preserve jar farming route — setup, seeds, harvest cycles, and profit-per-day calculations.",
+    "category": "gardening",
+    "date": "2026-04-14",
+    "icon": "🍅",
+    "tags": ["tomato", "gold", "farming", "preserves", "profit"]
+  },
+  {
+    "slug": "palia-honey-lure-money",
+    "title": "Honey Lure Money Guide",
+    "description": "Gold-making strategy using honey lures — best bug routes, value comparisons, and hourly earnings.",
+    "category": "bugs",
+    "date": "2026-04-14",
+    "icon": "💰",
+    "tags": ["gold", "honey-lure", "bugs", "farming", "profit"]
+  },
+  {
+    "slug": "palia-shmole-spores",
+    "title": "Shmole & Spores Guide",
+    "description": "How to find and farm Shmole, Spores, and related fungal foraging items in Bahari Bay and Elderwood.",
+    "category": "foraging",
+    "date": "2026-04-14",
+    "icon": "🍄",
+    "tags": ["shmole", "spores", "foraging", "fungal", "elderwood"]
+  },
+  {
+    "slug": "palia-10m-event",
+    "title": "10 Million Gold Event Guide",
+    "description": "Strategy and planning for the 10 million gold milestone event — optimized routes and time estimates.",
+    "category": "economy",
+    "date": "2026-04-14",
+    "icon": "🏆",
+    "tags": ["gold", "milestone", "event", "economy", "strategy"]
+  }
+]

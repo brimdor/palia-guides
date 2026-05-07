@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Palia Guides</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--glass-bg:rgba(255,140,0,0.06);--glass-border:rgba(255,140,0,0.15);--glass-radius:20px;--content-bg:rgba(20,15,8,0.85);--content-border:rgba(255,140,0,0.1);--text-primary:#f0ece4;--text-secondary:#b0a890;--accent:#ff8c00;--accent-light:#ffa940;--accent-glow:rgba(255,140,0,0.15)}
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;background:linear-gradient(135deg,#0d0d0d 0%,#1a1008 30%,#1a0f05 60%,#0a0a0a 100%);color:var(--text-primary);line-height:1.6;min-height:100vh;padding:0}
+a{color:var(--accent);text-decoration:none}
+a:hover{color:var(--accent-light)}
+
+/* Header */
+.header{text-align:center;padding:32px 16px 20px;border-bottom:1px solid var(--content-border);max-width:960px;margin:0 auto}
+.header__icon{font-size:40px;margin-bottom:8px}
+.header__title{font-size:clamp(24px,5vw,32px);font-weight:700;background:linear-gradient(135deg,#ffa940 0%,#ff8c00 50%,#f0ece4 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.header__sub{font-size:14px;color:var(--text-secondary);margin-top:6px}
+.header__badge{display:inline-block;margin-top:10px;background:rgba(255,140,0,0.1);border:1px solid rgba(255,140,0,0.2);padding:4px 14px;border-radius:20px;font-size:12px;color:var(--accent)}
+
+/* Search & Filters */
+.controls{max-width:960px;margin:20px auto 0;padding:0 16px;display:flex;flex-direction:column;gap:12px}
+.search-wrap{position:relative}
+.search-wrap input{width:100%;padding:12px 16px 12px 44px;background:var(--content-bg);border:1px solid var(--content-border);border-radius:12px;color:var(--text-primary);font-size:15px;outline:none;transition:border-color .2s}
+.search-wrap input:focus{border-color:var(--accent)}
+.search-wrap input::placeholder{color:var(--text-secondary)}
+.search-wrap .search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:18px;pointer-events:none}
+.filters{display:flex;flex-wrap:wrap;gap:8px}
+.filter-btn{padding:6px 16px;border-radius:20px;border:1px solid var(--content-border);background:transparent;color:var(--text-secondary);font-size:13px;cursor:pointer;transition:all .2s;min-height:36px;min-width:36px}
+.filter-btn:hover{border-color:var(--accent);color:var(--accent)}
+.filter-btn.active{background:rgba(255,140,0,0.12);border-color:var(--accent);color:var(--accent);font-weight:600}
+.filter-count{font-size:13px;color:var(--text-secondary);padding-left:4px;align-self:center}
+.filter-count span{color:var(--accent);font-weight:600}
+
+/* Grid */
+.guides-grid{max-width:960px;margin:20px auto 48px;padding:0 16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.guide-card{background:var(--content-bg);border:1px solid var(--content-border);border-radius:16px;padding:20px;transition:all .2s;cursor:pointer;display:flex;flex-direction:column;position:relative;overflow:hidden}
+.guide-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--accent);opacity:0.6}
+.guide-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 4px 20px var(--accent-glow)}
+.guide-card.hidden{display:none}
+.guide-card__icon{font-size:28px;margin-bottom:8px}
+.guide-card__title{font-size:16px;font-weight:700;margin-bottom:4px;letter-spacing:-0.01em}
+.guide-card__desc{font-size:13px;color:var(--text-secondary);line-height:1.5;flex:1;margin-bottom:12px}
+.guide-card__meta{display:flex;justify-content:space-between;align-items:center;font-size:11px}
+.guide-card__category{display:inline-flex;align-items:center;gap:4px;padding:2px 10px;border-radius:8px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;background:rgba(255,255,255,0.04);color:var(--text-secondary);border:1px solid rgba(255,255,255,0.06)}
+.guide-card__date{color:rgba(255,255,255,0.3);font-variant-numeric:tabular-nums}
+.guide-card__tags{margin-top:10px;display:flex;flex-wrap:wrap;gap:4px}
+.guide-card__tag{font-size:10px;padding:1px 7px;border-radius:4px;background:rgba(255,140,0,0.06);color:var(--text-secondary);border:1px solid rgba(255,140,0,0.08)}
+
+/* Empty state */
+.empty-state{text-align:center;padding:48px 16px;color:var(--text-secondary);max-width:960px;margin:0 auto}
+.empty-state__icon{font-size:48px;margin-bottom:12px;opacity:0.4}
+.empty-state__text{font-size:15px}
+
+/* Footer */
+.footer{text-align:center;font-size:11px;color:var(--text-secondary);padding:16px;border-top:1px solid var(--content-border);max-width:960px;margin:0 auto}
+
+@media(max-width:600px){.guides-grid{grid-template-columns:1fr}.header{padding:24px 12px 16px}}
+@media(prefers-reduced-transparency){.guide-card{background:rgba(20,16,8,0.95)}}
+@media(prefers-reduced-motion:reduce){*{transition-duration:0.01ms!important;animation-duration:0.01ms!important}}
+</style>
+</head>
+<body>
+
+<div class="header">
+<div class="header__icon">🗺️</div>
+<div class="header__title">Palia Guides</div>
+<div class="header__sub">Reference guides for fish, bugs, hunting, bundles, crafting, and economy</div>
+<div class="header__badge" id="guide-count">Loading...</div>
+</div>
+
+<div class="controls">
+<div class="search-wrap">
+<span class="search-icon">🔍</span>
+<input type="text" id="search" placeholder="Search guides by title, description, or tags..." autocomplete="off">
+</div>
+<div class="filters" id="filters"></div>
+<div class="filter-count">Showing <span id="visible-count">0</span> guides</div>
+</div>
+
+<div class="guides-grid" id="grid"></div>
+
+<div class="empty-state" id="empty" style="display:none">
+<div class="empty-state__icon">🔎</div>
+<div class="empty-state__text">No guides match your search. Try different keywords or clear the filters.</div>
+</div>
+
+<div class="footer">Nova · Palia Guides · brimdor.github.io/palia-guides</div>
+
+<script>
+const guides = [];
+const state = { search: '', category: '' };
+
+function getIcon(type) {
+  const icons = { fishing:'🎣', bugs:'🦋', crafting:'🔨', bundles:'🏛️', gardening:'🌱', foraging:'🍄', economy:'💰' };
+  return icons[type] || '📄';
+}
+
+function getCategoryColor(cat) {
+  const colors = { fishing:'#ff8c00', bugs:'#a78bfa', crafting:'#f87171', bundles:'#22d3ee', gardening:'#34d399', foraging:'#fbbf24', economy:'#ffa940' };
+  return colors[cat] || 'var(--accent)';
+}
+
+async function load() {
+  try {
+    const r = await fetch('guides.json');
+    const data = await r.json();
+    guides.push(...data);
+    buildFilters();
+    render();
+    document.getElementById('guide-count').textContent = guides.length + ' guides';
+  } catch(e) {
+    document.getElementById('guide-count').textContent = 'Failed to load guides';
+    document.getElementById('guide-count').style.color = '#f87171';
+    document.getElementById('grid').innerHTML = '<div class="empty-state"><div class="empty-state__icon">⚠️</div><div class="empty-state__text">Could not load guides.json. Make sure the file exists alongside this page.</div></div>';
+  }
+}
+
+function buildFilters() {
+  const cats = [...new Set(guides.map(g => g.category))];
+  const container = document.getElementById('filters');
+  container.innerHTML = '<button class="filter-btn active" data-cat="" onclick="setCategory(\'\')">All</button>' +
+    cats.map(c => `<button class="filter-btn" data-cat="${c}" onclick="setCategory('${c}')">${getIcon(c)} ${c.charAt(0).toUpperCase()+c.slice(1)}</button>`).join('');
+}
+
+function setCategory(cat) {
+  state.category = cat;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.cat === cat));
+  render();
+}
+
+function render() {
+  const q = state.search.toLowerCase().trim();
+  const filtered = guides.filter(g => {
+    const matchCat = !state.category || g.category === state.category;
+    if (!q) return matchCat;
+    const matchSearch = g.title.toLowerCase().includes(q) ||
+      g.description.toLowerCase().includes(q) ||
+      (g.tags || []).some(t => t.toLowerCase().includes(q));
+    return matchCat && matchSearch;
+  });
+
+  const grid = document.getElementById('grid');
+  grid.innerHTML = filtered.map(g => `
+    <a href="${g.slug}.html" class="guide-card" style="border-left-color:${getCategoryColor(g.category)}" target="_blank">
+      <div class="guide-card__icon">${g.icon || getIcon(g.category)}</div>
+      <div class="guide-card__title">${g.title}</div>
+      <div class="guide-card__desc">${g.description}</div>
+      <div class="guide-card__meta">
+        <span class="guide-card__category" style="border-color:${getCategoryColor(g.category)}">${g.category}</span>
+        <span class="guide-card__date">${g.date}</span>
+      </div>
+      <div class="guide-card__tags">${(g.tags || []).map(t => `<span class="guide-card__tag">${t}</span>`).join('')}</div>
+    </a>
+  `).join('');
+
+  const count = filtered.length;
+  document.getElementById('visible-count').textContent = count;
+  document.getElementById('empty').style.display = count === 0 ? 'block' : 'none';
+}
+
+document.getElementById('search').addEventListener('input', e => {
+  state.search = e.target.value;
+  render();
+});
+
+load();
+</script>
+</body>
+</html>

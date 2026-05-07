@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Palia — Complete Fish Encyclopedia</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--glass-bg:rgba(255,140,0,0.06);--glass-border:rgba(255,140,0,0.15);--glass-radius:20px;--content-bg:rgba(20,15,8,0.85);--content-border:rgba(255,140,0,0.1);--text-primary:#f0ece4;--text-secondary:#b0a890;--accent:#ff8c00;--accent-light:#ffa940}
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;background:linear-gradient(135deg,#0d0d0d 0%,#1a1008 30%,#1a0f05 60%,#0a0a0a 100%);color:var(--text-primary);line-height:1.6;padding:24px 16px 48px;max-width:840px;margin:0 auto}
+a,button,[role=button]{min-height:44px;min-width:44px}
+.glass{background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:var(--glass-radius);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+.header{text-align:center;padding:28px 16px 20px;margin-bottom:24px;border-bottom:1px solid var(--content-border)}
+.header__icon{font-size:36px;margin-bottom:8px}
+.header__title{font-size:clamp(20px,5vw,26px);font-weight:700;background:linear-gradient(135deg,#ffa940 0%,#ff8c00 50%,#f0ece4 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.header__sub{font-size:13px;color:var(--text-secondary);margin-top:6px}
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}
+.stat-card{background:var(--content-bg);border:1px solid var(--content-border);border-radius:12px;padding:14px;text-align:center}
+.stat-card__value{font-size:clamp(18px,4vw,24px);font-weight:700;color:var(--accent)}
+.stat-card__label{font-size:11px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.06em;margin-top:2px}
+.legend{background:var(--content-bg);border:1px solid var(--content-border);border-radius:16px;padding:18px 20px;margin-bottom:24px;overflow:hidden}
+.legend__title{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-secondary);margin-bottom:12px}
+.legend__grid{display:grid;grid-template-columns:1fr;gap:8px}
+.legend__row{display:flex;align-items:center;gap:12px;font-size:14px}
+.legend__time{min-width:90px;font-weight:600;color:var(--text-primary)}
+.legend__range{color:var(--text-secondary);font-size:13px;font-variant-numeric:tabular-nums;min-width:140px}
+.legend__bar{flex:1;height:6px;border-radius:3px;position:relative;background:rgba(255,255,255,0.04)}
+.legend__bar-fill{height:100%;border-radius:3px}
+.legend__note{margin-top:10px;font-size:12px;color:var(--text-secondary);line-height:1.5}
+.legend-badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.legend-badges__item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-secondary)}
+.content-card{background:var(--content-bg);border:1px solid var(--content-border);border-radius:16px;padding:20px;margin-bottom:24px;overflow:hidden}
+.card__header{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.card__icon{font-size:24px}
+.card__title{font-size:16px;font-weight:700;letter-spacing:-0.01em}
+.card__count{font-size:11px;color:var(--text-secondary);margin-left:auto;background:rgba(255,140,0,0.08);padding:2px 8px;border-radius:8px;border:1px solid rgba(255,140,0,0.15)}
+.card__sub{font-size:12px;color:var(--text-secondary);margin-bottom:16px}
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;min-width:500px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-secondary);padding:8px;border-bottom:1px solid var(--content-border)}
+td{padding:8px;border-bottom:1px solid rgba(255,140,0,0.04);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(255,140,0,0.03)}
+.fish-name{font-weight:600;color:var(--text-primary);white-space:nowrap}
+.fish-name .rarity{display:inline-block;margin-left:6px;font-size:10px;font-weight:600;padding:1px 6px;border-radius:4px;vertical-align:middle}
+.rarity--common{background:rgba(255,255,255,0.06);color:var(--text-secondary)}
+.rarity--uncommon{background:rgba(255,140,0,0.1);color:#ffa940;border:1px solid rgba(255,140,0,0.2)}
+.rarity--rare{background:rgba(255,140,0,0.15);color:#ff8c00;border:1px solid rgba(255,140,0,0.25)}
+.rarity--epic{background:rgba(248,113,113,0.12);color:#f87171;border:1px solid rgba(248,113,113,0.2)}
+.rarity--legendary{background:rgba(251,191,36,0.15);color:#fbbf24;border:1px solid rgba(251,191,36,0.3)}
+.bait{display:inline-block;padding:2px 7px;border-radius:6px;font-size:11px;font-weight:600}
+.bait--glow{background:rgba(255,169,64,0.12);color:#ffa940;border:1px solid rgba(255,169,64,0.2)}
+.bait--worm{background:rgba(251,191,36,0.1);color:#fbbf24;border:1px solid rgba(251,191,36,0.2)}
+.bait--none{background:rgba(255,255,255,0.05);color:var(--text-secondary);border:1px solid rgba(255,255,255,0.06)}
+.rod-badge{display:inline-block;padding:2px 7px;border-radius:6px;font-size:10px;font-weight:600}
+.rod--fine{background:rgba(255,140,0,0.1);color:var(--accent);border:1px solid rgba(255,140,0,0.15)}
+.rod--standard{background:rgba(255,255,255,0.04);color:var(--text-secondary);border:1px solid rgba(255,255,255,0.06)}
+.time{font-size:12px;line-height:1.5}
+.time--any{color:#34d399}
+.time--limited{color:var(--text-primary)}
+.value{font-size:12px;font-variant-numeric:tabular-nums;color:var(--text-secondary)}
+.value--unknown{color:rgba(255,255,255,0.2)}
+.tip-box{background:rgba(251,191,36,0.06);border:1px solid rgba(251,191,36,0.12);border-radius:12px;padding:14px 16px;margin-top:8px;font-size:13px;color:var(--text-secondary);line-height:1.6}
+.tip-box strong{color:var(--accent)}
+.footer{text-align:center;font-size:11px;color:var(--text-secondary);margin-top:32px;padding-top:16px;border-top:1px solid var(--content-border)}
+@media(prefers-reduced-transparency){.glass{background:rgba(20,16,8,0.95);backdrop-filter:none;-webkit-backdrop-filter:none}}
+@media(prefers-reduced-motion:reduce){*{transition-duration:0.01ms!important;animation-duration:0.01ms!important}}
+@media(max-width:600px){.stats-grid{gap:8px}.stat-card{padding:10px}table{font-size:12px}td{padding:6px}th{padding:4px 6px;font-size:9px}}
+</style>
+</head>
+<body>
+
+<div class="header">
+<div class="header__icon">🐟</div>
+<div class="header__title">Palia — Complete Fish Encyclopedia</div>
+<div class="header__sub">102 fish across 9 locations · Bait, Time, Rarity &amp; Value · ✅ Wiki-Verified 2026-05-07</div>
+</div>
+
+<div class="stats-grid">
+<div class="stat-card">
+<div class="stat-card__value">102</div>
+<div class="stat-card__label">Total Fish</div>
+</div>
+<div class="stat-card">
+<div class="stat-card__value">32</div>
+<div class="stat-card__label">Time-Gated</div>
+</div>
+<div class="stat-card">
+<div class="stat-card__value">2</div>
+<div class="stat-card__label">Legendary</div>
+</div>
+</div>
+
+<div class="legend">
+<div class="legend__title">🕐 In-Game Time Periods</div>
+<div class="legend__grid">
+<div class="legend__row">
+<span class="legend__time">🌅 Dawn</span>
+<span class="legend__range">6:00 AM – 8:00 AM</span>
+<div class="legend__bar"><div class="legend__bar-fill" style="width:12%;background:linear-gradient(90deg,#fbbf24,#ff8c00);"></div></div>
+</div>
+<div class="legend__row">
+<span class="legend__time">☀️ Day</span>
+<span class="legend__range">8:00 AM – 5:00 PM</span>
+<div class="legend__bar"><div class="legend__bar-fill" style="width:58%;background:linear-gradient(90deg,#fbbf24,#f59e0b);"></div></div>
+</div>
+<div class="legend__row">
+<span class="legend__time">🌇 Evening</span>
+<span class="legend__range">5:00 PM – 8:00 PM</span>
+<div class="legend__bar"><div class="legend__bar-fill" style="width:19%;background:linear-gradient(90deg,#ff8c00,#f87171);"></div></div>
+</div>
+<div class="legend__row">
+<span class="legend__time">🌙 Night</span>
+<span class="legend__range">8:00 PM – 6:00 AM</span>
+<div class="legend__bar"><div class="legend__bar-fill" style="width:33%;background:linear-gradient(90deg,#6366f1,#4338ca);"></div></div>
+</div>
+<div class="legend__row">
+<span class="legend__time">⏰ Anytime</span>
+<span class="legend__range">Available 24/7</span>
+<div class="legend__bar"><div class="legend__bar-fill" style="width:100%;background:linear-gradient(90deg,#34d399,#ffa940,#ff8c00);"></div></div>
+</div>
+</div>
+<div class="legend__note">1 in-game day ≈ 1.5 real-time hours. Dawn and Evening are short windows — plan accordingly for time-gated fish.</div>
+<div class="legend-badges">
+<div class="legend-badges__item"><span class="bait bait--glow">Glow Worm</span> x43 fish</div>
+<div class="legend-badges__item"><span class="bait bait--worm">Worm</span> x35 fish</div>
+<div class="legend-badges__item"><span class="bait bait--none">No Bait</span> x24 fish</div>
+</div>
+<div class="legend-badges" style="margin-top:8px;">
+<div class="legend-badges__item"><span class="rarity rarity--common">Common</span> 44</div>
+<div class="legend-badges__item"><span class="rarity rarity--uncommon">Uncommon</span> 29</div>
+<div class="legend-badges__item"><span class="rarity rarity--rare">Rare</span> 18</div>
+<div class="legend-badges__item"><span class="rarity rarity--epic">Epic</span> 9</div>
+<div class="legend-badges__item"><span class="rarity rarity--legendary"> ★ Legendary</span> 2</div>
+</div>
+<div class="legend-badges" style="margin-top:8px;">
+<div class="legend-badges__item"><span class="rod-badge rod--fine">Fine+</span> = Better rod needed</div>
+<div class="legend-badges__item"><span class="rod-badge rod--standard">Standard</span> = Any rod works</div>
+</div>
+</div>
+
+  <div class="content-card" style="border-left: 3px solid #ff8c00;">
+    <div class="card__header">
+      <div class="card__icon">🏞️</div>
+      <div class="card__title" style="color: #ff8c00;">Kilima Lake</div>
+      <div class="card__count">13 fish</div>
+    </div>
+    <div class="card__sub">Kilima Village — Still Waters</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Fish</th><th>Bait</th><th>Time</th><th>Rod</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="fish-name">Alligator Gar <span class="rarity rarity--common">Common</span></td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">95g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Beluga Sturgeon <span class="rarity rarity--common">Common</span></td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">95g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Gillyfin <span class="rarity rarity--common">Common</span></td>
+          <td><span class="bait bait--none">No Bait</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">30g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Largemouth Bass <span class="rarity rarity--common">Common</span></td>
+          <td><span class="bait bait--worm">Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">49g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Painted Perch <span class="rarity rarity--common">Common</span></td>
+          <td><span class="bait bait--worm">Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">49g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Smallmouth Bass <span class="rarity rarity--common">Common</span></td>
+          <td><span class="bait bait--worm">Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">49g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Enchanted Pupfish <span class="rarity rarity--uncommon">Uncommon</span></td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--fine">Fine+</span></td>
+          <td><span class="value">180g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Prism Trout <span class="rarity rarity--uncommon">Uncommon</span></td>
+          <td><span class="bait bait--worm">Worm</span></td>
+          <td><span class="time time--limited">🌅 Dawn, ☀️ Day</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">115g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Striped Sturgeon <span class="rarity rarity--uncommon">Uncommon</span></td>
+          <td><span class="bait bait--worm">Worm</span></td>
+          <td><span class="time time--limited">🌇 Evening, 🌙 Night</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">115g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Midnight Paddlefish <span class="rarity rarity--rare">Rare</span></td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="time time--limited">🌙 Night</span></td>
+          <td><span class="rod-badge rod--fine">Fine+</span></td>
+          <td><span class="value">400g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Shimmerfin <span class="rarity rarity--rare">Rare</span></td>
+          <td><span class="bait bait--worm">Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">315g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Ancient Fish <span class="rarity rarity--epic">Epic</span></td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--fine">Fine+</span></td>
+          <td><span class="value">1,220g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Giant Kilima Stingray <span class="rarity rarity--epic">Epic</span></td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="time time--limited">🌅 Dawn, ☀️ Day, 🌇 Evening</span></td>
+          <td><span class="rod-badge rod--fine">Fine+</span></td>
+          <td><span class="value">1,045g</span></td>
+        </tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="content-card" style="border-left: 3px solid #ffa940;">
+    <div class="card__header">
+      <div class="card__icon">🏞️</div>
+      <div class="card__title" style="color: #ffa940;">Kilima Rivers</div>
+      <div class="card__count">17 fish</div>
+    </div>
+    <div class="card__sub">Kilima Village — Flowing Waters</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Fish</th><th>Bait</th><th>Time</th><th>Rod</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="fish-name">Crucian Carp <span class="rarity rarity--common">Common</span></td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">100g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Golden Salmon <span class="rarity rarity--common">Common</span></td>
+          <td><span class="bait bait--worm">Worm</span></td>
+          <td><span class="time time--limited">🌅 Dawn, ☀️ Day</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">50g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Platinum Chad <span class="rarity rarity--common">Common</span></td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">100g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Red-bellied Piranha <span class="rarity rarity--common">Common</span></td>
+          <td><span class="bait bait--worm">Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">50g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Silver Salmon <span class="rarity rarity--common">Common</span></td>
+          <td><span class="bait bait--none">No Bait</span></td>
+          <td><span class="time time--limited">🌇 Evening, 🌙 Night</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">33g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Spotted Bullhead <span class="rarity rarity--common">Common</span></td>
+          <td><span class="bait bait--none">No Bait</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">33g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Striped Dace <span class="rarity rarity--common">Common</span></td>
+          <td><span class="bait bait--none">No Bait</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">33g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Channel Catfish <span class="rarity rarity--uncommon">Uncommon</span></td>
+          <td><span class="bait bait--none">No Bait</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">90g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Freshwater Eel <span class="rarity rarity--uncommon">Uncommon</span></td>
+          <td><span class="bait bait--worm">Worm</span></td>
+          <td><span class="time time--limited">🌇 Evening, 🌙 Night</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">125g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Indigo Lamprey <span class="rarity rarity--uncommon">Uncommon</span></td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="time time--limited">🌇 Evening, 🌙 Night</span></td>
+          <td><span class="rod-badge rod--fine">Fine+</span></td>
+          <td><span class="value">190g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Kilima Grayling <span class="rarity rarity--uncommon">Uncommon</span></td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--fine">Fine+</span></td>
+          <td><span class="value">190g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Rainbow Trout <span class="rarity rarity--uncommon">Uncommon</span></td>
+          <td><span class="bait bait--none">No Bait</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">90g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Stickleback <span class="rarity rarity--uncommon">Uncommon</span></td>
+          <td><span class="bait bait--worm">Worm</span></td>
+          <td><span class="time time--limited">🌅 Dawn, ☀️ Day</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">125g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Energized Piranha <span class="rarity rarity--rare">Rare</span></td>
+          <td><span class="bait bait--worm">Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">340g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Kenli's Carp <span class="rarity rarity--rare">Rare</span></td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--fine">Fine+</span></td>
+          <td><span class="value">420g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Radiant Sunfish <span class="rarity rarity--rare">Rare</span></td>
+          <td><span class="bait bait--worm">Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">340g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Flametongue Ray <span class="rarity rarity--epic">Epic</span></td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="time time--limited">🌅 Dawn, ☀️ Day</span></td>
+          <td><span class="rod-badge rod--fine">Fine+</span></td>
+          <td><span class="value">1,105g</span></td>
+        </tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="content-card" style="border-left: 3px solid #ffa940;">
+    <div class="card__header">
+      <div class="card__icon">🏖️</div>
+      <div class="card__title" style="color: #ffa940;">Bahari Coast</div>
+      <div class="card__count">12 fish</div>
+    </div>
+    <div class="card__sub">Bahari Bay — Coastal Waters</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Fish</th><th>Bait</th><th>Time</th><th>Rod</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="fish-name">Bahari Bass <span class="rarity rarity--common">Common</span></td>
+          <td><span class="bait bait--none">No Bait</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">36g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Bahari Bream <span class="rarity rarity--common">Common</span></td>
+          <td><span class="bait bait--worm">Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">55g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Black Sea Bass <span class="rarity rarity--common">Common</span></td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">100g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Bluefin Tuna <span class="rarity rarity--common">Common</span></td>
+          <td><span class="bait bait--worm">Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">55g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Sardine <span class="rarity rarity--common">Common</span></td>
+          <td><span class="bait bait--none">No Bait</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">36g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Yellowfin Tuna <span class="rarity rarity--common">Common</span></td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">100g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Barracuda <span class="rarity rarity--uncommon">Uncommon</span></td>
+          <td><span class="bait bait--none">No Bait</span></td>
+          <td><span class="time time--limited">🌇 Evening, 🌙 Night</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">100g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Cactus Moray <span class="rarity rarity--uncommon">Uncommon</span></td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="time time--limited">☀️ Day, 🌙 Night</span></td>
+          <td><span class="rod-badge rod--fine">Fine+</span></td>
+          <td><span class="value">200g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Ribbontail Ray <span class="rarity rarity--uncommon">Uncommon</span></td>
+          <td><span class="bait bait--worm">Worm</span></td>
+          <td><span class="time time--limited">🌅 Dawn, 🌇 Evening</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">130g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Blue Marlin <span class="rarity rarity--rare">Rare</span></td>
+          <td><span class="bait bait--worm">Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">360g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Blue Spotted Ray <span class="rarity rarity--rare">Rare</span></td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="time time--limited">🌅 Dawn, ☀️ Day, 🌇 Evening</span></td>
+          <td><span class="rod-badge rod--fine">Fine+</span></td>
+          <td><span class="value">445g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Long Nosed Unicorn Fish <span class="rarity rarity--epic">Epic</span></td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="time time--limited">☀️ Day</span></td>
+          <td><span class="rod-badge rod--fine">Fine+</span></td>
+          <td><span class="value">1,220g</span></td>
+        </tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="content-card" style="border-left: 3px solid #ff8c00;">
+    <div class="card__header">
+      <div class="card__icon">🌊</div>
+      <div class="card__title" style="color: #ff8c00;">Bahari Rivers</div>
+      <div class="card__count">17 fish</div>
+    </div>
+    <div class="card__sub">Bahari Bay — Flowing Waters</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Fish</th><th>Bait</th><th>Time</th><th>Rod</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="fish-name">Bahari Pike <span class="rarity rarity--common">Common</span></td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">100g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Fathead Minnow <span class="rarity rarity--common">Common</span></td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">100g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Kilima Redfin <span class="rarity rarity--common">Common</span></td>
+          <td><span class="bait bait--worm">Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">50g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Oily Anchovy <span class="rarity rarity--common">Common</span></td>
+          <td><span class="bait bait--worm">Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">50g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Rosy Bitterling <span class="rarity rarity--common">Common</span></td>
+          <td><span class="bait bait--none">No Bait</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">33g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Silvery Minnow <span class="rarity rarity--common">Common</span></td>
+          <td><span class="bait bait--none">No Bait</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">33g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Yellow Perch <span class="rarity rarity--common">Common</span></td>
+          <td><span class="bait bait--none">No Bait</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">33g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Chub <span class="rarity rarity--uncommon">Uncommon</span></td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--fine">Fine+</span></td>
+          <td><span class="value">190g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Cutthroat Trout <span class="rarity rarity--uncommon">Uncommon</span></td>
+          <td><span class="bait bait--worm">Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">125g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Dawnray <span class="rarity rarity--uncommon">Uncommon</span></td>
+          <td><span class="bait bait--none">No Bait</span></td>
+          <td><span class="time time--limited">🌅 Dawn</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">90g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Duskray <span class="rarity rarity--uncommon">Uncommon</span></td>
+          <td><span class="bait bait--none">No Bait</span></td>
+          <td><span class="time time--limited">🌇 Evening</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">90g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Honey Loach <span class="rarity rarity--uncommon">Uncommon</span></td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="time time--limited">☀️ Day, 🌙 Night</span></td>
+          <td><span class="rod-badge rod--fine">Fine+</span></td>
+          <td><span class="value">190g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Paddlefish <span class="rarity rarity--uncommon">Uncommon</span></td>
+          <td><span class="bait bait--worm">Worm</span></td>
+          <td><span class="time time--limited">🌅 Dawn, ☀️ Day, 🌇 Evening</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">125g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Stormray <span class="rarity rarity--rare">Rare</span></td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="time time--limited">🌅 Dawn, 🌇 Evening</span></td>
+          <td><span class="rod-badge rod--fine">Fine+</span></td>
+          <td><span class="value">420g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Thundering Eel <span class="rarity rarity--rare">Rare</span></td>
+          <td><span class="bait bait--worm">Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">340g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Willow Lamprey <span class="rarity rarity--rare">Rare</span></td>
+          <td><span class="bait bait--worm">Worm</span></td>
+          <td><span class="time time--limited">🌙 Night</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">340g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Swordfin Eel <span class="rarity rarity--epic">Epic</span></td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--fine">Fine+</span></td>
+          <td><span class="value">1,105g</span></td>
+        </tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="content-card" style="border-left: 3px solid #ffa940;">
+    <div class="card__header">
+      <div class="card__icon">🕳️</div>
+      <div class="card__title" style="color: #ffa940;">Caves</div>
+      <div class="card__count">10 fish</div>
+    </div>
+    <div class="card__sub">Bahari Bay — Underground Pools</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Fish</th><th>Bait</th><th>Time</th><th>Rod</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="fish-name">Albino Eel <span class="rarity rarity--common">Common</span></td>
+          <td><span class="bait bait--worm">Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">50g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Blobfish <span class="rarity rarity--common">Common</span></td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">95g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Eyeless Minnow <span class="rarity rarity--common">Common</span></td>
+          <td><span class="bait bait--none">No Bait</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">30g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Stonefish <span class="rarity rarity--common">Common</span></td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">100g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Bat Ray <span class="rarity rarity--uncommon">Uncommon</span></td>
+          <td><span class="bait bait--worm">Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">130g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Crimson Fangtooth <span class="rarity rarity--uncommon">Uncommon</span></td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--fine">Fine+</span></td>
+          <td><span class="value">180g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Umbran Carp <span class="rarity rarity--uncommon">Uncommon</span></td>
+          <td><span class="bait bait--none">No Bait</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">90g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Hypnotic Moray <span class="rarity rarity--rare">Rare</span></td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--fine">Fine+</span></td>
+          <td><span class="value">420g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Mutated Angler <span class="rarity rarity--rare">Rare</span></td>
+          <td><span class="bait bait--worm">Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">360g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Void Ray <span class="rarity rarity--epic">Epic</span></td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--fine">Fine+</span></td>
+          <td><span class="value">1,105g</span></td>
+        </tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="content-card" style="border-left: 3px solid #ff8c00;">
+    <div class="card__header">
+      <div class="card__icon">🐸</div>
+      <div class="card__title" style="color: #ff8c00;">Ponds</div>
+      <div class="card__count">12 fish</div>
+    </div>
+    <div class="card__sub">Kilima & Bahari — Still Ponds</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Fish</th><th>Bait</th><th>Time</th><th>Rod</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="fish-name">Calico Koi <span class="rarity rarity--common">Common</span></td>
+          <td><span class="bait bait--none">No Bait</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">36g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Kilima Catfish <span class="rarity rarity--common">Common</span></td>
+          <td><span class="bait bait--worm">Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">55g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Mottled Gobi <span class="rarity rarity--common">Common</span></td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">100g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Mudminnow <span class="rarity rarity--common">Common</span></td>
+          <td><span class="bait bait--none">No Bait</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">36g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Orange Bluegill <span class="rarity rarity--common">Common</span></td>
+          <td><span class="bait bait--worm">Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">55g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Scarlet Koi <span class="rarity rarity--common">Common</span></td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">100g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Cantankerous Koi <span class="rarity rarity--uncommon">Uncommon</span></td>
+          <td><span class="bait bait--none">No Bait</span></td>
+          <td><span class="time time--limited">☀️ Day, 🌙 Night</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">100g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Mirror Carp <span class="rarity rarity--uncommon">Uncommon</span></td>
+          <td><span class="bait bait--worm">Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">130g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Stalking Catfish <span class="rarity rarity--uncommon">Uncommon</span></td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="time time--limited">🌇 Evening, 🌙 Night</span></td>
+          <td><span class="rod-badge rod--fine">Fine+</span></td>
+          <td><span class="value">200g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Cloudfish <span class="rarity rarity--rare">Rare</span></td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="time time--limited">🌅 Dawn, ☀️ Day</span></td>
+          <td><span class="rod-badge rod--fine">Fine+</span></td>
+          <td><span class="value">445g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Fairy Carp <span class="rarity rarity--rare">Rare</span></td>
+          <td><span class="bait bait--worm">Worm</span></td>
+          <td><span class="time time--limited">🌅 Dawn, 🌇 Evening</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">360g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Giant Goldfish <span class="rarity rarity--epic">Epic</span></td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--fine">Fine+</span></td>
+          <td><span class="value">1,220g</span></td>
+        </tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="content-card" style="border-left: 3px solid #ffa940;">
+    <div class="card__header">
+      <div class="card__icon">🌳</div>
+      <div class="card__title" style="color: #ffa940;">Elderwood Freshwater</div>
+      <div class="card__count">10 fish</div>
+    </div>
+    <div class="card__sub">Elderwood — Fresh Waters</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Fish</th><th>Bait</th><th>Time</th><th>Rod</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="fish-name">Bronze Bluegill <span class="rarity rarity--common">Common</span></td>
+          <td><span class="bait bait--none">No Bait</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">49g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Mini Mullet <span class="rarity rarity--common">Common</span></td>
+          <td><span class="bait bait--none">No Bait</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">45g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Starry Bitterling <span class="rarity rarity--common">Common</span></td>
+          <td><span class="bait bait--worm">Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">65g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Turn Pike <span class="rarity rarity--common">Common</span></td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">110g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Mossyfin <span class="rarity rarity--uncommon">Uncommon</span></td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--fine">Fine+</span></td>
+          <td><span class="value">170g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Palian Betta <span class="rarity rarity--uncommon">Uncommon</span></td>
+          <td><span class="bait bait--worm">Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">130g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Umbraan Betta <span class="rarity rarity--uncommon">Uncommon</span></td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="time time--limited">🌇 Evening, 🌙 Night</span></td>
+          <td><span class="rod-badge rod--fine">Fine+</span></td>
+          <td><span class="value">195g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Angelfish <span class="rarity rarity--rare">Rare</span></td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="time time--limited">🌅 Dawn, ☀️ Day, 🌇 Evening</span></td>
+          <td><span class="rod-badge rod--fine">Fine+</span></td>
+          <td><span class="value">520g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Devilfish <span class="rarity rarity--rare">Rare</span></td>
+          <td><span class="bait bait--worm">Worm</span></td>
+          <td><span class="time time--limited">🌅 Dawn, 🌇 Evening, 🌙 Night</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">430g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Inyrevn Mermaid <span class="rarity rarity--epic">Epic</span></td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--fine">Fine+</span></td>
+          <td><span class="value">1,220g</span></td>
+        </tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="content-card" style="border-left: 3px solid #ff8c00;">
+    <div class="card__header">
+      <div class="card__icon">🌊</div>
+      <div class="card__title" style="color: #ff8c00;">Elderwood Saltwater</div>
+      <div class="card__count">10 fish</div>
+    </div>
+    <div class="card__sub">Elderwood — Salt Waters</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Fish</th><th>Bait</th><th>Time</th><th>Rod</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="fish-name">Piksii Floatfish <span class="rarity rarity--common">Common</span></td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="time time--limited">🌅 Dawn, ☀️ Day, 🌙 Night</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">110g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Sabertoothed Anchovy <span class="rarity rarity--common">Common</span></td>
+          <td><span class="bait bait--worm">Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">60g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Tinfin <span class="rarity rarity--common">Common</span></td>
+          <td><span class="bait bait--none">No Bait</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">48g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Toadstool Floatfish <span class="rarity rarity--common">Common</span></td>
+          <td><span class="bait bait--none">No Bait</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">50g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Lake Shark <span class="rarity rarity--uncommon">Uncommon</span></td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--fine">Fine+</span></td>
+          <td><span class="value">180g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Midnight Floatfish <span class="rarity rarity--uncommon">Uncommon</span></td>
+          <td><span class="bait bait--worm">Worm</span></td>
+          <td><span class="time time--limited">🌇 Evening, 🌙 Night</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">155g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Ancient Koi <span class="rarity rarity--rare">Rare</span></td>
+          <td><span class="bait bait--worm">Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+          <td><span class="value">150g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Eleroo Eel <span class="rarity rarity--rare">Rare</span></td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="time time--limited">🌅 Dawn, 🌇 Evening, 🌙 Night</span></td>
+          <td><span class="rod-badge rod--fine">Fine+</span></td>
+          <td><span class="value">450g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Majiri-of-War <span class="rarity rarity--epic">Epic</span></td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="time time--limited">🌅 Dawn, 🌇 Evening</span></td>
+          <td><span class="rod-badge rod--fine">Fine+</span></td>
+          <td><span class="value">1,065g</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Maws <span class="rarity rarity--legendary">★ Legendary</span></td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--fine">Fine+</span></td>
+          <td><span class="value">2,980g</span></td>
+        </tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="content-card" style="border-left: 3px solid #ffa940;">
+    <div class="card__header">
+      <div class="card__icon">🌀</div>
+      <div class="card__title" style="color: #ffa940;">Temple of the Gales</div>
+      <div class="card__count">1 fish</div>
+    </div>
+    <div class="card__sub">Temple of the Gales — Sacred Waters</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Fish</th><th>Bait</th><th>Time</th><th>Rod</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="fish-name">Ancient Cloudminnow <span class="rarity rarity--legendary">★ Legendary</span></td>
+          <td><span class="bait bait--none">No Bait</span></td>
+          <td><span class="time time--any">Anytime</span></td>
+          <td><span class="rod-badge rod--fine">Fine+</span></td>
+          <td><span class="value value--unknown">—</span></td>
+        </tr>
+      </tbody>
+    </table></div>
+  </div>
+
+<div class="tip-box">
+<strong>💡 Quick Tips</strong><br>
+• Glow Worm is the most-needed bait (43 fish) — dig at night to stock up<br>
+• Fine Rod or better is recommended for all Epic/Legendary fish and most Glow Worm catches<br>
+• 32 fish are time-gated — Dawn and Evening windows are the shortest (~2hr each)<br>
+• Bahari Bay Caves: hotspot for rare/epic fish — bring Glow Worms and a Fine Rod<br>
+• No-bait fish can be caught with any rod and no bait equipped<br>
+• Sell values shown are base prices — Star Quality sells 1.5x, Quality 1.25x
+</div>
+
+<div class="footer">
+Nova · Palia Fish Encyclopedia · Updated 2026-05-07 (Wiki-Verified) · 102 fish across 9 locations
+</div>
+
+</body>
+</html>

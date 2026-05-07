@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Palia Temple Vault Bundle Guide — Complete Acquisition Strategies</title>
+<style>
+:root {
+  --bg-deep: #0a0c14;
+  --bg-card: rgba(255,255,255,0.04);
+  --bg-card-hover: rgba(255,255,255,0.07);
+  --border: rgba(255,255,255,0.08);
+  --text: #e0e4ec;
+  --text-dim: #7a8399;
+  --text-bright: #ffffff;
+  --accent-waves: #4a9eff;
+  --accent-flames: #ff8c00;
+  --accent-gales: #22d3ee;
+  --accent-roots: #34d399;
+  --accent-yellow: #fbbf24;
+  --accent-red: #f87171;
+  --accent-purple: #a78bfa;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg-deep);
+  color: var(--text);
+  line-height: 1.6;
+  padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+h1 { text-align: center; font-size: 2em; margin: 30px 0 10px; }
+h1 .gradient { 
+  background: linear-gradient(135deg, var(--accent-waves), var(--accent-gales), var(--accent-roots), var(--accent-flames));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.subtitle { text-align: center; color: var(--text-dim); font-size: 0.95em; margin-bottom: 40px; }
+.temple-section { margin-bottom: 50px; }
+.temple-header {
+  display: flex; align-items: center; gap: 12px;
+  padding: 18px 24px; border-radius: 12px;
+  margin-bottom: 20px;
+  border-left: 4px solid;
+}
+.temple-header.waves { border-color: var(--accent-waves); background: rgba(74,158,255,0.08); }
+.temple-header.flames { border-color: var(--accent-flames); background: rgba(255,140,0,0.08); }
+.temple-header.gales { border-color: var(--accent-gales); background: rgba(34,211,238,0.08); }
+.temple-header.roots { border-color: var(--accent-roots); background: rgba(52,211,153,0.08); }
+.temple-icon { font-size: 2em; }
+.temple-name { font-size: 1.4em; font-weight: 700; color: var(--text-bright); }
+.temple-desc { font-size: 0.85em; color: var(--text-dim); }
+.bundle-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 16px;
+  transition: background 0.2s;
+}
+.bundle-card:hover { background: var(--bg-card-hover); }
+.bundle-name { font-size: 1.15em; font-weight: 600; color: var(--text-bright); margin-bottom: 12px; }
+.item-row {
+  display: grid;
+  grid-template-columns: 1fr 80px 80px 1fr;
+  gap: 12px;
+  align-items: start;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+.item-row:last-child { border-bottom: none; }
+.item-name { font-weight: 600; color: var(--text-bright); }
+.item-qty { color: var(--accent-yellow); font-weight: 700; text-align: center; }
+.item-skill { font-size: 0.8em; color: var(--text-dim); text-align: center; }
+.item-strategy { font-size: 0.88em; line-height: 1.5; }
+.tip { display: inline-block; margin: 2px 4px 2px 0; padding: 2px 8px; border-radius: 4px; font-size: 0.82em; }
+.tip-location { background: rgba(34,211,153,0.12); color: #6ee7b7; }
+.tip-rare { background: rgba(248,113,113,0.12); color: #fca5a5; }
+.tip-bait { background: rgba(74,158,255,0.12); color: #93c5fd; }
+.tip-time { background: rgba(251,191,36,0.12); color: #fde68a; }
+.tip-method { background: rgba(167,139,250,0.12); color: #c4b5fd; }
+.tip-cook { background: rgba(255,140,0,0.12); color: #fdba74; }
+.tip-general { background: rgba(255,255,255,0.06); color: var(--text-dim); }
+.tip-garden { background: rgba(52,211,153,0.12); color: #6ee7b7; }
+.tip-mine { background: rgba(251,191,36,0.12); color: #fde68a; }
+.rarity-common { color: #9ca3af; }
+.rarity-uncommon { color: #4ade80; }
+.rarity-rare { color: #60a5fa; }
+.rarity-epic { color: #c084fc; }
+.rarity-legendary { color: #fbbf24; }
+.vault-reward {
+  background: rgba(251,191,36,0.06);
+  border: 2px solid rgba(251,191,36,0.3);
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin-top: 16px;
+  margin-bottom: 24px;
+}
+.vault-reward-title { font-size: 1.1em; font-weight: 700; color: var(--accent-yellow); }
+.reward-list { margin-top: 8px; color: var(--text); font-size: 0.92em; }
+.reward-item { margin: 4px 0; }
+.reward-item::before { content: "✦ "; color: var(--accent-yellow); }
+.accomplishment { color: var(--accent-purple); font-style: italic; }
+.time-legend {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin-bottom: 36px;
+}
+.time-legend-title { font-size: 1.1em; font-weight: 700; color: var(--text-bright); margin-bottom: 6px; }
+.time-legend-note { font-size: 0.85em; color: var(--text-dim); margin-bottom: 16px; }
+.time-bars { display: flex; flex-direction: column; gap: 10px; }
+.time-row { display: flex; align-items: center; gap: 12px; }
+.time-label { width: 70px; font-weight: 600; font-size: 0.9em; color: var(--text-bright); text-align: right; flex-shrink: 0; }
+.time-bar-wrap { flex: 1; position: relative; height: 28px; background: rgba(255,255,255,0.04); border-radius: 6px; overflow: hidden; }
+.time-bar { height: 100%; border-radius: 6px; position: relative; display: flex; align-items: center; padding-left: 10px; min-width: 120px; }
+.time-bar span { white-space: nowrap; }
+.time-hours { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 0.78em; font-weight: 600; white-space: nowrap; }
+.time-real { width: 85px; font-size: 0.8em; color: var(--text-dim); text-align: right; flex-shrink: 0; }
+.dawn-bar { background: linear-gradient(90deg, #fbbf24 0%, #f59e0b 100%); }
+.day-bar { background: linear-gradient(90deg, #fbbf24 0%, #34d399 30%, #34d399 100%); }
+.evening-bar { background: linear-gradient(90deg, #f97316 0%, #a855f7 100%); }
+.night-bar { background: linear-gradient(90deg, #3b82f6 0%, #6366f1 40%, #4338ca 100%); }
+.anytime-bar { background: linear-gradient(90deg, #34d399 0%, #4a9eff 25%, #a855f7 50%, #f97316 75%, #34d399 100%); }
+.dawn-bar .time-hours, .day-bar .time-hours { color: #0a0c14; }
+.evening-bar .time-hours, .night-bar .time-hours, .anytime-bar .time-hours { color: #ffffff; }
+.time-legend-tip { margin-top: 14px; padding: 10px 14px; background: rgba(251,191,36,0.08); border-radius: 8px; font-size: 0.85em; color: var(--text-dim); border-left: 3px solid var(--accent-yellow); }
+.time-legend-tip strong { color: var(--accent-yellow); }
+.footer { text-align: center; color: var(--text-dim); font-size: 0.8em; margin-top: 50px; padding: 20px 0; border-top: 1px solid var(--border); }
+.section-divider { height: 1px; background: var(--border); margin: 30px 0; }
+@media (max-width: 640px) {
+  .item-row { grid-template-columns: 1fr; gap: 4px; }
+  .item-qty, .item-skill { text-align: left; }
+  body { padding: 12px; }
+}
+</style>
+</head>
+<body>
+<h1><span class="gradient">⛩️ Palia Temple Vault Bundle Guide</span></h1>
+<p class="subtitle">Complete acquisition strategies for every item across all 4 temple vaults<br>
+16 bundles · 55 unique items · Best methods to obtain each one</p>
+
+<div class="time-legend">
+  <div class="time-legend-title">🕐 In-Game Time Periods</div>
+  <div class="time-legend-note">1 in-game day ≈ 1.5 real-time hours · Clock in Palia runs from 6:00 AM – 6:00 AM</div>
+  <div class="time-bars">
+    <div class="time-row">
+      <span class="time-label">Dawn</span>
+      <div class="time-bar-wrap">
+        <div class="time-bar dawn-bar" style="width: 8.3%"></div>
+        <span class="time-hours">6:00 AM – 8:00 AM</span>
+      </div>
+      <span class="time-real">~10 min real</span>
+    </div>
+    <div class="time-row">
+      <span class="time-label">Day</span>
+      <div class="time-bar-wrap">
+        <div class="time-bar day-bar" style="width: 37.5%"></div>
+        <span class="time-hours">8:00 AM – 5:00 PM</span>
+      </div>
+      <span class="time-real">~53 min real</span>
+    </div>
+    <div class="time-row">
+      <span class="time-label">Evening</span>
+      <div class="time-bar-wrap">
+        <div class="time-bar evening-bar" style="width: 12.5%"></div>
+        <span class="time-hours">5:00 PM – 8:00 PM</span>
+      </div>
+      <span class="time-real">~17 min real</span>
+    </div>
+    <div class="time-row">
+      <span class="time-label">Night</span>
+      <div class="time-bar-wrap">
+        <div class="time-bar night-bar" style="width: 41.7%"></div>
+        <span class="time-hours">8:00 PM – 6:00 AM</span>
+      </div>
+      <span class="time-real">~50 min real</span>
+    </div>
+    <div class="time-row">
+      <span class="time-label">Anytime</span>
+      <div class="time-bar-wrap">
+        <div class="time-bar anytime-bar" style="width: 100%"></div>
+        <span class="time-hours">Available 24/7</span>
+      </div>
+      <span class="time-real">~90 min real</span>
+    </div>
+  </div>
+  <div class="time-legend-tip">💡 <strong>Plan your gameplay windows:</strong> Dawn &amp; Evening are the shortest periods — set up at the fishing spot a few minutes early! Night covers the longest in-game period (41% of each day).</div>
+</div>
+
+
+<div class="temple-section">
+<div class="temple-header waves">
+  <span class="temple-icon">🌊</span>
+  <div>
+    <div class="temple-name">Vault of the Waves</div>
+    <div class="temple-desc">Water-themed vault requiring fish, bugs, and coastal items</div>
+  </div>
+</div>
+
+<div class="bundle-card">
+<div class="bundle-name">Spooky Bundle Bundle</div>
+
+<div class="item-row">
+  <div><span class="item-name">Garden Mantis</span></div>
+  <div class="item-qty">×1</div>
+  <div class="item-skill">Bug Catching</div>
+  <div class="item-strategy"><span class="tip tip-method">🦗 Approach from behind, Smoke Bomb when close</span> <span class="tip tip-general">Available any time of day</span> <span class="tip tip-location">📍 Kilima Lake</span> <span class="tip rarity-uncommon">Uncommon</span> </div>
+</div>
+
+<div class="item-row">
+  <div><span class="item-name">Vampire Crab</span></div>
+  <div class="item-qty">×1</div>
+  <div class="item-skill">Bug Catching</div>
+  <div class="item-strategy"><span class="tip tip-rare">⭐ Rare catch — may take patience</span> <span class="tip tip-method">🏃 Crouch-approach, then throw Smoke Bomb</span> <span class="tip tip-time">⏰ Only available: Evening, Night</span> <span class="tip tip-location">📍 Flooded Fortress</span> <span class="tip rarity-rare">Rare</span> </div>
+</div>
+
+<div class="item-row">
+  <div><span class="item-name">Mutated Angler</span></div>
+  <div class="item-qty">×1</div>
+  <div class="item-skill">Fishing</div>
+  <div class="item-strategy"><span class="tip tip-rare">⭐ Rare catch — patience and multiple attempts may be needed</span> <span class="tip tip-general">Available any time of day</span> <span class="tip tip-bait">🎣 Bait: Worm</span> <span class="tip tip-location">📍 Caves — bring Glow Worms</span> <span class="tip rarity-rare">rare</span> </div>
+</div>
+
+<div class="item-row">
+  <div><span class="item-name">Void Ray</span></div>
+  <div class="item-qty">×1</div>
+  <div class="item-skill">Fishing</div>
+  <div class="item-strategy"><span class="tip tip-rare">⭐ EPIC CATCH — Use Fine Rod or better, may take many attempts</span> <span class="tip tip-general">Available any time of day</span> <span class="tip tip-bait">🎣 Bait: Glow Worm</span> <span class="tip tip-location">📍 Caves — bring Glow Worms</span> <span class="tip rarity-epic">epic</span> </div>
+</div>
+
+<div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--border);">
+<span style="color:var(--text-dim);font-size:0.85em;">Bundle Reward:</span>
+<div class="reward-item">Gold ×100</div><div class="reward-item">Tuning Fork ×10</div><div class="reward-item">Major Hook Time Booster ×1</div><div class="reward-item">Minor Rod Health Booster ×1</div><div class="reward-item">Major Rod Recovery Booster ×1</div><div class="reward-item">Major Safe Zone Speed Booster ×1</div><div class="reward-item">Major Safe Zone Size Booster ×1</div>
+</div>
+</div>
+<div class="bundle-card">
+<div class="bundle-name">Beach Bundle Bundle</div>
+
+<div class="item-row">
+  <div><span class="item-name">Green Pearl</span></div>
+  <div class="item-qty">×1</div>
+  <div class="item-skill">Foraging</div>
+  <div class="item-strategy"><span class="tip tip-location">📍 Bahari Bay</span> <span class="tip tip-rare">⭐ Epic spawn — check multiple spots, be patient</span> <span class="tip rarity-epic">Epic</span> </div>
+</div>
+
+<div class="item-row">
+  <div><span class="item-name">Stripeshell Snail</span></div>
+  <div class="item-qty">×1</div>
+  <div class="item-skill">Bug Catching</div>
+  <div class="item-strategy"><span class="tip tip-rare">⭐ Rare catch — may take patience</span> <span class="tip tip-method">🏃 Crouch-approach, then throw Smoke Bomb</span> <span class="tip tip-time">⏰ Only available: Evening, Night</span> <span class="tip tip-location">📍 Bahari Coast,Flooded Fortress</span> <span class="tip rarity-rare">Rare</span> </div>
+</div>
+
+<div class="item-row">
+  <div><span class="item-name">Blue Marlin</span></div>
+  <div class="item-qty">×1</div>
+  <div class="item-skill">Fishing</div>
+  <div class="item-strategy"><span class="tip tip-rare">⭐ Rare catch — patience and multiple attempts may be needed</span> <span class="tip tip-general">Available any time of day</span> <span class="tip tip-bait">🎣 Bait: Worm</span> <span class="tip tip-location">📍 Bahari Coast</span> <span class="tip rarity-rare">rare</span> </div>
+</div>
+
+<div class="item-row">
+  <div><span class="item-name">Sushi</span></div>
+  <div class="item-qty">×1</div>
+  <div class="item-skill">Cooking</div>
+  <div class="item-strategy"><span class="tip tip-cook">🍳 Cook on stove</span> <span class="tip tip-general">Focus: 325</span> <span class="tip rarity-rare">Rare</span> </div>
+</div>
+
+<div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--border);">
+<span style="color:var(--text-dim);font-size:0.85em;">Bundle Reward:</span>
+<div class="reward-item">Worm ×30</div><div class="reward-item">Glow Worm ×30</div>
+</div>
+</div>
+<div class="bundle-card">
+<div class="bundle-name">Freshwater Bundle Bundle</div>
+
+<div class="item-row">
+  <div><span class="item-name">Inky Dragonfly</span></div>
+  <div class="item-qty">×1</div>
+  <div class="item-skill">Bug Catching</div>
+  <div class="item-strategy"><span class="tip tip-method">💨 Use Honey Lure to attract, then Smoke Bomb</span> <span class="tip tip-general">Available any time of day</span> <span class="tip tip-location">📍 Bahari Rivers,Ponds</span> <span class="tip rarity-uncommon">Uncommon</span> </div>
+</div>
+
+<div class="item-row">
+  <div><span class="item-name">Trout Dinner</span></div>
+  <div class="item-qty">×1</div>
+  <div class="item-skill">Cooking</div>
+  <div class="item-strategy"><span class="tip tip-cook">🍳 Cook on stove</span> <span class="tip tip-general">Focus: 200</span> <span class="tip rarity-uncommon">Uncommon</span> </div>
+</div>
+
+<div class="item-row">
+  <div><span class="item-name">HydratePro Fertilizer</span></div>
+  <div class="item-qty">×5</div>
+  <div class="item-skill">Purchasing (General Store)</div>
+  <div class="item-strategy"><span class="tip tip-cook">🛒 Buy 5× HydratePro Fertilizer from General Store</span> <span class="tip rarity-common">Common</span> </div>
+</div>
+
+<div class="item-row">
+  <div><span class="item-name">Giant Goldfish</span></div>
+  <div class="item-qty">×1</div>
+  <div class="item-skill">Fishing</div>
+  <div class="item-strategy"><span class="tip tip-rare">⭐ EPIC CATCH — Use Fine Rod or better, may take many attempts</span> <span class="tip tip-general">Available any time of day</span> <span class="tip tip-bait">🎣 Bait: Glow Worm</span> <span class="tip tip-location">📍 ponds</span> <span class="tip rarity-epic">epic</span> </div>
+</div>
+
+<div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--border);">
+<span style="color:var(--text-dim);font-size:0.85em;">Bundle Reward:</span>
+<div class="reward-item">Bouillabaisse ×1</div><div class="reward-item">Bouillabaisse Recipe ×1</div>
+</div>
+</div>
+<div class="bundle-card">
+<div class="bundle-name">Magic Bundle Bundle</div>
+
+<div class="item-row">
+  <div><span class="item-name">Fisherman's Brew</span></div>
+  <div class="item-qty">×1</div>
+  <div class="item-skill">Cooking</div>
+  <div class="item-strategy"><span class="tip tip-cook">🍳 Cook on stove</span> <span class="tip rarity-uncommon">Uncommon</span> </div>
+</div>
+
+<div class="item-row">
+  <div><span class="item-name">Enchanted Pupfish</span></div>
+  <div class="item-qty">×1</div>
+  <div class="item-skill">Fishing</div>
+  <div class="item-strategy"><span class="tip tip-general">Available any time of day</span> <span class="tip tip-bait">🎣 Bait: Glow Worm</span> <span class="tip tip-location">📍 Kilima Lake</span> <span class="tip rarity-uncommon">uncommon</span> </div>
+</div>
+
+<div class="item-row">
+  <div><span class="item-name">Shimmerfin</span></div>
+  <div class="item-qty">×1</div>
+  <div class="item-skill">Fishing</div>
+  <div class="item-strategy"><span class="tip tip-rare">⭐ Rare catch — patience and multiple attempts may be needed</span> <span class="tip tip-general">Available any time of day</span> <span class="tip tip-bait">🎣 Bait: Worm</span> <span class="tip tip-location">📍 Kilima Lake</span> <span class="tip rarity-rare">rare</span> </div>
+</div>
+
+<div class="item-row">
+  <div><span class="item-name">Long Nosed Unicorn Fish</span></div>
+  <div class="item-qty">×1</div>
+  <div class="item-skill">Fishing</div>
+  <div class="item-strategy"><span class="tip tip-rare">⭐ EPIC CATCH — Use Fine Rod or better, may take many attempts</span> <span class="tip tip-time">⏰ Only available: Day</span> <span class="tip tip-bait">🎣 Bait: Glow Worm</span> <span class="tip tip-location">📍 Bahari Coast</span> <span class="tip rarity-epic">epic</span> </div>
+</div>
+
+<div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--border);">
+<span style="color:var(--text-dim);font-size:0.85em;">Bundle Reward:</span>
+<div class="reward-item">Honey Lure ×1</div>
+</div>
+</div>
+<div class="vault-reward">
+  <div class="vault-reward-title">🌊 Vault of the Waves — Complete Reward</div>
+  <div class="reward-item">🎁 Ancient Fish ×1</div><div class="reward-item accomplishment">🏆 Something's in the Water</div>
+</div>
+</div>
+<div class="section-divider"></div>
+
+<div class="temple-section">
+<div class="temple-header flames">
+  <span class="temple-icon">🔥</span>
+  <div>
+    <div class="temple-name">Vault of the Flames</div>
+    <div class="temple-desc">Fire-themed vault requiring fiery fish, bugs, and cooking</div>
+  </div>
+</div>
+
+<div class="bundle-card">
+<div class="bundle-name">Flamerod Bundle Bundle</div>
+
+<div class="item-row">
+  <div><span class="item-name">Radiant Sunfish</span></div>
+  <div class="item-qty">×1</div>
+  <div class="item-skill">Fishing</div>
+  <div class="item-strategy"><span class="tip tip-rare">⭐ Rare catch — patience and multiple attempts may be needed</span> <span class="tip tip-general">Available any time of day</span> <span class="tip tip-bait">🎣 Bait: Worm</span> <span class="tip tip-location">📍 Kilima Rivers (rivers, not lakes)</span> <span class="tip rarity-rare">rare</span> </div>
+</div>
+
+<div class="item-row">
+  <div><span class="item-name">Flametongue Ray</span></div>
+  <div class="item-qty">×1</div>
+  <div class="item-skill">Fishing</div>
+  <div class="item-strategy"><span class="tip tip-rare">⭐ EPIC CATCH — Use Fine Rod or better, may take many attempts</span> <span class="tip tip-time">⏰ Only available: Morning, Day</span> <span class="tip tip-bait">🎣 Bait: Glow Worm</span> <span class="tip tip-location">📍 Kilima Rivers (rivers, not lakes)</span> <span class="tip rarity-epic">epic</span> </div>
+</div>
+
+<div class="item-row">
+  <div><span class="item-name">Striped Sturgeon</span></div>
+  <div class="item-qty">×1</div>
+  <div class="item-skill">Fishing</div>
+  <div class="item-strategy"><span class="tip tip-time">⏰ Only available: Evening, Night</span> <span class="tip tip-bait">🎣 Bait: Worm</span> <span class="tip tip-location">📍 Kilima Lake</span> <span class="tip rarity-uncommon">uncommon</span> </div>
+</div>
+
+<div class="item-row">
+  <div><span class="item-name">Dawnray</span></div>
+  <div class="item-qty">×1</div>
+  <div class="item-skill">Fishing</div>
+  <div class="item-strategy"><span class="tip tip-time">⏰ Only available: Morning</span> <span class="tip tip-location">📍 Bahari Rivers (rivers, not lakes)</span> <span class="tip rarity-uncommon">uncommon</span> </div>
+</div>
+
+<div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--border);">
+<span style="color:var(--text-dim);font-size:0.85em;">Bundle Reward:</span>
+<div class="reward-item">Pyroflow Bobber ×1</div>
+</div>
+</div>
+<div class="bundle-card">
+<div class="bundle-name">Emberseeker's Bundle Bundle</div>
+
+<div class="item-row">
+  <div><span class="item-name">Emberseeker Medallion</span></div>
+  <div class="item-qty">×6</div>
+  <div class="item-skill">Exploring</div>
+  <div class="item-strategy"><span class="tip tip-cook">🔍 Collect 6 medallions — find glowing pickups in the temple's overworld zone</span> </div>
+</div>
+
+<div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--border);">
+<span style="color:var(--text-dim);font-size:0.85em;">Bundle Reward:</span>
+<div class="reward-item">Emberborn Brazier Recipe ×1</div>
+</div>
+</div>
+<div class="bundle-card">
+<div class="bundle-name">Brightbug Bundle Bundle</div>
+
+<div class="item-row">
+  <div><span class="item-name">Paper Lantern Bug</span></div>
+  <div class="item-qty">×1</div>
+  <div class="item-skill">Bug Catching</div>
+  <div class="item-strategy"><span class="tip tip-method">🦋 Throws Smoke Bomb ahead of its flight path</span> <span class="tip tip-time">⏰ Only available: Evening, Night</span> <span class="tip tip-location">📍 Bahari Coast,Bahari Forest</span> <span class="tip rarity-common">Common</span> </div>
+</div>
+
+<div class="item-row">
+  <div><span class="item-name">Bahari Glowbug</span></div>
+  <div class="item-qty">×1</div>
+  <div class="item-skill">Bug Catching</div>
+  <div class="item-strategy"><span class="tip tip-rare">⭐ Rare catch — may take patience</span> <span class="tip tip-method">🦋 Throws Smoke Bomb ahead of its flight path</span> <span class="tip tip-time">⏰ Only available: evening, night</span> <span class="tip tip-location">📍 Bahari Fields</span> <span class="tip rarity-rare">Rare</span> </div>
+</div>
+
+<div class="item-row">
+  <div><span class="item-name">Spitfire Cicada</span></div>
+  <div class="item-qty">×1</div>
+  <div class="item-skill">Bug Catching</div>
+  <div class="item-strategy"><span class="tip tip-rare">⭐ Rare catch — may take patience</span> <span class="tip tip-method">🦋 Throws Smoke Bomb ahead of its flight path</span> <span class="tip tip-time">⏰ Only available: Morning, Day</span> <span class="tip tip-location">📍 Bahari Fields,Bahari Forest</span> <span class="tip rarity-rare">Rare</span> </div>
+</div>
+
+<div class="item-row">
+  <div><span class="item-name">Firebreathing Dragonfly</span></div>
+  <div class="item-qty">×1</div>
+  <div class="item-skill">Bug Catching</div>
+  <div class="item-strategy"><span class="tip tip-rare">⭐ Rare catch — may take patience</span> <span class="tip tip-method">💨 Use Honey Lure to attract, then Smoke Bomb</span> <span class="tip tip-general">Available any time of day</span> <span class="tip tip-location">📍 Kilima Fields</span> <span class="tip rarity-rare">Rare</span> </div>
+</div>
+
+<div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--border);">
+<span style="color:var(--text-dim);font-size:0.85em;">Bundle Reward:</span>
+<div class="reward-item">Supreme Smoke Bomb ×3</div>
+</div>
+</div>
+<div class="bundle-card">
+<div class="bundle-name">Sear-Chef Bundle Bundle</div>
+
+<div class="item-row">
+  <div><span class="item-name">Chapaa Masala</span></div>
+  <div class="item-qty">×1</div>
+  <div class="item-skill">Cooking</div>
+  <div class="item-strategy"><span class="tip tip-cook">🍳 Cook on stove</span> <span class="tip tip-general">Focus: 525</span> <span class="tip rarity-epic">Epic</span> </div>
+</div>
+
+<div class="item-row">
+  <div><span class="item-name">Heat Root</span></div>
+  <div class="item-qty">×5</div>
+  <div class="item-skill">Foraging</div>
+  <div class="item-strategy"><span class="tip tip-location">📍 Bahari Bay</span> <span class="tip tip-rare">⭐ Rare spawn — check multiple spots, be patient</span> <span class="tip rarity-rare">Rare</span> </div>
+</div>
+
+<div class="item-row">
+  <div><span class="item-name">Phoenixfire Relleno</span></div>
+  <div class="item-qty">×1</div>
+  <div class="item-skill">Cooking</div>
+  <div class="item-strategy"><span class="tip tip-cook">🍳 Cook on stove</span> <span class="tip tip-general">Focus: 300</span> <span class="tip rarity-rare">Rare</span> </div>
+</div>
+
+<div class="item-row">
+  <div><span class="item-name">Dari Cloves</span></div>
+  <div class="item-qty">×1</div>
+  <div class="item-skill">Foraging</div>
+  <div class="item-strategy"><span class="tip tip-location">📍 Bahari Bay</span> <span class="tip tip-rare">⭐ Epic spawn — check multiple spots, be patient</span> <span class="tip rarity-epic">Epic</span> </div>
+</div>
+
+<div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--border);">
+<span style="color:var(--text-dim);font-size:0.85em;">Bundle Reward:</span>
+<div class="reward-item">Spicy Rice Cakes Recipe ×1</div>
+</div>
+</div>
+<div class="vault-reward">
+  <div class="vault-reward-title">🔥 Vault of the Flames — Complete Reward</div>
+  <div class="reward-item">🎁 Ancient Rock Garden ×1</div><div class="reward-item accomplishment">🏆 Something's in the Garden</div>
+</div>
+</div>
+<div class="section-divider"></div>
+
+<div class="temple-section">
+<div class="temple-header gales">
+  <span class="temple-icon">💨</span>
+  <div>
+    <div class="temple-name">Vault of the Gales</div>
+    <div class="temple-desc">Wind-themed vault requiring flying bugs, pies, and storm fish</div>
+  </div>
+</div>
+
+<div class="bundle-card">
+<div class="bundle-name">Fairywind Bundle Bundle</div>
+
+<div class="item-row">
+  <div><span class="item-name">Jewelwing Dragonfly</span></div>
+  <div class="item-qty">×1</div>
+  <div class="item-skill">Bug Catching</div>
+  <div class="item-strategy"><span class="tip tip-rare">⭐ EPIC catch — may take many sessions</span> <span class="tip tip-method">💨 Use Honey Lure to attract, then Smoke Bomb</span> <span class="tip tip-general">Available any time of day</span> <span class="tip tip-location">📍 Cliffs Above Pavel Mines</span> <span class="tip rarity-epic">Epic</span> </div>
+</div>
+
+<div class="item-row">
+  <div><span class="item-name">Gossamer Veil Moth</span></div>
+  <div class="item-qty">×1</div>
+  <div class="item-skill">Bug Catching</div>
+  <div class="item-strategy"><span class="tip tip-rare">⭐ Rare catch — may take patience</span> <span class="tip tip-method">🦋 Throws Smoke Bomb ahead of its flight path</span> <span class="tip tip-time">⏰ Only available: Evening, Night</span> <span class="tip tip-location">📍 Kilima Fields</span> <span class="tip rarity-rare">Rare</span> </div>
+</div>
+
+<div class="item-row">
+  <div><span class="item-name">Golden Glory Bee</span></div>
+  <div class="item-qty">×1</div>
+  <div class="item-skill">Foraging + Bug Catching</div>
+  <div class="item-strategy"><span class="tip tip-rare">⭐ Rare catch — may take patience</span> <span class="tip tip-method">🦋 Throws Smoke Bomb ahead of its flight path</span> <span class="tip tip-time">⏰ Only available: Morning, Day</span> <span class="tip tip-location">📍 Kilima Fields</span> <span class="tip rarity-rare">Rare</span> </div>
+</div>
+
+<div class="item-row">
+  <div><span class="item-name">Rainbow-Tipped Butterfly</span></div>
+  <div class="item-qty">×1</div>
+  <div class="item-skill">Bug Catching</div>
+  <div class="item-strategy"><span class="tip tip-rare">⭐ EPIC catch — may take many sessions</span> <span class="tip tip-method">🦋 Throws Smoke Bomb ahead of its flight path</span> <span class="tip tip-time">⏰ Only available: Morning, Day</span> <span class="tip tip-location">📍 Bahari Fields, Cliffs Above Pavel Mines</span> <span class="tip rarity-epic">Epic</span> </div>
+</div>
+
+<div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--border);">
+<span style="color:var(--text-dim);font-size:0.85em;">Bundle Reward:</span>
+<div class="reward-item">Buzzy Jar ×3</div><div class="reward-item">Honey Lure ×1</div>
+</div>
+</div>
+<div class="bundle-card">
+<div class="bundle-name">Stormseeker Bundle Bundle</div>
+
+<div class="item-row">
+  <div><span class="item-name">Stormseeker Medallion</span></div>
+  <div class="item-qty">×6</div>
+  <div class="item-skill">Exploring</div>
+  <div class="item-strategy"><span class="tip tip-cook">🔍 Collect 6 medallions — find glowing pickups in the temple's overworld zone</span> </div>
+</div>
+
+<div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--border);">
+<span style="color:var(--text-dim);font-size:0.85em;">Bundle Reward:</span>
+<div class="reward-item">Emberborn Bookshelf Recipe ×1</div>
+</div>
+</div>
+<div class="bundle-card">
+<div class="bundle-name">Pie in the Sky Bundle Bundle</div>
+
+<div class="item-row">
+  <div><span class="item-name">Crab Pot Pie</span></div>
+  <div class="item-qty">×1</div>
+  <div class="item-skill">Cooking</div>
+  <div class="item-strategy"><span class="tip tip-cook">🍳 Cook on stove</span> <span class="tip tip-general">Focus: 225</span> <span class="tip rarity-uncommon">Uncommon</span> </div>
+</div>
+
+<div class="item-row">
+  <div><span class="item-name">Apple Pie</span></div>
+  <div class="item-qty">×1</div>
+  <div class="item-skill">Cooking</div>
+  <div class="item-strategy"><span class="tip tip-cook">🍳 Check recipe book — from Guild Store or friendship quest</span> </div>
+</div>
+
+<div class="item-row">
+  <div><span class="item-name">Blueberry Pie</span></div>
+  <div class="item-qty">×1</div>
+  <div class="item-skill">Cooking</div>
+  <div class="item-strategy"><span class="tip tip-cook">🍳 Cook on stove</span> <span class="tip tip-general">Focus: 225</span> <span class="tip rarity-uncommon">Uncommon</span> </div>
+</div>
+
+<div class="item-row">
+  <div><span class="item-name">Shepps Pie</span></div>
+  <div class="item-qty">×1</div>
+  <div class="item-skill">Cooking</div>
+  <div class="item-strategy"><span class="tip tip-cook">🍳 Check recipe book — from Guild Store or friendship quest</span> </div>
+</div>
+
+<div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--border);">
+<span style="color:var(--text-dim);font-size:0.85em;">Bundle Reward:</span>
+<div class="reward-item">Mushroom Quiche Recipe ×1</div>
+</div>
+</div>
+<div class="bundle-card">
+<div class="bundle-name">Cloudcurrent Bundle Bundle</div>
+
+<div class="item-row">
+  <div><span class="item-name">Rainbow Trout</span></div>
+  <div class="item-qty">×1</div>
+  <div class="item-skill">Fishing</div>
+  <div class="item-strategy"><span class="tip tip-general">Available any time of day</span> <span class="tip tip-location">📍 Kilima Rivers (rivers, not lakes)</span> <span class="tip rarity-uncommon">uncommon</span> </div>
+</div>
+
+<div class="item-row">
+  <div><span class="item-name">Thundering Eel</span></div>
+  <div class="item-qty">×1</div>
+  <div class="item-skill">Fishing</div>
+  <div class="item-strategy"><span class="tip tip-rare">⭐ Rare catch — patience and multiple attempts may be needed</span> <span class="tip tip-general">Available any time of day</span> <span class="tip tip-bait">🎣 Bait: Worm</span> <span class="tip tip-location">📍 Bahari Rivers (rivers, not lakes)</span> <span class="tip rarity-rare">rare</span> </div>
+</div>
+
+<div class="item-row">
+  <div><span class="item-name">Giant Kilima Stingray</span></div>
+  <div class="item-qty">×1</div>
+  <div class="item-skill">Fishing</div>
+  <div class="item-strategy"><span class="tip tip-rare">⭐ EPIC CATCH — Use Fine Rod or better, may take many attempts</span> <span class="tip tip-time">⏰ Only available: Morning, Day, Evening</span> <span class="tip tip-bait">🎣 Bait: Glow Worm</span> <span class="tip tip-location">📍 Kilima Lake</span> <span class="tip rarity-epic">epic</span> </div>
+</div>
+
+<div class="item-row">
+  <div><span class="item-name">Stormray</span></div>
+  <div class="item-qty">×1</div>
+  <div class="item-skill">Fishing</div>
+  <div class="item-strategy"><span class="tip tip-rare">⭐ Rare catch — patience and multiple attempts may be needed</span> <span class="tip tip-time">⏰ Only available: Morning, Evening</span> <span class="tip tip-bait">🎣 Bait: Glow Worm</span> <span class="tip tip-location">📍 Bahari Rivers (rivers, not lakes)</span> <span class="tip rarity-rare">rare</span> </div>
+</div>
+
+<div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--border);">
+<span style="color:var(--text-dim);font-size:0.85em;">Bundle Reward:</span>
+<div class="reward-item">Major Hook Time Booster ×2</div><div class="reward-item">Major Rod Recovery Booster ×2</div><div class="reward-item">Major Safe Zone Speed Booster ×2</div><div class="reward-item">Major Safe Zone Size Booster ×2</div>
+</div>
+</div>
+<div class="vault-reward">
+  <div class="vault-reward-title">💨 Vault of the Gales — Complete Reward</div>
+  <div class="reward-item">🎁 Young Silverwing Nest ×1</div><div class="reward-item accomplishment">🏆 Something in the Sky</div>
+</div>
+</div>
+<div class="section-divider"></div>
+
+<div class="temple-section">
+<div class="temple-header roots">
+  <span class="temple-icon">🌱</span>
+  <div>
+    <div class="temple-name">Vault of the Roots</div>
+    <div class="temple-desc">Earth-themed vault requiring cave creatures, cooking, mining, and foraging</div>
+  </div>
+</div>
+
+<div class="bundle-card">
+<div class="bundle-name">Fruits of the Earth Bundle Bundle</div>
+
+<div class="item-row">
+  <div><span class="item-name">Muujin Bahari</span></div>
+  <div class="item-qty">×1</div>
+  <div class="item-skill">Cooking</div>
+  <div class="item-strategy"><span class="tip tip-cook">🍳 Cook on stove</span> <span class="tip tip-general">Focus: 925</span> <span class="tip rarity-epic">Epic</span> </div>
+</div>
+
+<div class="item-row">
+  <div><span class="item-name">Bacon-Stuffed Mushrooms</span></div>
+  <div class="item-qty">×1</div>
+  <div class="item-skill">Cooking</div>
+  <div class="item-strategy"><span class="tip tip-cook">🍳 Check recipe book — from Guild Store or friendship quest</span> </div>
+</div>
+
+<div class="item-row">
+  <div><span class="item-name">Apple</span></div>
+  <div class="item-qty">×20</div>
+  <div class="item-skill">Gardening</div>
+  <div class="item-strategy"><span class="tip tip-garden">🌱 Grow 20× Apple — buy seeds from General Store or Gardening Guild</span> <span class="tip rarity-common">Common</span> </div>
+</div>
+
+<div class="item-row">
+  <div><span class="item-name">Brightshroom</span></div>
+  <div class="item-qty">×20</div>
+  <div class="item-skill">Foraging</div>
+  <div class="item-strategy"><span class="tip tip-location">📍 Bahari Bay,Ranching|Ranch</span> <span class="tip tip-rare">⭐ Rare spawn — check multiple spots, be patient</span> <span class="tip rarity-rare">Rare</span> </div>
+</div>
+
+<div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--border);">
+<span style="color:var(--text-dim);font-size:0.85em;">Bundle Reward:</span>
+<div class="reward-item">Stuffed Tomatoes Recipe ×1</div>
+</div>
+</div>
+<div class="bundle-card">
+<div class="bundle-name">Creatures of the Abyss Bundle Bundle</div>
+
+<div class="item-row">
+  <div><span class="item-name">Stonefish</span></div>
+  <div class="item-qty">×1</div>
+  <div class="item-skill">Fishing</div>
+  <div class="item-strategy"><span class="tip tip-general">Available any time of day</span> <span class="tip tip-bait">🎣 Bait: Glow Worm</span> <span class="tip tip-location">📍 Caves — bring Glow Worms</span> <span class="tip rarity-common">common</span> </div>
+</div>
+
+<div class="item-row">
+  <div><span class="item-name">Hypnotic Moray</span></div>
+  <div class="item-qty">×1</div>
+  <div class="item-skill">Fishing</div>
+  <div class="item-strategy"><span class="tip tip-rare">⭐ Rare catch — patience and multiple attempts may be needed</span> <span class="tip tip-general">Available any time of day</span> <span class="tip tip-bait">🎣 Bait: Glow Worm</span> <span class="tip tip-location">📍 Caves — bring Glow Worms</span> <span class="tip rarity-rare">rare</span> </div>
+</div>
+
+<div class="item-row">
+  <div><span class="item-name">Ancient Amber Beetle</span></div>
+  <div class="item-qty">×1</div>
+  <div class="item-skill">Bug Catching</div>
+  <div class="item-strategy"><span class="tip tip-rare">⭐ EPIC catch — may take many sessions</span> <span class="tip tip-method">🏃 Crouch-approach, then throw Smoke Bomb</span> <span class="tip tip-general">Available any time of day</span> <span class="tip tip-location">📍 Bahari Forest</span> <span class="tip rarity-epic">Epic</span> </div>
+</div>
+
+<div class="item-row">
+  <div><span class="item-name">Leafstalker Mantis</span></div>
+  <div class="item-qty">×1</div>
+  <div class="item-skill">Foraging + Bug Catching</div>
+  <div class="item-strategy"><span class="tip tip-rare">⭐ Rare catch — may take patience</span> <span class="tip tip-method">🦗 Approach from behind, Smoke Bomb when close</span> <span class="tip tip-general">Available any time of day</span> <span class="tip tip-location">📍 Bahari Forest</span> <span class="tip rarity-rare">Rare</span> </div>
+</div>
+
+<div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--border);">
+<span style="color:var(--text-dim);font-size:0.85em;">Bundle Reward:</span>
+<div class="reward-item">Galdur's Bait ×1</div>
+</div>
+</div>
+<div class="bundle-card">
+<div class="bundle-name">Rootseeker's Bundle Bundle</div>
+
+<div class="item-row">
+  <div><span class="item-name">Rootseeker Medallion</span></div>
+  <div class="item-qty">×6</div>
+  <div class="item-skill">Exploring</div>
+  <div class="item-strategy"><span class="tip tip-cook">🔍 Collect 6 medallions — find glowing pickups in the temple's overworld zone</span> </div>
+</div>
+
+<div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--border);">
+<span style="color:var(--text-dim);font-size:0.85em;">Bundle Reward:</span>
+<div class="reward-item">Emberborn Reed Planter Recipe ×1</div>
+</div>
+</div>
+<div class="bundle-card">
+<div class="bundle-name">Prospector's Pal Bundle Bundle</div>
+
+<div class="item-row">
+  <div><span class="item-name">Emerald</span></div>
+  <div class="item-qty">×1</div>
+  <div class="item-skill">Mining</div>
+  <div class="item-strategy"><span class="tip tip-mine">💎 Rare starstone — mine every node you see, random drop</span> <span class="tip tip-location">📍 Kilima Valley</span> <span class="tip rarity-epic">Epic</span> </div>
+</div>
+
+<div class="item-row">
+  <div><span class="item-name">Jasper</span></div>
+  <div class="item-qty">×1</div>
+  <div class="item-skill">Mining</div>
+  <div class="item-strategy"><span class="tip tip-mine">💎 Rare starstone — mine every node you see, random drop</span> <span class="tip tip-location">📍 Housing Plot,Kilima Valley,Bahari Bay,Elderwood</span> <span class="tip rarity-epic">Epic</span> </div>
+</div>
+
+<div class="item-row">
+  <div><span class="item-name">Gold Bar</span></div>
+  <div class="item-qty">×3</div>
+  <div class="item-skill">Mining & Refining</div>
+  <div class="item-strategy"><span class="tip tip-location">📍 </span> <span class="tip rarity-epic">Epic</span> </div>
+</div>
+
+<div class="item-row">
+  <div><span class="item-name">Palium Bar</span></div>
+  <div class="item-qty">×20</div>
+  <div class="item-skill">Mining & Refining</div>
+  <div class="item-strategy"><span class="tip tip-location">📍 </span> <span class="tip rarity-uncommon">Uncommon</span> </div>
+</div>
+
+<div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--border);">
+<span style="color:var(--text-dim);font-size:0.85em;">Bundle Reward:</span>
+<div class="reward-item">Emberborn Floor ×1</div>
+</div>
+</div>
+<div class="vault-reward">
+  <div class="vault-reward-title">🌱 Vault of the Roots — Complete Reward</div>
+  <div class="reward-item">🎁 Ancient Galdur Statue ×1</div><div class="reward-item accomplishment">🏆 Something's in the Dirt</div>
+</div>
+</div>
+<div class="section-divider"></div>
+
+<div class="temple-section">
+<div class="temple-header" style="border-color: var(--accent-yellow); background: rgba(251,191,36,0.06);">
+  <span class="temple-icon">💡</span>
+  <div>
+    <div class="temple-name">General Tips</div>
+    <div class="temple-desc">Pro tips for completing all temple bundles efficiently</div>
+  </div>
+</div>
+
+<div class="bundle-card">
+<div class="bundle-name">🎣 Fishing Tips</div>
+<div class="item-strategy">
+<span class="tip tip-bait">Stock up on Worms and Glow Worms before bundle fishing sessions</span>
+<span class="tip tip-bait">Fine Rod or Exquisite Rod is strongly recommended for Epic fish</span>
+<span class="tip tip-time">Time-gated fish: plan sessions around Dawn (6-8am), Evening (5-8pm), and Night (8pm-6am)</span>
+<span class="tip tip-location">Cave fish need Glow Worm bait and are found in specific cave zones</span>
+<span class="tip tip-general">Each in-game day ≈ 1.5 real hours — use time efficiently</span>
+</div></div>
+
+<div class="bundle-card">
+<div class="bundle-name">🦋 Bug Catching Tips</div>
+<div class="item-strategy">
+<span class="tip tip-method">Always carry Smoke Bombs — craft at Worktable or buy from Bug Catching Guild</span>
+<span class="tip tip-method">Honey Lures attract specific bug types to your position for easier catching</span>
+<span class="tip tip-method">Crouch-approach running bugs (crabs, beetles) before throwing Smoke Bomb</span>
+<span class="tip tip-method">Flying bugs (moths, dragonflies) — throw Smoke Bomb ahead of their flight path</span>
+<span class="tip tip-time">Many bundle bugs are Evening/Night only — plan accordingly</span>
+<span class="tip tip-rare">Epic bugs (Jewelwing Dragonfly, Ancient Amber Beetle) may take many attempts</span>
+</div></div>
+
+<div class="bundle-card">
+<div class="bundle-name">🍳 Cooking Tips</div>
+<div class="item-strategy">
+<span class="tip tip-cook">Check your recipe book — many bundle recipes unlock from Guild Stores or friendship quests</span>
+<span class="tip tip-cook">Some recipes require ingredients from other skills (fish, foraged items)</span>
+<span class="tip tip-cook">Cooking gives Focus buffs — use them while gathering bundle items!</span>
+<span class="tip tip-cook">Apple Pie & Blueberry Pie: Grow Apples and Blueberries in your garden first</span>
+<span class="tip tip-cook">Chapaa Masala: Requires Muujin Meat from hunting + Heat Root from foraging</span>
+<span class="tip tip-cook">Muujin Bahari: Multiple skill gates — hunting for Muujin + cooking skills needed</span>
+</div></div>
+
+<div class="bundle-card">
+<div class="bundle-name">⛏️ Mining & Foraging Tips</div>
+<div class="item-strategy">
+<span class="tip tip-rare">Emerald & Jasper: Epic starstones — random rare drops from mining nodes</span>
+<span class="tip tip-mine">Emerald from Palium nodes (Elderwood), Jasper from any node (rare)</span>
+<span class="tip tip-mine">Gold Bars: Mine Gold Ore (Bahari) → Smelt at Basic Smelter</span>
+<span class="tip tip-mine">Palium Bars: Mine Palium Ore (Elderwood) → Smelt — need 20 for Roots bundle!</span>
+<span class="tip tip-location">Heat Root: Rare forage in Bahari Bay — need 5 for Flames bundle</span>
+<span class="tip tip-location">Brightshroom: Rare forage in Bahari Bay — need 20 for Roots bundle!</span>
+<span class="tip tip-location">Dari Cloves: Epic forage in Bahari Bay — very rare, be patient</span>
+<span class="tip tip-location">Green Pearl: Epic forage in Bahari Bay — rare beach find</span>
+</div></div>
+
+<div class="bundle-card">
+<div class="bundle-name">🔍 Exploring Medallions</div>
+<div class="item-strategy">
+<span class="tip tip-cook">Each temple has an exploring medallion bundle (6 medallions each)</span>
+<span class="tip tip-cook">Medallions are found as glowing pickups in the overworld near their temple zone</span>
+<span class="tip tip-cook">Emberseeker Medallions: Found around the Flames temple area</span>
+<span class="tip tip-cook">Stormseeker Medallions: Found around the Gales temple area</span>
+<span class="tip tip-cook">Rootseeker Medallions: Found around the Roots temple area</span>
+<span class="tip tip-general">Medallions respawn — check back daily if you haven't found all 6</span>
+</div></div>
+
+<div class="bundle-card">
+<div class="bundle-name">🌱 Gardening Tips</div>
+<div class="item-strategy">
+<span class="tip tip-garden">Apples (×20 for Roots bundle): Plant Apple Seeds → harvest over multiple days</span>
+<span class="tip tip-garden">Apple seeds available from General Store or Gardening Guild</span>
+<span class="tip tip-garden">Use Quality Fertilizer to improve Apple yield per harvest</span>
+<span class="tip tip-general">Plan ahead — garden crops take real-time hours to grow!</span>
+</div></div>
+
+</div>
+
+
+<div class="footer">
+  <p>⛩️ Palia Temple Vault Bundle Guide · Data from palia.wiki.gg · Built by Nova</p>
+  <p style="margin-top:6px;">Last updated: April 2026 · 4 Temples · 16 Bundles · 55 Items · Complete Strategies</p>
+</div>
+</body></html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Palia — Honey Lure Money Guide</title>
+<style>
+:root {
+  --bg-deep: #0a0c14;
+  --bg-card: rgba(255,255,255,0.04);
+  --border: rgba(255,255,255,0.08);
+  --text: #e0e4ec;
+  --text-dim: #7a8399;
+  --accent-yellow: #fbbf24;
+  --accent-orange: #ff8c00;
+  --accent-cyan: #22d3ee;
+  --accent-green: #34d399;
+  --accent-blue: #4a9eff;
+  --accent-purple: #a78bfa;
+  --accent-red: #f87171;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--bg-deep); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; line-height:1.6; padding:20px; max-width:900px; margin:0 auto; }
+.header { text-align:center; padding:28px 0 20px; }
+.header h1 { font-size:2rem; background:linear-gradient(135deg,var(--accent-yellow),var(--accent-orange)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.header .sub { color:var(--text-dim); font-size:.92rem; margin-top:6px; }
+.header .icon { font-size:2.6rem; margin-bottom:6px; }
+.time-legend { display:flex; gap:6px; flex-wrap:wrap; justify-content:center; margin:14px 0 22px; }
+.time-bar { padding:5px 12px; border-radius:8px; font-size:.8rem; font-weight:600; }
+.time-dawn { background:rgba(251,191,36,.13); color:#fbbf24; border:1px solid rgba(251,191,36,.25); }
+.time-day { background:rgba(255,200,50,.1); color:#ffd700; border:1px solid rgba(255,200,50,.2); }
+.time-evening { background:rgba(255,140,0,.13); color:#ff8c00; border:1px solid rgba(255,140,0,.25); }
+.time-night { background:rgba(139,92,246,.13); color:#8b5cf6; border:1px solid rgba(139,92,246,.25); }
+.time-any { background:rgba(255,255,255,.05); color:var(--text-dim); border:1px solid var(--border); }
+.best-box { background:linear-gradient(135deg,rgba(251,191,36,.07),rgba(255,140,0,.07)); border:1px solid rgba(251,191,36,.22); border-radius:12px; padding:18px 22px; margin:0 0 22px; }
+.best-box h2 { color:var(--accent-yellow); font-size:1.2rem; margin-bottom:8px; }
+.best-box p { margin:4px 0; font-size:.92rem; }
+.best-box .highlight { color:var(--accent-yellow); font-weight:700; }
+.best-box .gold { color:var(--accent-orange); font-weight:700; }
+.spot { background:var(--bg-card); border:1px solid var(--border); border-radius:10px; margin-bottom:14px; overflow:hidden; }
+.spot-header { padding:12px 16px; display:flex; align-items:center; gap:10px; border-bottom:1px solid var(--border); }
+.spot-header .rank { width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:.85rem; flex-shrink:0; }
+.rank-1 { background:linear-gradient(135deg,#fbbf24,#ff8c00); color:#000; }
+.rank-2 { background:linear-gradient(135deg,#94a3b8,#64748b); color:#fff; }
+.rank-3 { background:linear-gradient(135deg,#b45309,#92400e); color:#fff; }
+.rank-4 { background:linear-gradient(135deg,var(--accent-green),#059669); color:#fff; }
+.rank-5 { background:linear-gradient(135deg,var(--accent-blue),#2563eb); color:#fff; }
+.spot-header h3 { font-size:1rem; }
+.spot-header .region { color:var(--text-dim); font-size:.82rem; margin-left:6px; }
+.where-box { padding:8px 16px; background:rgba(34,211,153,.06); border-bottom:1px solid var(--border); font-size:.85rem; color:var(--accent-green); }
+.where-box strong { color:var(--accent-green); }
+.spot-desc { padding:8px 16px; color:var(--text-dim); font-size:.88rem; border-bottom:1px solid var(--border); }
+table { width:100%; border-collapse:collapse; }
+th { text-align:left; padding:8px 12px; font-size:.75rem; text-transform:uppercase; letter-spacing:.05em; color:var(--text-dim); border-bottom:1px solid var(--border); }
+td { padding:7px 12px; border-bottom:1px solid var(--border); font-size:.88rem; }
+tr:last-child td { border-bottom:none; }
+.badge { display:inline-block; padding:2px 9px; border-radius:20px; font-size:.75rem; font-weight:600; }
+.badge-common { background:rgba(255,255,255,.06); color:var(--text-dim); }
+.badge-uncommon { background:rgba(34,211,153,.15); color:var(--accent-green); }
+.badge-rare { background:rgba(74,158,255,.15); color:var(--accent-blue); }
+.badge-epic { background:rgba(167,139,250,.2); color:var(--accent-purple); }
+.badge-legendary { background:rgba(251,191,36,.2); color:var(--accent-yellow); }
+.gold { color:var(--accent-yellow); font-weight:600; }
+.sq { color:var(--accent-cyan); font-weight:600; }
+.tip-box { background:rgba(251,191,36,.06); border:1px solid rgba(251,191,36,.18); border-radius:10px; padding:16px 20px; margin:18px 0; }
+.tip-box h3 { color:var(--accent-yellow); font-size:.98rem; margin-bottom:8px; }
+.tip-box p { margin:3px 0; font-size:.88rem; }
+.tip-box .label { color:var(--accent-yellow); font-weight:600; }
+.footer { text-align:center; padding:20px 0 10px; color:var(--text-dim); font-size:.78rem; border-top:1px solid var(--border); margin-top:24px; }
+.note { background:rgba(248,113,113,.08); border:1px solid rgba(248,113,113,.2); border-radius:10px; padding:14px 18px; margin:18px 0; font-size:.88rem; }
+.note strong { color:var(--accent-red); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="icon">🍯💰</div>
+  <h1>Honey Lure Money Guide</h1>
+  <div class="sub">Best in-game locations to maximize gold from insects using Honey Lure</div>
+</div>
+
+<div class="time-legend">
+  <span class="time-bar time-dawn">☀️ Dawn 6–8 AM</span>
+  <span class="time-bar time-day">🌤️ Day 8 AM–5 PM</span>
+  <span class="time-bar time-evening">🌅 Evening 5–8 PM</span>
+  <span class="time-bar time-night">🌙 Night 8 PM–6 AM</span>
+  <span class="time-bar time-any">⏰ Anytime</span>
+</div>
+
+<div class="note">
+  <strong>📍 Location names:</strong> Bug spawn zones use internal biome names (like "Bahari Fields"). This guide maps those to the <strong>in-game map area names</strong> you actually see on your screen — so "Bahari Fields" = Pulsewater Plains, "Bahari Forest" = The Outskirts/Flooded Steps area, etc.
+</div>
+
+<div class="best-box">
+  <h2>🏆 Best Overall: Pulsewater Plains (Bahari Bay)</h2>
+  <p>The <span class="highlight">Pulsewater Plains</span> fast travel area in Bahari Bay is the top Honey Lure spot. The <span class="highlight">Fairy Mantis</span> (Epic, <span class="gold">660✦</span>) spawns here <strong>anytime</strong>.</p>
+  <p>During <span class="highlight">Dawn/Day</span>, stand near the <span class="highlight">cliffs border</span> toward Pavel Mines for a chance at the <span class="highlight">Rainbow-tipped Butterfly</span> (Epic, <span class="gold">660✦</span>) — <strong>two Epics from one lure!</strong></p>
+</div>
+
+<div class="spot">
+  <div class="spot-header">
+    <div class="rank rank-1">#1</div>
+    <span style="font-size:1.3rem">🌾</span>
+    <h3>Pulsewater Plains <span class="region">Bahari Bay</span></h3>
+  </div>
+  <div class="where-box">📍 <strong>Go to:</strong> Head to Pulsewater Plains in southern Bahari Bay. The fast travel stable is here. <span style="color:var(--text-dim)">(spawn zone: Bahari Fields)</span></div>
+  <div class="spot-desc">Best overall spot. Fairy Mantis (Epic) spawns anytime — place lure in the open fields of Pulsewater Plains. <span class="sq">2573✦</span> total pool</div>
+  <table>
+    <thead><tr><th>Bug</th><th>Rarity</th><th>Base</th><th>Star ✦</th><th>Time</th><th>Behavior</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Fairy Mantis</strong></td><td><span class="badge badge-epic">Epic</span></td><td class="gold">440g</td><td class="sq">660✦</td><td><span class="badge time-any">Anytime</span></td><td>jumping</td></tr>
+      <tr><td><strong>Rainbow-tipped Butterfly</strong></td><td><span class="badge badge-epic">Epic</span></td><td class="gold">440g</td><td class="sq">660✦</td><td><span class="badge badge-dawn">Dawn, Day</span></td><td>flying</td></tr>
+      <tr><td><strong>Azure Stonehopper</strong></td><td><span class="badge badge-rare">Rare</span></td><td class="gold">150g</td><td class="sq">225✦</td><td><span class="badge time-any">Anytime</span></td><td>jumping</td></tr>
+      <tr><td><strong>Bahari Glowbug</strong></td><td><span class="badge badge-rare">Rare</span></td><td class="gold">145g</td><td class="sq">217✦</td><td><span class="badge badge-night">evening, night</span></td><td>flying</td></tr>
+      <tr><td><strong>Spitfire Cicada</strong></td><td><span class="badge badge-rare">Rare</span></td><td class="gold">145g</td><td class="sq">217✦</td><td><span class="badge badge-dawn">Dawn, Day</span></td><td>flying</td></tr>
+      <tr><td><strong>Scintillating Centipede</strong></td><td><span class="badge badge-rare">Rare</span></td><td class="gold">130g</td><td class="sq">195✦</td><td><span class="badge time-any">Anytime</span></td><td>running</td></tr>
+    </tbody></table>
+</div>
+
+<div class="spot">
+  <div class="spot-header">
+    <div class="rank rank-2">#2</div>
+    <span style="font-size:1.3rem">🌲</span>
+    <h3>The Outskirts <span class="region">Bahari Bay</span></h3>
+  </div>
+  <div class="where-box">📍 <strong>Go to:</strong> The forested area in northern Bahari Bay, near The Outskirts. <span style="color:var(--text-dim)">(spawn zone: Bahari Forest)</span></div>
+  <div class="spot-desc">Ancient Amber Beetle (Epic) spawns anytime in the forest. 3 Rare bugs as backup. <span class="sq">2081✦</span> total pool</div>
+  <table>
+    <thead><tr><th>Bug</th><th>Rarity</th><th>Base</th><th>Star ✦</th><th>Time</th><th>Behavior</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Ancient Amber Beetle</strong></td><td><span class="badge badge-epic">Epic</span></td><td class="gold">440g</td><td class="sq">660✦</td><td><span class="badge time-any">Anytime</span></td><td>running</td></tr>
+      <tr><td><strong>Spitfire Cicada</strong></td><td><span class="badge badge-rare">Rare</span></td><td class="gold">145g</td><td class="sq">217✦</td><td><span class="badge badge-dawn">Dawn, Day</span></td><td>flying</td></tr>
+      <tr><td><strong>Hairy Millipede</strong></td><td><span class="badge badge-rare">Rare</span></td><td class="gold">140g</td><td class="sq">210✦</td><td><span class="badge time-any">Anytime</span></td><td>running</td></tr>
+      <tr><td><strong>Leafstalker Mantis</strong></td><td><span class="badge badge-rare">Rare</span></td><td class="gold">140g</td><td class="sq">210✦</td><td><span class="badge time-any">Anytime</span></td><td>jumping</td></tr>
+      <tr><td><strong>Brighteye Butterfly</strong></td><td><span class="badge badge-rare">Rare</span></td><td class="gold">130g</td><td class="sq">195✦</td><td><span class="badge badge-dawn">Dawn, day</span></td><td>flying</td></tr>
+      <tr><td><strong>Scintillating Centipede</strong></td><td><span class="badge badge-rare">Rare</span></td><td class="gold">130g</td><td class="sq">195✦</td><td><span class="badge time-any">Anytime</span></td><td>running</td></tr>
+    </tbody></table>
+</div>
+
+<div class="spot">
+  <div class="spot-header">
+    <div class="rank rank-3">#3</div>
+    <span style="font-size:1.3rem">⛰️</span>
+    <h3>Cliffs Above Pavel Mines <span class="region">Bahari Bay</span></h3>
+  </div>
+  <div class="where-box">📍 <strong>Go to:</strong> The cliffs near Pavel Mines in Bahari Bay. <span style="color:var(--text-dim)">(spawn zone: Cliffs Above Pavel Mines)</span></div>
+  <div class="spot-desc">Guaranteed Epic spawn — only one bug (Jewelwing Dragonfly) can appear, so every lure bug is high value. <span class="sq">1515✦</span> total pool</div>
+  <table>
+    <thead><tr><th>Bug</th><th>Rarity</th><th>Base</th><th>Star ✦</th><th>Time</th><th>Behavior</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Jewelwing Dragonfly</strong></td><td><span class="badge badge-epic">Epic</span></td><td class="gold">440g</td><td class="sq">660✦</td><td><span class="badge time-any">Anytime</span></td><td>dashing</td></tr>
+      <tr><td><strong>Rainbow-tipped Butterfly</strong></td><td><span class="badge badge-epic">Epic</span></td><td class="gold">440g</td><td class="sq">660✦</td><td><span class="badge badge-dawn">Dawn, Day</span></td><td>flying</td></tr>
+      <tr><td><strong>Scintillating Centipede</strong></td><td><span class="badge badge-rare">Rare</span></td><td class="gold">130g</td><td class="sq">195✦</td><td><span class="badge time-any">Anytime</span></td><td>running</td></tr>
+    </tbody></table>
+</div>
+
+<div class="spot">
+  <div class="spot-header">
+    <div class="rank rank-4">#4</div>
+    <span style="font-size:1.3rem">🌾⛰️</span>
+    <h3>Pulsewater Plains (near cliffs border) <span class="region">Bahari Bay</span></h3>
+  </div>
+  <div class="where-box">📍 <strong>Go to:</strong> Edge of Pulsewater Plains where it meets the Pavel Mines cliff area. <span style="color:var(--text-dim)">(spawn zone: Bahari Fields + Cliffs Above Pavel Mines)</span></div>
+  <div class="spot-desc">PROTIP: Stand near the border of Pulsewater Plains and the Pavel Mines cliffs during Dawn/Day for a chance at TWO Epic bugs from one lure. <span class="sq">0✦</span> total pool</div>
+  <table>
+    <thead><tr><th>Bug</th><th>Rarity</th><th>Base</th><th>Star ✦</th><th>Time</th><th>Behavior</th></tr></thead>
+    <tbody>
+    </tbody></table>
+</div>
+
+<div class="spot">
+  <div class="spot-header">
+    <div class="rank rank-5">#5</div>
+    <span style="font-size:1.3rem">🏘️</span>
+    <h3>Mirror Fields <span class="region">Kilima Valley</span></h3>
+  </div>
+  <div class="where-box">📍 <strong>Go to:</strong> Mirror Fields in Kilima Valley. <span style="color:var(--text-dim)">(spawn zone: Kilima Fields)</span></div>
+  <div class="spot-desc">3 Rare bugs across different times — no Epics but good variety. Best option in Kilima. <span class="sq">952✦</span> total pool</div>
+  <table>
+    <thead><tr><th>Bug</th><th>Rarity</th><th>Base</th><th>Star ✦</th><th>Time</th><th>Behavior</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Firebreathing Dragonfly</strong></td><td><span class="badge badge-rare">Rare</span></td><td class="gold">150g</td><td class="sq">225✦</td><td><span class="badge time-any">Anytime</span></td><td>dashing</td></tr>
+      <tr><td><strong>Golden Glory Bee</strong></td><td><span class="badge badge-rare">Rare</span></td><td class="gold">150g</td><td class="sq">225✦</td><td><span class="badge badge-dawn">Dawn, Day</span></td><td>flying</td></tr>
+      <tr><td><strong>Gossamer Veil Moth</strong></td><td><span class="badge badge-rare">Rare</span></td><td class="gold">130g</td><td class="sq">195✦</td><td><span class="badge badge-night">Evening, Night</span></td><td>flying</td></tr>
+      <tr><td><strong>Garden Leafhopper</strong></td><td><span class="badge badge-uncommon">Uncommon</span></td><td class="gold">49g</td><td class="sq">73✦</td><td><span class="badge time-any">Anytime</span></td><td>jumping</td></tr>
+      <tr><td><strong>Proudhorned Stag Beetle</strong></td><td><span class="badge badge-uncommon">Uncommon</span></td><td class="gold">46g</td><td class="sq">69✦</td><td><span class="badge time-any">Anytime</span></td><td>running</td></tr>
+      <tr><td><strong>Garden Millipede</strong></td><td><span class="badge badge-uncommon">Uncommon</span></td><td class="gold">43g</td><td class="sq">64✦</td><td><span class="badge time-any">Anytime</span></td><td>running</td></tr>
+    </tbody></table>
+</div>
+
+<div class="tip-box">
+  <h3>🍯 Honey Lure Tips</h3>
+  <p><span class="label">Duration:</span> Lasts <strong>3 minutes</strong> — have your net ready before placing!</p>
+  <p><span class="label">Cost:</span> 75 Bug Catching tokens at the Guild Store (Level 10 to purchase, Level 7 for recipe)</p>
+  <p><span class="label">Craft:</span> 1× Gold Bar + 1× Dragon's Beard Peat + 4× Apple at Worktable</p>
+  <p><span class="label">Best move:</span> Pulsewater Plains near the Pavel Mines cliff border during <strong>Dawn/Day</strong> = 2× Epic bugs possible</p>
+  <p><span class="label">Night shift:</span> Evening/Night in Pulsewater Plains adds <strong>Bahari Glowbug</strong> (Rare, 217✦)</p>
+  <p><span class="label">Sell tip:</span> Always sell at <strong>star quality</strong> for the ✦ values shown</p>
+</div>
+
+<div class="footer">
+  🍯 Palia Honey Lure Money Guide — Data from Palia v0.196+ | 2026-04-20<br>
+  Nova • In-game location names verified against palia.wiki.gg
+</div>
+
+</body></html>

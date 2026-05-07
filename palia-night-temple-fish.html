@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Palia — Night Sky Temple Fish Guide</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg-deep: #0a0c14;
+      --bg-card: rgba(255,255,255,0.04);
+      --border: rgba(255,255,255,0.08);
+      --text: #e0e4ec;
+      --text-dim: #7a8399;
+      --accent-blue: #4a9eff;
+      --accent-green: #34d399;
+      --accent-yellow: #fbbf24;
+      --accent-purple: #a78bfa;
+      --accent-orange: #ff8c00;
+      --accent-red: #f87171;
+      --accent-cyan: #22d3ee;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+      background: var(--bg-deep);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 24px 16px 48px;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .header {
+      text-align: center;
+      padding: 28px 16px 20px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .header__icon { font-size: 32px; margin-bottom: 8px; }
+    .header__title {
+      font-size: 22px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #e0e4ec 0%, #4a9eff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .header__sub { font-size: 13px; color: var(--text-dim); margin-top: 6px; }
+
+    .vault {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .vault::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+    }
+    .vault__header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .vault__icon { font-size: 24px; }
+    .vault__title {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .bundle-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-dim);
+      margin: 16px 0 8px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid var(--border);
+    }
+    .bundle-label:first-of-type { margin-top: 0; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    th {
+      text-align: left;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-dim);
+      padding: 6px 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    td {
+      padding: 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      vertical-align: middle;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255,255,255,0.02); }
+
+    .fish-name { font-weight: 600; color: var(--text); }
+    .location { color: var(--text-dim); font-size: 13px; }
+    .time { color: var(--text-dim); font-size: 13px; }
+
+    .bait {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .bait--glow { background: rgba(34,211,238,0.12); color: #22d3ee; border: 1px solid rgba(34,211,238,0.2); }
+    .bait--worm { background: rgba(251,191,36,0.1); color: #fbbf24; border: 1px solid rgba(251,191,36,0.2); }
+    .bait--none { background: rgba(255,255,255,0.05); color: var(--text-dim); border: 1px solid rgba(255,255,255,0.06); }
+
+    .rod-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+    .rod--fine { background: rgba(74,158,255,0.1); color: var(--accent-blue); border: 1px solid rgba(74,158,255,0.15); }
+    .rod--standard { background: rgba(255,255,255,0.04); color: var(--text-dim); border: 1px solid rgba(255,255,255,0.06); }
+
+    .tip-box {
+      background: rgba(251,191,36,0.06);
+      border: 1px solid rgba(251,191,36,0.12);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-top: 24px;
+      font-size: 13px;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+    .tip-box strong { color: var(--accent-yellow); }
+
+    .vault--waves { border-left: 3px solid var(--accent-blue); }
+    .vault--flames { border-left: 3px solid var(--accent-orange); }
+    .vault--gales { border-left: 3px solid var(--accent-cyan); }
+    .vault--roots { border-left: 3px solid var(--accent-green); }
+
+    .vault--waves .vault__title { color: var(--accent-blue); }
+    .vault--flames .vault__title { color: var(--accent-orange); }
+    .vault--gales .vault__title { color: var(--accent-cyan); }
+    .vault--roots .vault__title { color: var(--accent-green); }
+
+    .legend {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .legend::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+    }
+    .legend__title {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-dim);
+      margin-bottom: 12px;
+    }
+    .legend__grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+    .legend__row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+    }
+    .legend__time {
+      min-width: 90px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .legend__range {
+      color: var(--text-dim);
+      font-size: 13px;
+      font-variant-numeric: tabular-nums;
+    }
+    .legend__bar {
+      flex: 1;
+      height: 6px;
+      border-radius: 3px;
+      position: relative;
+      background: rgba(255,255,255,0.04);
+    }
+    .legend__bar-fill {
+      height: 100%;
+      border-radius: 3px;
+    }
+    .legend__note {
+      margin-top: 10px;
+      font-size: 12px;
+      color: var(--text-dim);
+      line-height: 1.5;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-top: 32px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="header__icon">🏛️</div>
+    <div class="header__title">Night Sky Temple — Fish Guide</div>
+    <div class="header__sub">All fish required to complete every bundle in each vault</div>
+  </div>
+
+  <!-- Time Legend -->
+  <div class="legend">
+    <div class="legend__title">🕐 In-Game Time Periods</div>
+    <div class="legend__grid">
+      <div class="legend__row">
+        <span class="legend__time">🌅 Dawn</span>
+        <span class="legend__range">6:00 AM – 8:00 AM</span>
+        <div class="legend__bar"><div class="legend__bar-fill" style="width:12%; background: linear-gradient(90deg, #fbbf24, #ff8c00);"></div></div>
+      </div>
+      <div class="legend__row">
+        <span class="legend__time">☀️ Day</span>
+        <span class="legend__range">8:00 AM – 5:00 PM</span>
+        <div class="legend__bar"><div class="legend__bar-fill" style="width:58%; background: linear-gradient(90deg, #fbbf24, #f59e0b);"></div></div>
+      </div>
+      <div class="legend__row">
+        <span class="legend__time">🌇 Evening</span>
+        <span class="legend__range">5:00 PM – 8:00 PM</span>
+        <div class="legend__bar"><div class="legend__bar-fill" style="width:19%; background: linear-gradient(90deg, #ff8c00, #f87171);"></div></div>
+      </div>
+      <div class="legend__row">
+        <span class="legend__time">🌙 Night</span>
+        <span class="legend__range">8:00 PM – 6:00 AM</span>
+        <div class="legend__bar"><div class="legend__bar-fill" style="width:33%; background: linear-gradient(90deg, #6366f1, #4338ca);"></div></div>
+      </div>
+      <div class="legend__row">
+        <span class="legend__time">⏰ Anytime</span>
+        <span class="legend__range">Available 24/7</span>
+        <div class="legend__bar"><div class="legend__bar-fill" style="width:100%; background: linear-gradient(90deg, #34d399, #4a9eff, #a78bfa);"></div></div>
+      </div>
+    </div>
+    <div class="legend__note">1 in-game day ≈ 1.5 real-time hours. Dawn and Evening are short windows — plan accordingly for time-gated fish.</div>
+  </div>
+
+  <!-- VAULT OF THE WAVES -->
+  <div class="vault vault--waves">
+    <div class="vault__header">
+      <div class="vault__icon">🌊</div>
+      <div class="vault__title">Vault of the Waves</div>
+    </div>
+
+    <div class="bundle-label">Spooky Bundle</div>
+    <table>
+      <thead><tr><th>Fish</th><th>Location</th><th>Time</th><th>Bait</th><th>Rod</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="fish-name">Mutated Angler</td>
+          <td class="location">Bahari Bay Caves</td>
+          <td class="time">Anytime</td>
+          <td><span class="bait bait--worm">Worm</span></td>
+          <td><span class="rod-badge rod--fine">Fine+</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Void Ray</td>
+          <td class="location">Bahari Bay Caves</td>
+          <td class="time">Anytime</td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="rod-badge rod--fine">Fine+</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="bundle-label">Beach Bundle</div>
+    <table>
+      <thead><tr><th>Fish</th><th>Location</th><th>Time</th><th>Bait</th><th>Rod</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="fish-name">Blue Marlin</td>
+          <td class="location">Bahari Bay Coast</td>
+          <td class="time">Anytime</td>
+          <td><span class="bait bait--worm">Worm</span></td>
+          <td><span class="rod-badge rod--fine">Fine+</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="bundle-label">Freshwater Bundle</div>
+    <table>
+      <thead><tr><th>Fish</th><th>Location</th><th>Time</th><th>Bait</th><th>Rod</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="fish-name">Giant Goldfish</td>
+          <td class="location">Ponds (Kilima & Bahari)</td>
+          <td class="time">Anytime</td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="rod-badge rod--fine">Fine+</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="bundle-label">Magic Bundle</div>
+    <table>
+      <thead><tr><th>Fish</th><th>Location</th><th>Time</th><th>Bait</th><th>Rod</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="fish-name">Enchanted Pupfish</td>
+          <td class="location">Kilima Village Lakes</td>
+          <td class="time">Anytime</td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="rod-badge rod--fine">Fine+</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Shimmerfin</td>
+          <td class="location">Kilima Village Lakes</td>
+          <td class="time">Anytime</td>
+          <td><span class="bait bait--worm">Worm</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Long Nosed Unicorn Fish</td>
+          <td class="location">Bahari Bay Coast</td>
+          <td class="time">Day</td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="rod-badge rod--fine">Fine+</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- VAULT OF THE FLAMES -->
+  <div class="vault vault--flames">
+    <div class="vault__header">
+      <div class="vault__icon">🔥</div>
+      <div class="vault__title">Vault of the Flames</div>
+    </div>
+
+    <div class="bundle-label">Flamerod Bundle</div>
+    <table>
+      <thead><tr><th>Fish</th><th>Location</th><th>Time</th><th>Bait</th><th>Rod</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="fish-name">Radiant Sunfish</td>
+          <td class="location">Kilima Village Rivers</td>
+          <td class="time">Anytime</td>
+          <td><span class="bait bait--worm">Worm</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Flametongue Ray</td>
+          <td class="location">Kilima Village Rivers</td>
+          <td class="time">Dawn, Day</td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="rod-badge rod--fine">Fine+</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Striped Sturgeon</td>
+          <td class="location">Kilima Village Lakes</td>
+          <td class="time">Dawn, Night</td>
+          <td><span class="bait bait--worm">Worm</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Dawnray</td>
+          <td class="location">Bahari Bay River</td>
+          <td class="time">Dawn</td>
+          <td><span class="bait bait--none">No Bait</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- VAULT OF THE GALES -->
+  <div class="vault vault--gales">
+    <div class="vault__header">
+      <div class="vault__icon">🌀</div>
+      <div class="vault__title">Vault of the Gales</div>
+    </div>
+
+    <div class="bundle-label">Cloudcurrent Bundle</div>
+    <table>
+      <thead><tr><th>Fish</th><th>Location</th><th>Time</th><th>Bait</th><th>Rod</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="fish-name">Rainbow Trout</td>
+          <td class="location">Kilima Village Rivers</td>
+          <td class="time">Anytime</td>
+          <td><span class="bait bait--none">No Bait</span></td>
+          <td><span class="rod-badge rod--standard">Standard</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Thundering Eel</td>
+          <td class="location">Bahari Bay River</td>
+          <td class="time">Anytime</td>
+          <td><span class="bait bait--worm">Worm</span></td>
+          <td><span class="rod-badge rod--fine">Fine+</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Giant Kilima Stingray</td>
+          <td class="location">Kilima Village Lakes</td>
+          <td class="time">Dawn, Day, Evening</td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="rod-badge rod--fine">Fine+</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Stormray</td>
+          <td class="location">Bahari Bay River</td>
+          <td class="time">Dawn, Evening</td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="rod-badge rod--fine">Fine+</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- VAULT OF THE ROOTS -->
+  <div class="vault vault--roots">
+    <div class="vault__header">
+      <div class="vault__icon">🌿</div>
+      <div class="vault__title">Vault of the Roots</div>
+    </div>
+
+    <div class="bundle-label">Creatures of the Abyss Bundle</div>
+    <table>
+      <thead><tr><th>Fish</th><th>Location</th><th>Time</th><th>Bait</th><th>Rod</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="fish-name">Stonefish</td>
+          <td class="location">Bahari Bay Caves</td>
+          <td class="time">Anytime</td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="rod-badge rod--fine">Fine+</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Hypnotic Moray</td>
+          <td class="location">Bahari Bay Caves</td>
+          <td class="time">Anytime</td>
+          <td><span class="bait bait--glow">Glow Worm</span></td>
+          <td><span class="rod-badge rod--fine">Fine+</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Quick Tips -->
+  <div class="tip-box">
+    <strong>💡 Quick Tips</strong><br>
+    • Glow Worm is the most needed bait — stock up by digging at night<br>
+    • Fine Rod or better is recommended for all rare/epic fish (cave fish, stingrays, rays)<br>
+    • Standard Rod works for: Shimmerfin, Radiant Sunfish, Striped Sturgeon, Dawnray, Rainbow Trout<br>
+    • Bahari Bay Caves are the hotspot for the hardest fish (Mutated Angler, Void Ray, Stonefish, Hypnotic Moray)<br>
+    • Time-gated fish: Dawnray (dawn only), Long Nosed Unicorn Fish (day only), Stormray (dawn/evening), Flametongue Ray (dawn/day)<br>
+    • Giant Kilima Stingray is available most of the day (dawn/day/evening) but requires Glow Worm
+  </div>
+
+  <div class="footer">
+    Nova · Palia Night Temple Fish Reference · 2026-04-16
+  </div>
+
+</body>
+</html>

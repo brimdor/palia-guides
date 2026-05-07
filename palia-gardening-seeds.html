@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Palia Gardening &amp; Seeds Guide</title>
+<style>
+  :root {
+    --bg-deep: #0a0c14;
+    --bg-card: rgba(255,255,255,0.04);
+    --border: rgba(255,255,255,0.08);
+    --text: #e0e4ec;
+    --text-dim: #7a8399;
+    --accent-green: #34d399;
+    --accent-blue: #4a9eff;
+    --accent-cyan: #22d3ee;
+    --accent-yellow: #fbbf24;
+    --accent-orange: #ff8c00;
+    --accent-red: #f87171;
+    --accent-purple: #a78bfa;
+    --accent-pink: #f472b6;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg-deep);
+    color: var(--text);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .header {
+    text-align: center;
+    padding: 40px 20px 30px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 30px;
+  }
+  .header h1 {
+    font-size: 2.2em;
+    background: linear-gradient(135deg, var(--accent-green), var(--accent-cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 8px;
+  }
+  .header .subtitle {
+    color: var(--text-dim);
+    font-size: 1.1em;
+  }
+  .header .emoji { font-size: 2em; margin-bottom: 10px; }
+
+  .section {
+    margin-bottom: 30px;
+  }
+  .section-title {
+    font-size: 1.4em;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title .icon { font-size: 1.2em; }
+
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+  .card--green { border-left: 3px solid var(--accent-green); }
+  .card--blue { border-left: 3px solid var(--accent-blue); }
+  .card--cyan { border-left: 3px solid var(--accent-cyan); }
+  .card--yellow { border-left: 3px solid var(--accent-yellow); }
+  .card--orange { border-left: 3px solid var(--accent-orange); }
+  .card--purple { border-left: 3px solid var(--accent-purple); }
+  .card--red { border-left: 3px solid var(--accent-red); }
+  .card--pink { border-left: 3px solid var(--accent-pink); }
+
+  .card h3 {
+    font-size: 1.15em;
+    margin-bottom: 10px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88em;
+  }
+  th {
+    background: rgba(255,255,255,0.06);
+    text-align: left;
+    padding: 10px 12px;
+    font-weight: 600;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    font-size: 0.8em;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  td {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+  tr:hover td {
+    background: rgba(255,255,255,0.02);
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 0.78em;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .badge--water {
+    background: rgba(74,158,255,0.15);
+    color: var(--accent-blue);
+    border: 1px solid rgba(74,158,255,0.25);
+  }
+  .badge--harvest {
+    background: rgba(251,191,36,0.15);
+    color: var(--accent-yellow);
+    border: 1px solid rgba(251,191,36,0.25);
+  }
+  .badge--weed {
+    background: rgba(52,211,153,0.15);
+    color: var(--accent-green);
+    border: 1px solid rgba(52,211,153,0.25);
+  }
+  .badge--quality {
+    background: rgba(167,139,250,0.15);
+    color: var(--accent-purple);
+    border: 1px solid rgba(167,139,250,0.25);
+  }
+  .badge--growth {
+    background: rgba(34,211,238,0.15);
+    color: var(--accent-cyan);
+    border: 1px solid rgba(34,211,238,0.25);
+  }
+  .badge--none {
+    background: rgba(255,255,255,0.05);
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+  }
+  .badge--common {
+    background: rgba(255,255,255,0.06);
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+  }
+  .badge--uncommon {
+    background: rgba(52,211,153,0.12);
+    color: var(--accent-green);
+    border: 1px solid rgba(52,211,153,0.2);
+  }
+  .badge--rare {
+    background: rgba(74,158,255,0.12);
+    color: var(--accent-blue);
+    border: 1px solid rgba(74,158,255,0.2);
+  }
+  .badge--epic {
+    background: rgba(167,139,250,0.15);
+    color: var(--accent-purple);
+    border: 1px solid rgba(167,139,250,0.25);
+  }
+  .badge--1x1 {
+    background: rgba(52,211,153,0.1);
+    color: var(--accent-green);
+    border: 1px solid rgba(52,211,153,0.2);
+  }
+  .badge--2x2 {
+    background: rgba(251,191,36,0.1);
+    color: var(--accent-yellow);
+    border: 1px solid rgba(251,191,36,0.2);
+  }
+  .badge--3x3 {
+    background: rgba(248,113,113,0.1);
+    color: var(--accent-red);
+    border: 1px solid rgba(248,113,113,0.2);
+  }
+  .badge--gold {
+    background: rgba(251,191,36,0.12);
+    color: var(--accent-yellow);
+    border: 1px solid rgba(251,191,36,0.2);
+  }
+
+  .multi-harvest {
+    color: var(--accent-cyan);
+    font-weight: 600;
+  }
+  .single-harvest {
+    color: var(--text-dim);
+  }
+
+  .tip-box {
+    background: rgba(251,191,36,0.06);
+    border: 1px solid rgba(251,191,36,0.15);
+    border-left: 3px solid var(--accent-yellow);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 20px 0;
+  }
+  .tip-box h4 {
+    color: var(--accent-yellow);
+    margin-bottom: 8px;
+    font-size: 1em;
+  }
+  .tip-box ul {
+    margin-left: 18px;
+  }
+  .tip-box li {
+    margin-bottom: 4px;
+    font-size: 0.92em;
+  }
+  .tip-box p {
+    font-size: 0.92em;
+    margin-bottom: 6px;
+  }
+
+  .buff-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 12px;
+    margin: 15px 0;
+  }
+  .buff-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+  }
+  .buff-item .buff-name {
+    font-weight: 700;
+    margin-bottom: 6px;
+    font-size: 1em;
+  }
+  .buff-item .buff-crops {
+    font-size: 0.85em;
+    color: var(--text-dim);
+  }
+
+  .seed-collector-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+    margin: 15px 0;
+  }
+  .sc-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .sc-input {
+    color: var(--accent-orange);
+    font-weight: 600;
+  }
+  .sc-arrow {
+    color: var(--text-dim);
+    font-size: 1.2em;
+  }
+  .sc-output {
+    color: var(--accent-green);
+    font-weight: 600;
+  }
+  .sc-time {
+    color: var(--text-dim);
+    font-size: 0.82em;
+    margin-left: auto;
+  }
+
+  .layout-diagram {
+    display: inline-grid;
+    gap: 3px;
+    padding: 8px;
+    background: rgba(255,255,255,0.02);
+    border-radius: 6px;
+    margin: 8px 0;
+  }
+  .layout-cell {
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85em;
+    font-weight: 700;
+  }
+  .cell--water { background: rgba(74,158,255,0.2); color: var(--accent-blue); }
+  .cell--harvest { background: rgba(251,191,36,0.2); color: var(--accent-yellow); }
+  .cell--weed { background: rgba(52,211,153,0.2); color: var(--accent-green); }
+  .cell--quality { background: rgba(167,139,250,0.2); color: var(--accent-purple); }
+  .cell--growth { background: rgba(34,211,238,0.2); color: var(--accent-cyan); }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 12px 0;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85em;
+  }
+  .legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+  }
+
+  .footer {
+    text-align: center;
+    padding: 30px 20px;
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+    color: var(--text-dim);
+    font-size: 0.85em;
+  }
+
+  @media (max-width: 700px) {
+    body { padding: 10px; }
+    .header h1 { font-size: 1.5em; }
+    table { font-size: 0.78em; }
+    th, td { padding: 6px; }
+    .buff-grid, .seed-collector-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="emoji">🌱🧑‍🌾</div>
+  <h1>Palia Gardening &amp; Seeds Guide</h1>
+  <div class="subtitle">Complete seed reference, garden buffs, fertilizer &amp; layout planner</div>
+</div>
+
+<!-- BUFF OVERVIEW -->
+<div class="section">
+  <div class="section-title">
+    <span class="icon">✨</span> Garden Buff Types
+  </div>
+  <p style="margin-bottom:12px; color:var(--text-dim); font-size:0.92em;">
+    Each crop gives a <strong>buff to adjacent crops of a different type</strong>. Buffs don't stack with fertilizer — choose one or the other. Crops only affect orthogonally adjacent tiles (not diagonal). 2x2 crops need 2 buffing neighbors; 3x3 crops need 3.
+  </p>
+
+  <div class="buff-grid">
+    <div class="buff-item">
+      <div class="buff-name"><span class="badge badge--water">Water Retain</span></div>
+      <div class="buff-crops">
+        <strong>1×1:</strong> Potato • Napa Cabbage • Tomato<br>
+        <strong>Effect:</strong> Adjacent crops stay watered — no need to water them daily
+      </div>
+    </div>
+    <div class="buff-item">
+      <div class="buff-name"><span class="badge badge--harvest">Harvest Boost</span></div>
+      <div class="buff-crops">
+        <strong>1×1:</strong> Wheat • Rice • Corn<br>
+        <strong>2×2:</strong> Blueberries • Batterfly Beans<br>
+        <strong>3×3:</strong> Apple<br>
+        <strong>Effect:</strong> +50% extra crop yield on harvest (same as HarvestBoost Fertilizer)
+      </div>
+    </div>
+    <div class="buff-item">
+      <div class="buff-name"><span class="badge badge--weed">Weed Block</span></div>
+      <div class="buff-crops">
+        <strong>1×1:</strong> Carrot • Onion • Bok Choy<br>
+        <strong>Effect:</strong> Prevents knapweed from growing on adjacent crops
+      </div>
+    </div>
+    <div class="buff-item">
+      <div class="buff-name"><span class="badge badge--quality">Quality Boost</span></div>
+      <div class="buff-crops">
+        <strong>1×1:</strong> Cotton<br>
+        <strong>2×2:</strong> Spicy Pepper • Rockhopper Pumpkin<br>
+        <strong>Effect:</strong> Increases chance of Star Quality crop on harvest
+      </div>
+    </div>
+    <div class="buff-item">
+      <div class="buff-name"><span class="badge badge--growth">Growth Boost</span></div>
+      <div class="buff-crops">
+        <em>Not available from any crop</em> — only from <strong>SpeedyGro Fertilizer</strong><br>
+        <strong>Effect:</strong> For every 2 days of growth, grants 1 bonus day (≈1.5× speed)
+      </div>
+    </div>
+    <div class="buff-item">
+      <div class="buff-name"><span class="badge badge--none">No Buff</span></div>
+      <div class="buff-crops">
+        <strong>1×1:</strong> Lettuce<br>
+        <strong>Effect:</strong> None — receives buffs from neighbors but gives none
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 1x1 SEEDS TABLE -->
+<div class="section">
+  <div class="section-title">
+    <span class="icon">🌾</span> 1×1 Seeds — Single Tile Crops
+  </div>
+  <div class="card card--green">
+    <table>
+      <thead>
+        <tr>
+          <th>Crop</th>
+          <th>Growth Time</th>
+          <th>Base Yield</th>
+          <th>Boosted Yield</th>
+          <th>Garden Buff</th>
+          <th>Store Cost</th>
+          <th>Multi-Harvest?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Carrot</strong></td>
+          <td>3 Days</td>
+          <td>2</td>
+          <td>3</td>
+          <td><span class="badge badge--weed">Weed Block</span></td>
+          <td><span class="badge badge--gold">15g</span></td>
+          <td class="single-harvest">Single</td>
+        </tr>
+        <tr>
+          <td><strong>Rice</strong></td>
+          <td>3 Days</td>
+          <td>2</td>
+          <td>3</td>
+          <td><span class="badge badge--harvest">Harvest Boost</span></td>
+          <td><span class="badge badge--gold">23g</span></td>
+          <td class="single-harvest">Single</td>
+        </tr>
+        <tr>
+          <td><strong>Wheat</strong></td>
+          <td>4 Days</td>
+          <td>2</td>
+          <td>3</td>
+          <td><span class="badge badge--harvest">Harvest Boost</span></td>
+          <td><span class="badge badge--gold">25g</span></td>
+          <td class="single-harvest">Single</td>
+        </tr>
+        <tr>
+          <td><strong>Onion</strong></td>
+          <td>4 Days</td>
+          <td>2</td>
+          <td>3</td>
+          <td><span class="badge badge--weed">Weed Block</span></td>
+          <td><span class="badge badge--gold">20g</span></td>
+          <td class="single-harvest">Single</td>
+        </tr>
+        <tr>
+          <td><strong>Bok Choy</strong></td>
+          <td>3 Days</td>
+          <td>2</td>
+          <td>3</td>
+          <td><span class="badge badge--weed">Weed Block</span></td>
+          <td><span class="badge badge--gold">30g</span></td>
+          <td class="single-harvest">Single</td>
+        </tr>
+        <tr>
+          <td><strong>Potato</strong></td>
+          <td>5 Days</td>
+          <td>2</td>
+          <td>3</td>
+          <td><span class="badge badge--water">Water Retain</span></td>
+          <td><span class="badge badge--gold">40g</span></td>
+          <td class="single-harvest">Single</td>
+        </tr>
+        <tr>
+          <td><strong>Corn</strong></td>
+          <td>5 Days</td>
+          <td>2</td>
+          <td>3</td>
+          <td><span class="badge badge--harvest">Harvest Boost</span></td>
+          <td><span class="badge badge--gold">30g</span></td>
+          <td class="single-harvest">Single</td>
+        </tr>
+        <tr>
+          <td><strong>Cotton</strong></td>
+          <td>5 Days</td>
+          <td>2</td>
+          <td>3</td>
+          <td><span class="badge badge--quality">Quality Boost</span></td>
+          <td><span class="badge badge--gold">40g</span></td>
+          <td class="single-harvest">Single</td>
+        </tr>
+        <tr>
+          <td><strong>Lettuce</strong></td>
+          <td>6 Days</td>
+          <td>—</td>
+          <td>—</td>
+          <td><span class="badge badge--none">None</span></td>
+          <td><span class="badge badge--common">Unavailable</span></td>
+          <td class="single-harvest">Single</td>
+        </tr>
+        <tr>
+          <td><strong>Napa Cabbage</strong></td>
+          <td>6 Days</td>
+          <td>2</td>
+          <td>3</td>
+          <td><span class="badge badge--water">Water Retain</span></td>
+          <td><span class="badge badge--gold">20g</span></td>
+          <td class="single-harvest">Single</td>
+        </tr>
+        <tr>
+          <td><strong>🍅 Tomato</strong></td>
+          <td class="multi-harvest">4 + 2 + 2 + 2 Days</td>
+          <td>2</td>
+          <td>3</td>
+          <td><span class="badge badge--water">Water Retain</span></td>
+          <td><span class="badge badge--gold">80g</span></td>
+          <td class="multi-harvest">✦ Multi</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 2x2 SEEDS TABLE -->
+<div class="section">
+  <div class="section-title">
+    <span class="icon">🫐</span> 2×2 Seeds — Four-Tile Crops
+  </div>
+  <p style="margin-bottom:8px; color:var(--text-dim); font-size:0.88em;">
+    These crops occupy a 2×2 area and need <strong>2 adjacent buffing crops</strong> of another type to receive their buff. All are multi-harvest.
+  </p>
+  <div class="card card--yellow">
+    <table>
+      <thead>
+        <tr>
+          <th>Crop</th>
+          <th>Growth Time</th>
+          <th>Base Yield</th>
+          <th>Boosted Yield</th>
+          <th>Garden Buff</th>
+          <th>Store Cost</th>
+          <th>Multi-Harvest?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>🫘 Batterfly Beans</strong></td>
+          <td class="multi-harvest">6 + 2 + 2 + 2 Days</td>
+          <td>6</td>
+          <td>9</td>
+          <td><span class="badge badge--harvest">Harvest Boost</span></td>
+          <td><span class="badge badge--gold">—</span></td>
+          <td class="multi-harvest">✦ Multi</td>
+        </tr>
+        <tr>
+          <td><strong>🌶️ Spicy Pepper</strong></td>
+          <td class="multi-harvest">6 + 3 + 3 + 3 Days</td>
+          <td>6</td>
+          <td>9</td>
+          <td><span class="badge badge--quality">Quality Boost</span></td>
+          <td><span class="badge badge--gold">170g</span></td>
+          <td class="multi-harvest">✦ Multi</td>
+        </tr>
+        <tr>
+          <td><strong>🫐 Blueberries</strong></td>
+          <td class="multi-harvest">9 + 3 + 3 + 3 Days</td>
+          <td>6</td>
+          <td>9</td>
+          <td><span class="badge badge--harvest">Harvest Boost</span></td>
+          <td><span class="badge badge--common">Guild Reward</span></td>
+          <td class="multi-harvest">✦ Multi</td>
+        </tr>
+        <tr>
+          <td><strong>🎃 Rockhopper Pumpkin</strong></td>
+          <td class="multi-harvest">9 + 2 + 2 + 2 Days</td>
+          <td>2</td>
+          <td>3</td>
+          <td><span class="badge badge--quality">Quality Boost</span></td>
+          <td><span class="badge badge--common">Guild Reward</span></td>
+          <td class="multi-harvest">✦ Multi</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 3x3 SEEDS TABLE -->
+<div class="section">
+  <div class="section-title">
+    <span class="icon">🍎</span> 3×3 Seeds — Nine-Tile Crops
+  </div>
+  <p style="margin-bottom:8px; color:var(--text-dim); font-size:0.88em;">
+    Occupies a 3×3 area. Needs <strong>3 adjacent buffing crops</strong> of another type. Multi-harvest with the longest growth cycle.
+  </p>
+  <div class="card card--red">
+    <table>
+      <thead>
+        <tr>
+          <th>Crop</th>
+          <th>Growth Time</th>
+          <th>Base Yield</th>
+          <th>Boosted Yield</th>
+          <th>Garden Buff</th>
+          <th>Store Cost</th>
+          <th>Multi-Harvest?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>🍎 Apple</strong></td>
+          <td class="multi-harvest">12 + 6 + 6 + 6 Days</td>
+          <td>16</td>
+          <td>24</td>
+          <td><span class="badge badge--harvest">Harvest Boost</span></td>
+          <td><span class="badge badge--common">Guild Reward</span></td>
+          <td class="multi-harvest">✦ Multi</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- MULTI-HARVEST EXPLAINER -->
+<div class="section">
+  <div class="section-title">
+    <span class="icon">♻️</span> Multi-Harvest Crops Explained
+  </div>
+  <div class="card card--cyan">
+    <p style="margin-bottom:10px;">Multi-harvest crops have a format like <strong>4 + 2 + 2 + 2 Days</strong>:</p>
+    <table>
+      <thead>
+        <tr><th>Phase</th><th>Days</th><th>What Happens</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>First Harvest</strong></td><td>4 days</td><td>Plant → grow for 4 days → harvest once</td></tr>
+        <tr><td><strong>Regrowth 1</strong></td><td>2 days</td><td>Regrows automatically → harvest again</td></tr>
+        <tr><td><strong>Regrowth 2</strong></td><td>2 days</td><td>Regrows → harvest again</td></tr>
+        <tr><td><strong>Regrowth 3</strong></td><td>2 days</td><td>Regrows → final harvest, plant dies</td></tr>
+      </tbody>
+    </table>
+    <div class="tip-box" style="margin-top:15px;">
+      <h4>💡 Key Insight</h4>
+      <p>Tomato = 4 harvests total over 10 days. Each harvest yields 2-3 tomatoes. That's 8-12 tomatoes from one 80g seed — much better profit per tile than single-harvest crops!</p>
+    </div>
+  </div>
+</div>
+
+<!-- SEED COLLECTOR -->
+<div class="section">
+  <div class="section-title">
+    <span class="icon">🔧</span> Seed Collector — Crop-to-Seed Conversions
+  </div>
+  <p style="margin-bottom:8px; color:var(--text-dim); font-size:0.88em;">
+    Unlocked at <strong>Gardening Level 5</strong> from Badruu (1,000g recipe). Craft at the Worktable. <strong>Never rely on random seed drops</strong> — this is your guaranteed seed source!
+  </p>
+  <div class="card card--orange">
+    <table>
+      <thead>
+        <tr>
+          <th>Input Crop</th>
+          <th>Qty Needed</th>
+          <th>Output Seeds</th>
+          <th>Craft Time</th>
+          <th>Ratio</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Carrot</td><td>1</td><td>4</td><td>18 min</td><td style="color:var(--accent-green);">4:1 ✦</td></tr>
+        <tr><td>Rice</td><td>1</td><td>4</td><td>42 min</td><td style="color:var(--accent-green);">4:1 ✦</td></tr>
+        <tr><td>Bok Choy</td><td>1</td><td>4</td><td>1h 12min</td><td style="color:var(--accent-green);">4:1 ✦</td></tr>
+        <tr><td>Cotton</td><td>1</td><td>3</td><td>36 min</td><td style="color:var(--accent-green);">3:1 ✦</td></tr>
+        <tr><td>Onion</td><td>1</td><td>4</td><td>24 min</td><td style="color:var(--accent-green);">4:1 ✦</td></tr>
+        <tr><td>Wheat</td><td>1</td><td>4</td><td>42 min</td><td style="color:var(--accent-green);">4:1 ✦</td></tr>
+        <tr><td>Corn</td><td>1</td><td>4</td><td>48 min</td><td style="color:var(--accent-green);">4:1 ✦</td></tr>
+        <tr><td>Potato</td><td>1</td><td>4</td><td>1h 24min</td><td style="color:var(--accent-green);">4:1 ✦</td></tr>
+        <tr><td>Napa Cabbage</td><td>1</td><td>6</td><td>48 min</td><td style="color:var(--accent-green); font-weight:700;">6:1 ✦✦</td></tr>
+        <tr><td>Rockhopper Pumpkin</td><td>1</td><td>4</td><td>1h 40min</td><td style="color:var(--accent-green);">4:1 ✦</td></tr>
+        <tr><td>🍅 Tomato</td><td>3</td><td>2</td><td>30 min</td><td style="color:var(--accent-yellow);">0.67:1</td></tr>
+        <tr><td>🫐 Blueberries</td><td>4</td><td>2</td><td>1h 21min</td><td style="color:var(--accent-yellow);">0.5:1</td></tr>
+        <tr><td>🌶️ Spicy Pepper</td><td>4</td><td>2</td><td>1h 40min</td><td style="color:var(--accent-yellow);">0.5:1</td></tr>
+        <tr><td>🫘 Batterfly Beans</td><td>2</td><td>1</td><td>1h 25min</td><td style="color:var(--accent-red);">0.5:1</td></tr>
+        <tr><td>🍎 Apple</td><td>10</td><td>1</td><td>2h 22min</td><td style="color:var(--accent-red);">0.1:1</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tip-box">
+    <h4>💡 Seed Collector Tips</h4>
+    <ul>
+      <li><strong>1×1 single-harvest crops</strong> are the most seed-efficient — 1 crop → 3-6 seeds (self-sustaining!)</li>
+      <li><strong>Tomato</strong> takes 3 crops → 2 seeds, but each tomato plant produces 8-12 tomatoes over its lifetime — still very sustainable</li>
+      <li><strong>Apple</strong> is the worst ratio (10 apples → 1 seed) — buy Apple seeds from Badruu at Gardening Lvl 8 instead</li>
+      <li><strong>Star Quality crops</strong> → Star Quality seeds (same ratio, higher sell value on the crop you grow)</li>
+      <li>Max 30 fruit input + 1 processing stack; 3 × 30 seed output stacks</li>
+    </ul>
+  </div>
+</div>
+
+<!-- FERTILIZER -->
+<div class="section">
+  <div class="section-title">
+    <span class="icon">🧪</span> Fertilizer Reference
+  </div>
+  <p style="margin-bottom:8px; color:var(--text-dim); font-size:0.88em;">
+    One fertilizer type per tile at a time. Stack up to 99 of the same type. Each tile consumes 1 per growth cycle. For full benefit, apply every day — partial application = proportional chance.
+  </p>
+  <div class="card card--purple">
+    <table>
+      <thead>
+        <tr>
+          <th>Fertilizer</th>
+          <th>Effect</th>
+          <th>How to Get</th>
+          <th>Req.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong><span class="badge badge--harvest">HarvestBoost</span></strong></td>
+          <td>+50% extra crop yield on harvest</td>
+          <td>Worm Farm / Glow Worm Farm (savory food input) • Gardening Guild (10 medals)</td>
+          <td>Gardening 10</td>
+        </tr>
+        <tr>
+          <td><strong><span class="badge badge--growth">SpeedyGro</span></strong></td>
+          <td>For every 2 days of growth → 1 bonus day (~1.5× speed)</td>
+          <td>Gardening Guild (10 medals)</td>
+          <td>Gardening 10</td>
+        </tr>
+        <tr>
+          <td><strong><span class="badge badge--water">Water Retain</span></strong></td>
+          <td>Crops stay watered — no daily watering needed</td>
+          <td>Not available as item — only from crop buffs (Potato, Tomato, Napa Cabbage)</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td><strong><span class="badge badge--weed">Weed Prevention</span></strong></td>
+          <td>Prevents knapweed from growing</td>
+          <td>Not available as item — only from crop buffs (Carrot, Onion, Bok Choy)</td>
+          <td>—</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tip-box">
+    <h4>⚠️ Fertilizer vs. Crop Buffs</h4>
+    <p><strong>Buffs from adjacent crops DON'T stack with fertilizer.</strong> If a crop is already getting Water Retain from a neighboring Tomato, adding Water Retain Fertilizer won't help. Choose fertilizer that complements rather than duplicates your garden layout's natural buffs.</p>
+  </div>
+</div>
+
+<!-- GARDEN LAYOUT STRATEGY -->
+<div class="section">
+  <div class="section-title">
+    <span class="icon">🗺️</span> Garden Layout Strategy
+  </div>
+
+  <div class="card card--green">
+    <h3>📐 Layout Principles</h3>
+    <ul style="margin-left:18px; font-size:0.92em;">
+      <li><strong>Buff chains matter!</strong> Place Water Retain crops (Tomato/Potato/Napa Cabbage) next to Harvest Boost crops (Wheat/Rice/Corn) so both benefit</li>
+      <li><strong>Same-type crops don't buff each other</strong> — a Tomato next to another Tomato gives no buff</li>
+      <li><strong>Diagonal doesn't count</strong> — only orthogonal (up/down/left/right) adjacency</li>
+      <li><strong>2×2 crops need 2 buffing neighbors</strong> and <strong>3×3 crops need 3</strong> — they can be on different sides</li>
+      <li><strong>Weed Block is a quality-of-life buff</strong> — saves you from manually weeding. Great for early gardens</li>
+      <li><strong>Water Retain is a time-saver</strong> — eliminates daily watering. Huge for 9-tile gardens</li>
+      <li><strong>Harvest Boost is the profit buff</strong> — +50% yield means +50% gold and +50% Seed Collector material</li>
+    </ul>
+  </div>
+
+  <div class="card card--blue" style="margin-top:12px;">
+    <h3>🟦 Example: 9-Tile Balanced Garden (3×3)</h3>
+    <p style="font-size:0.88em; color:var(--text-dim); margin-bottom:10px;">Mixes Weed Block + Water Retain + Harvest Boost so everything gets buffed</p>
+    
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:rgba(52,211,153,0.4);"></div> Weed Block</div>
+      <div class="legend-item"><div class="legend-dot" style="background:rgba(74,158,255,0.4);"></div> Water Retain</div>
+      <div class="legend-item"><div class="legend-dot" style="background:rgba(251,191,36,0.4);"></div> Harvest Boost</div>
+    </div>
+
+    <div class="layout-diagram" style="grid-template-columns: repeat(3, 32px);">
+      <div class="layout-cell cell--weed">C</div>
+      <div class="layout-cell cell--water">T</div>
+      <div class="layout-cell cell--weed">O</div>
+      <div class="layout-cell cell--harvest">W</div>
+      <div class="layout-cell cell--water">P</div>
+      <div class="layout-cell cell--harvest">R</div>
+      <div class="layout-cell cell--weed">B</div>
+      <div class="layout-cell cell--water">N</div>
+      <div class="layout-cell cell--harvest">Co</div>
+    </div>
+    <p style="font-size:0.82em; color:var(--text-dim); margin-top:8px;">
+      C=Carrot, T=Tomato, O=Onion, W=Wheat, P=Potato, R=Rice, B=Bok Choy, N=Napa Cabbage, Co=Corn<br>
+      <strong>Result:</strong> Every Water Retain crop is next to Weed Block + Harvest Boost → all crops get 1-2 buffs!
+    </p>
+  </div>
+
+  <div class="card card--yellow" style="margin-top:12px;">
+    <h3>🟨 Example: Maximum Profit Garden (Late Game)</h3>
+    <p style="font-size:0.88em; color:var(--text-dim); margin-bottom:10px;">Uses high-value multi-harvest crops surrounded by 1×1 buffer crops. Gardening Level 8+ required.</p>
+
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:rgba(74,158,255,0.4);"></div> Water Retain (buffs neighbors)</div>
+      <div class="legend-item"><div class="legend-dot" style="background:rgba(251,191,36,0.4);"></div> 2×2 Crop (receives buffs)</div>
+      <div class="legend-item"><div class="legend-dot" style="background:rgba(52,211,153,0.3);"></div> Weed Block (protects)</div>
+    </div>
+
+    <div class="layout-diagram" style="grid-template-columns: repeat(6, 32px);">
+      <div class="layout-cell cell--water">P</div>
+      <div class="layout-cell cell--harvest">W</div>
+      <div class="layout-cell cell--water">T</div>
+      <div class="layout-cell cell--harvest">R</div>
+      <div class="layout-cell cell--water">N</div>
+      <div class="layout-cell cell--weed">C</div>
+      <div class="layout-cell cell--weed">B</div>
+      <div class="layout-cell" style="background:rgba(251,191,36,0.15); color:var(--accent-yellow); border:1px solid rgba(251,191,36,0.3);">🫐</div>
+      <div class="layout-cell" style="background:rgba(251,191,36,0.15); color:var(--accent-yellow); border:1px solid rgba(251,191,36,0.3);">🫐</div>
+      <div class="layout-cell cell--harvest">Co</div>
+      <div class="layout-cell cell--weed">O</div>
+      <div class="layout-cell cell--water">P</div>
+      <div class="layout-cell cell--weed">C</div>
+      <div class="layout-cell" style="background:rgba(251,191,36,0.15); color:var(--accent-yellow); border:1px solid rgba(251,191,36,0.3);">🫐</div>
+      <div class="layout-cell" style="background:rgba(251,191,36,0.15); color:var(--accent-yellow); border:1px solid rgba(251,191,36,0.3);">🫐</div>
+      <div class="layout-cell cell--harvest">W</div>
+      <div class="layout-cell cell--weed">B</div>
+      <div class="layout-cell cell--water">T</div>
+    </div>
+    <p style="font-size:0.82em; color:var(--text-dim); margin-top:8px;">
+      Blueberries (2×2, Harvest Boost) surrounded by Wheat/Rice/Corn (Harvest Boost) and Water Retain + Weed Block protectors.
+      Apply <strong>HarvestBoost Fertilizer</strong> to the 1×1 crops since their natural buff is already Harvest Boost (no conflict).
+    </p>
+  </div>
+</div>
+
+<!-- QUICK REFERENCE: WHAT TO PLANT WHERE -->
+<div class="section">
+  <div class="section-title">
+    <span class="icon">🎯</span> Quick Reference — What Buffs What
+  </div>
+  <div class="card card--purple">
+    <table>
+      <thead>
+        <tr>
+          <th>If you plant…</th>
+          <th>It gives this buff to neighbors</th>
+          <th>Plant next to…</th>
+          <th>To receive this buff back</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Carrot / Onion / Bok Choy</strong></td>
+          <td><span class="badge badge--weed">Weed Block</span></td>
+          <td>Potato / Tomato / Napa Cabbage</td>
+          <td><span class="badge badge--water">Water Retain</span></td>
+        </tr>
+        <tr>
+          <td><strong>Wheat / Rice / Corn</strong></td>
+          <td><span class="badge badge--harvest">Harvest Boost</span></td>
+          <td>Potato / Tomato / Napa Cabbage</td>
+          <td><span class="badge badge--water">Water Retain</span></td>
+        </tr>
+        <tr>
+          <td><strong>Potato / Tomato / Napa Cabbage</strong></td>
+          <td><span class="badge badge--water">Water Retain</span></td>
+          <td>Wheat / Rice / Corn</td>
+          <td><span class="badge badge--harvest">Harvest Boost</span> ⭐</td>
+        </tr>
+        <tr>
+          <td><strong>Cotton</strong></td>
+          <td><span class="badge badge--quality">Quality Boost</span></td>
+          <td>Potato / Tomato / Napa Cabbage</td>
+          <td><span class="badge badge--water">Water Retain</span></td>
+        </tr>
+        <tr>
+          <td><strong>Spicy Pepper / Rockhopper Pumpkin</strong></td>
+          <td><span class="badge badge--quality">Quality Boost</span></td>
+          <td>2 Water Retain crops (Potato/Tomato/Napa)</td>
+          <td><span class="badge badge--water">Water Retain</span></td>
+        </tr>
+        <tr>
+          <td><strong>Blueberries / Batterfly Beans</strong></td>
+          <td><span class="badge badge--harvest">Harvest Boost</span></td>
+          <td>2 Water Retain crops (Potato/Tomato/Napa)</td>
+          <td><span class="badge badge--water">Water Retain</span></td>
+        </tr>
+        <tr>
+          <td><strong>Apple</strong></td>
+          <td><span class="badge badge--harvest">Harvest Boost</span></td>
+          <td>3 Water Retain crops</td>
+          <td><span class="badge badge--water">Water Retain</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tip-box">
+    <h4>🏆 The Golden Pairing</h4>
+    <p><strong>Water Retain ↔ Harvest Boost</strong> is the strongest combo. Water Retain crops (Tomato, Potato, Napa Cabbage) save you time by auto-watering, while Harvest Boost crops (Wheat, Rice, Corn) give +50% yield. Alternate them in rows or columns for maximum mutual benefit!</p>
+  </div>
+</div>
+
+<!-- GARDENING LEVEL PROGRESSION -->
+<div class="section">
+  <div class="section-title">
+    <span class="icon">📈</span> Gardening Level Unlocks
+  </div>
+  <div class="card card--blue">
+    <table>
+      <thead>
+        <tr><th>Level</th><th>Unlock</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>1</strong></td><td>Starter seeds, Makeshift Hoe, Makeshift Watering Can, 2 Soil</td></tr>
+        <tr><td><strong>2</strong></td><td>Carrot Seed reward from Badruu</td></tr>
+        <tr><td><strong>3</strong></td><td>Additional seed rewards</td></tr>
+        <tr><td><strong>4</strong></td><td>Potato Seed reward from Badruu</td></tr>
+        <tr><td><strong>5</strong></td><td>🍅 <strong>Seed Collector recipe</strong> (1,000g) — THE big unlock!</td></tr>
+        <tr><td><strong>7</strong></td><td>Potato Seed reward from Badruu</td></tr>
+        <tr><td><strong>8</strong></td><td>🍎 Apple Tree Seed available from Badruu</td></tr>
+        <tr><td><strong>10</strong></td><td>🧪 <strong>HarvestBoost &amp; SpeedyGro Fertilizer</strong> from Guild Store (10 medals each)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- PLANNER LINK -->
+<div class="section">
+  <div class="section-title">
+    <span class="icon">🛠️</span> Interactive Garden Planner
+  </div>
+  <div class="card card--cyan">
+    <p style="font-size:0.95em;">Use the community <strong><a href="https://palia-garden-planner.vercel.app/" style="color:var(--accent-cyan);">Palia Garden Planner</a></strong> to drag-and-drop crops onto any soil layout and see buff coverage in real time. Pick your soil count, drop in crops, and it highlights which tiles receive which buffs.</p>
+    <p style="font-size:0.88em; color:var(--text-dim); margin-top:8px;">Also check out <a href="https://docs.google.com/document/d/1bjqQGwzhW7wsIpSDoO3xCMwqbX7ZbsdsuuXmPEXCrjE/edit" style="color:var(--accent-cyan);">Arenvanya's Optimized Gardening Guide</a> for mathematically proven best layouts.</p>
+  </div>
+</div>
+
+<div class="footer">
+  <p>🌱 Palia Gardening &amp; Seeds Guide — Generated by Nova</p>
+  <p>Data verified from palia.wiki.gg — April 2026</p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shmole Spores — Palia Guide</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  :root {
+    --bg-deep: #0a0c14;
+    --bg-card: rgba(255,255,255,0.04);
+    --border: rgba(255,255,255,0.08);
+    --text: #e0e4ec;
+    --text-dim: #7a8399;
+    --accent-green: #34d399;
+    --accent-cyan: #22d3ee;
+    --accent-purple: #a78bfa;
+    --accent-yellow: #fbbf24;
+    --accent-red: #f87171;
+    --accent-blue: #4a9eff;
+    --accent-orange: #ff8c00;
+  }
+  
+  body {
+    background: var(--bg-deep);
+    color: var(--text);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 2rem;
+  }
+  
+  .container { max-width: 800px; margin: 0 auto; }
+  
+  .header {
+    text-align: center;
+    padding: 3rem 0 2rem;
+  }
+  .header h1 {
+    font-size: 2.4rem;
+    background: linear-gradient(135deg, var(--accent-green), var(--accent-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header .subtitle {
+    color: var(--text-dim);
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
+  }
+  
+  .correction-box {
+    background: rgba(248, 113, 113, 0.1);
+    border: 1px solid rgba(248, 113, 113, 0.3);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2rem;
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+  .correction-box .icon { font-size: 1.5rem; flex-shrink: 0; }
+  .correction-box .content strong { color: var(--accent-red); }
+  .correction-box .content p { color: var(--text-dim); margin-top: 0.25rem; }
+  
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+  }
+  .card__header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .card__header .icon { font-size: 1.5rem; }
+  .card__header h2 { font-size: 1.2rem; font-weight: 600; }
+  .card__body { padding: 1.5rem; }
+  
+  .card--green { border-left: 3px solid var(--accent-green); }
+  .card--purple { border-left: 3px solid var(--accent-purple); }
+  .card--blue { border-left: 3px solid var(--accent-blue); }
+  .card--yellow { border-left: 3px solid var(--accent-yellow); }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0.75rem;
+  }
+  th {
+    text-align: left;
+    padding: 0.75rem 1rem;
+    color: var(--text-dim);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--border);
+    font-weight: 600;
+  }
+  td {
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-size: 0.95rem;
+  }
+  tr:last-child td { border-bottom: none; }
+  
+  .badge {
+    display: inline-block;
+    padding: 0.2rem 0.65rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+  }
+  .badge--uncommon { background: rgba(74, 158, 255, 0.15); color: var(--accent-blue); }
+  .badge--rare { background: rgba(167, 139, 250, 0.15); color: var(--accent-purple); }
+  .badge--epic { background: rgba(251, 191, 36, 0.15); color: var(--accent-yellow); }
+  
+  .tip-box {
+    background: rgba(251, 191, 36, 0.08);
+    border: 1px solid rgba(251, 191, 36, 0.25);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-top: 1.5rem;
+  }
+  .tip-box h3 { color: var(--accent-yellow); margin-bottom: 0.5rem; font-size: 0.95rem; }
+  .tip-box ul { margin-left: 1.25rem; }
+  .tip-box li { color: var(--text-dim); margin-bottom: 0.35rem; font-size: 0.9rem; }
+  
+  .location-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+  .location-item {
+    background: rgba(52, 211, 153, 0.08);
+    border: 1px solid rgba(52, 211, 153, 0.2);
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+  }
+  .location-item .name { font-weight: 600; color: var(--accent-green); }
+  .location-item .region { font-size: 0.8rem; color: var(--text-dim); margin-top: 0.2rem; }
+  
+  .footer {
+    text-align: center;
+    padding: 2rem 0 0;
+    color: var(--text-dim);
+    font-size: 0.8rem;
+    border-top: 1px solid var(--border);
+    margin-top: 2rem;
+  }
+  
+  .npc-likes {
+    margin-top: 1rem;
+  }
+  .npc-likes h4 {
+    color: var(--text-dim);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+  }
+  .npc-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+  .npc-tag {
+    background: rgba(52, 211, 153, 0.1);
+    border: 1px solid rgba(52, 211, 153, 0.2);
+    color: var(--accent-green);
+    border-radius: 5px;
+    padding: 0.2rem 0.55rem;
+    font-size: 0.78rem;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <h1>🍄 Shmole Spores</h1>
+    <p class="subtitle">Elderwood Hunting Guide</p>
+  </div>
+
+  <div class="correction-box">
+    <span class="icon">⚠️</span>
+    <div class="content">
+      <strong>Not in Bahari Bay</strong>
+      <p>Shmoles and Shmole Spores are exclusive to the <strong>Elderwood</strong> region — not Bahari Bay. The Elderwood is its own zone, accessed separately from Kilima and Bahari.</p>
+    </div>
+  </div>
+
+  <div class="card card--green">
+    <div class="card__header">
+      <span class="icon">📍</span>
+      <h2>Where to Find Shmoles</h2>
+    </div>
+    <div class="card__body">
+      <p>All three Shmole variants share the same caves in the <strong>Elderwood</strong>:</p>
+      <div class="location-list">
+        <div class="location-item">
+          <div class="name">🌹 Red Blossom Cave</div>
+          <div class="region">Elderwood</div>
+        </div>
+        <div class="location-item">
+          <div class="name">💜 Lilac Cavern</div>
+          <div class="region">Elderwood</div>
+        </div>
+        <div class="location-item">
+          <div class="name">🌊 Vieuxport Sea</div>
+          <div class="region">Elderwood</div>
+        </div>
+      </div>
+      <p style="color: var(--text-dim); margin-top: 1rem; font-size: 0.85rem;">
+        Shmoles live in tunnel networks called <strong>Shmole Holes</strong> — dirt mounds on floors, walls, and ceilings. They never leave the tunnels. When spooked, they dive and emerge from a different hole.
+      </p>
+    </div>
+  </div>
+
+  <div class="card card--purple">
+    <div class="card__header">
+      <span class="icon">🎯</span>
+      <h2>Shmole Spore Variants</h2>
+    </div>
+    <div class="card__body">
+      <table>
+        <thead>
+          <tr>
+            <th>Spore</th>
+            <th>Source</th>
+            <th>Rarity</th>
+            <th>Sell (NQ / ★)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Shmole Spore</td>
+            <td>Shmole (common)</td>
+            <td><span class="badge badge--uncommon">Uncommon</span></td>
+            <td>75 / 112</td>
+          </tr>
+          <tr>
+            <td>Elder Shmole Spore</td>
+            <td>Elder Shmole</td>
+            <td><span class="badge badge--rare">Rare</span></td>
+            <td>215 / 322</td>
+          </tr>
+          <tr>
+            <td>Piksii Shmole Spore</td>
+            <td>Piksii Shmole</td>
+            <td><span class="badge badge--epic">Epic</span></td>
+            <td>735 / 1,102</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card card--blue">
+    <div class="card__header">
+      <span class="icon">🏹</span>
+      <h2>Shmole Creature Details</h2>
+    </div>
+    <div class="card__body">
+      <table>
+        <thead>
+          <tr>
+            <th>Variant</th>
+            <th>Appearance</th>
+            <th>Essence</th>
+            <th>Drops</th>
+            <th>Special</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Shmole</strong></td>
+            <td>Red cap, purple eyes</td>
+            <td>5–7</td>
+            <td style="font-size: 0.85rem;">Spore, Plush, 1 random Elderwood mushroom</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td><strong>Elder Shmole</strong></td>
+            <td>Purple cap, green stripes</td>
+            <td>10–13</td>
+            <td style="font-size: 0.85rem;">Elder Spore, Elder Plush, 1 random Elderwood mushroom</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td><strong>Piksii Shmole</strong></td>
+            <td>Blue cap, pink stripes</td>
+            <td>29–35</td>
+            <td style="font-size: 0.85rem;">Piksii Spore, Piksii Plush, Sacred Flower, 1 random Elderwood mushroom</td>
+            <td><span style="color: var(--accent-purple); font-size: 0.85rem;">Magical shield — absorbs 1 extra arrow hit. Shields nearby Shmoles too.</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card card--yellow">
+    <div class="card__header">
+      <span class="icon">🎁</span>
+      <h2>Gifting — Who Likes Shmole Spores?</h2>
+    </div>
+    <div class="card__body">
+      <p style="color: var(--text-dim); margin-bottom: 1rem;">All Shmole Spore variants share the same NPC likes/dislikes:</p>
+      <div class="npc-likes">
+        <h4>✅ Likes (good gift)</h4>
+        <div class="npc-tags">
+          <span class="npc-tag">Caleri</span>
+          <span class="npc-tag">Elouisa</span>
+          <span class="npc-tag">Hassian</span>
+          <span class="npc-tag">Hodari</span>
+          <span class="npc-tag">Jel</span>
+          <span class="npc-tag">Kenyatta</span>
+          <span class="npc-tag">Nai'o</span>
+          <span class="npc-tag">Sifuu</span>
+          <span class="npc-tag">Subira</span>
+          <span class="npc-tag">Tamala</span>
+          <span class="npc-tag">Tish</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tip-box">
+    <h3>💡 Quick Tips</h3>
+    <ul>
+      <li>Shmoles are in <strong>caves</strong> (not forests or open areas) — head to Red Blossom Cave, Lilac Cavern, or Vieuxport Sea</li>
+      <li>Look for <strong>dirt mounds</strong> on walls and ceilings — those are Shmole Holes</li>
+      <li>Shmole Spores are a <strong>random drop</strong> — you may need to hunt several to get one</li>
+      <li>Piksii Shmole is <strong>much rarer</strong> than the common variant</li>
+      <li>All Shmoles are active <strong>anytime</strong> — no time restrictions</li>
+      <li>Infected variants drop <strong>Infected Essence</strong> (use Elderwood Arrows or Bag of Illusion IV)</li>
+      <li>Collecting all 3 spore types completes the <strong>Whack-a-Shmole!</strong> accomplishment</li>
+      <li>Shmole Spore is used in the daily quest <strong>Spore Me</strong> and the guide quest <strong>Home and Back Again</strong></li>
+    </ul>
+  </div>
+
+  <div class="footer">
+    Nova · Palia Guide · Elderwood v0.191+ · April 2026
+  </div>
+
+</div>
+
+</body>
+</html>

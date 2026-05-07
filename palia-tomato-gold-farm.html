@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Palia — Tomato Gold Farm Guide</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg-deep: #0a0c14;
+      --bg-card: rgba(255,255,255,0.04);
+      --border: rgba(255,255,255,0.08);
+      --text: #e0e4ec;
+      --text-dim: #7a8399;
+      --accent-blue: #4a9eff;
+      --accent-green: #34d399;
+      --accent-yellow: #fbbf24;
+      --accent-purple: #a78bfa;
+      --accent-orange: #ff8c00;
+      --accent-red: #f87171;
+      --accent-cyan: #22d3ee;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+      background: var(--bg-deep);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 24px 16px 48px;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .header {
+      text-align: center;
+      padding: 28px 16px 20px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .header__icon { font-size: 32px; margin-bottom: 8px; }
+    .header__title {
+      font-size: 22px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #ff8c00 0%, #fbbf24 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .header__sub { font-size: 13px; color: var(--text-dim); margin-top: 6px; }
+
+    .vault {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .vault::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+    }
+    .vault__header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .vault__icon { font-size: 24px; }
+    .vault__title {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .bundle-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-dim);
+      margin: 16px 0 8px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid var(--border);
+    }
+    .bundle-label:first-of-type { margin-top: 0; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    th {
+      text-align: left;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-dim);
+      padding: 6px 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    td {
+      padding: 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      vertical-align: middle;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255,255,255,0.02); }
+
+    .item-name { font-weight: 600; color: var(--text); white-space: nowrap; }
+    .gold { font-variant-numeric: tabular-nums; color: var(--accent-yellow); font-weight: 600; }
+    .stat { font-variant-numeric: tabular-nums; font-weight: 600; color: var(--text); }
+
+    .vault--setup { border-left: 3px solid var(--accent-orange); }
+    .vault--cycle { border-left: 3px solid var(--accent-green); }
+    .vault--preserve { border-left: 3px solid var(--accent-purple); }
+    .vault--math { border-left: 3px solid var(--accent-yellow); }
+    .vault--tips { border-left: 3px solid var(--accent-cyan); }
+
+    .vault--setup .vault__title { color: var(--accent-orange); }
+    .vault--cycle .vault__title { color: var(--accent-green); }
+    .vault--preserve .vault__title { color: var(--accent-purple); }
+    .vault--math .vault__title { color: var(--accent-yellow); }
+    .vault--tips .vault__title { color: var(--accent-cyan); }
+
+    .highlight-box {
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      text-align: center;
+      font-size: 15px;
+    }
+    .highlight-box--gold {
+      background: rgba(251,191,36,0.06);
+      border: 1px solid rgba(251,191,36,0.15);
+    }
+    .highlight-box--setup {
+      background: rgba(255,140,0,0.06);
+      border: 1px solid rgba(255,140,0,0.15);
+      text-align: left;
+    }
+    .highlight-box__big {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--accent-yellow);
+      display: block;
+      margin-bottom: 4px;
+    }
+    .highlight-box__label {
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+
+    .step-list {
+      list-style: none;
+      counter-reset: step;
+      padding: 0;
+    }
+    .step-list li {
+      counter-increment: step;
+      padding: 12px 0 12px 44px;
+      position: relative;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .step-list li:last-child { border-bottom: none; }
+    .step-list li::before {
+      content: counter(step);
+      position: absolute;
+      left: 0; top: 12px;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      text-align: center;
+      line-height: 28px;
+    }
+    .step-list--orange li::before { background: rgba(255,140,0,0.12); color: var(--accent-orange); }
+    .step-list--green li::before { background: rgba(52,211,153,0.12); color: var(--accent-green); }
+    .step-list--purple li::before { background: rgba(167,139,250,0.12); color: var(--accent-purple); }
+    .step-list--blue li::before { background: rgba(74,158,255,0.12); color: var(--accent-blue); }
+
+    .step-list .key { color: var(--accent-cyan); font-weight: 600; }
+    .step-list .gold-val { color: var(--accent-yellow); font-weight: 600; }
+    .step-list .em { font-weight: 700; color: var(--text); }
+
+    .tip-box {
+      background: rgba(251,191,36,0.06);
+      border: 1px solid rgba(251,191,36,0.12);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-top: 8px;
+      font-size: 13px;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+    .tip-box strong { color: var(--accent-yellow); }
+
+    .profit-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 12px 0;
+    }
+    .profit-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+    }
+    .profit-card__value {
+      font-size: 24px;
+      font-weight: 700;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .profit-card__label {
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+    .profit-card--gold .profit-card__value { color: var(--accent-yellow); }
+    .profit-card--star .profit-card__value { color: var(--accent-purple); }
+    .profit-card--pickled .profit-card__value { color: var(--accent-orange); }
+    .profit-card--best .profit-card__value { color: var(--accent-green); }
+
+    .timeline {
+      display: flex;
+      align-items: flex-start;
+      gap: 4px;
+      padding: 12px 0;
+      overflow-x: auto;
+    }
+    .timeline__day {
+      flex: 0 0 auto;
+      width: 56px;
+      text-align: center;
+    }
+    .timeline__num {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-dim);
+      margin-bottom: 4px;
+    }
+    .timeline__bar {
+      height: 8px;
+      border-radius: 4px;
+      margin: 0 auto 4px;
+    }
+    .timeline__bar--grow { background: rgba(52,211,153,0.3); width: 40px; }
+    .timeline__bar--harvest { background: linear-gradient(90deg, var(--accent-yellow), var(--accent-orange)); width: 40px; }
+    .timeline__bar--water { background: rgba(34,211,238,0.3); width: 40px; }
+    .timeline__icon { font-size: 14px; }
+    .timeline__note { font-size: 9px; color: var(--text-dim); line-height: 1.2; }
+
+    .footer {
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-top: 32px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="header__icon">🍅</div>
+    <div class="header__title">Tomato Gold Farm Guide</div>
+    <div class="header__sub">Passive gold income from tomato farming + preserves jar</div>
+  </div>
+
+  <!-- Key Numbers -->
+  <div class="highlight-box highlight-box--gold">
+    <span class="highlight-box__big">~5,500🪙per cycle</span>
+    <span class="highlight-box__label">9 plots × Harvest Boost × Star Quality × Pickled Tomatoes over 10 days</span>
+  </div>
+
+  <!-- ============ SETUP ============ -->
+  <div class="vault vault--setup">
+    <div class="vault__header">
+      <div class="vault__icon">🔧</div>
+      <div class="vault__title">Step 1 — Prerequisites &amp; Setup</div>
+    </div>
+
+    <div class="bundle-label">What You Need Before Starting</div>
+    <table>
+      <thead><tr><th>Item</th><th>How to Get</th><th>Cost</th><th>Req</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="item-name">🟫 Soil (×9)</td>
+          <td style="font-size:13px;color:var(--text-dim)">Buy from Badruu's stand</td>
+          <td class="gold">—</td>
+          <td style="font-size:12px;color:var(--text-dim)">Gardening quest</td>
+        </tr>
+        <tr>
+          <td class="item-name">🌱 Tomato Plant Seeds</td>
+          <td style="font-size:13px;color:var(--text-dim)">Zeki's General Store</td>
+          <td class="gold">80🪙 each</td>
+          <td style="font-size:12px;color:var(--text-dim)">None</td>
+        </tr>
+        <tr>
+          <td class="item-name">🪣 Makeshift Watering Can</td>
+          <td style="font-size:13px;color:var(--text-dim)">Gardening 101 quest</td>
+          <td class="gold">Free</td>
+          <td style="font-size:12px;color:var(--text-dim)">Gardening quest</td>
+        </tr>
+        <tr>
+          <td class="item-name">🔬 Seed Collector</td>
+          <td style="font-size:13px;color:var(--text-dim)">Craft at Worktable → place on plot</td>
+          <td class="gold">1,000🪙 recipe</td>
+          <td style="font-size:12px;color:var(--accent-red)">Gardening Lv5</td>
+        </tr>
+        <tr>
+          <td class="item-name">🫙 Preserves Jar</td>
+          <td style="font-size:13px;color:var(--text-dim)">Craft at Worktable → place on plot</td>
+          <td class="gold">2,500🪙 recipe</td>
+          <td style="font-size:12px;color:var(--accent-red)">Gardening Lv8</td>
+        </tr>
+        <tr>
+          <td class="item-name">🧪 Harvest Boost Fertilizer</td>
+          <td style="font-size:13px;color:var(--text-dim)">Zeki's General Store / crafted</td>
+          <td class="gold">varies</td>
+          <td style="font-size:12px;color:var(--text-dim)">Gardening Guild</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="tip-box">
+      <strong>⏱️ Before Gardening Lv8:</strong> You can still farm raw tomatoes for 23🪙 each (34🪙 star). The Preserves Jar multiplier is the big gold boost — make reaching Lv8 your priority.
+    </div>
+  </div>
+
+  <!-- ============ PLANTING ============ -->
+  <div class="vault vault--cycle">
+    <div class="vault__header">
+      <div class="vault__icon">🌱</div>
+      <div class="vault__title">Step 2 — Plant &amp; Tend</div>
+    </div>
+
+    <div class="bundle-label">Planting the Farm (Day 1)</div>
+    <ol class="step-list step-list--green">
+      <li>Place all <span class="key">9 soil</span> tiles on your housing plot, arranged in a connected grid</li>
+      <li>Till each soil square with your <span class="em">Hoe</span></li>
+      <li>Plant <span class="key">Tomato Plant Seeds</span> in all 9 squares (9 × 80🪙 = <span class="gold-val">720🪙</span>)</li>
+      <li>Apply <span class="key">Harvest Boost Fertilizer</span> to every square — <strong>this is critical</strong>, it increases yield from 2→3 per harvest</li>
+      <li><span class="em">Water every square</span> daily. Tomatoes have <strong>Water Retain</strong> buff — they hydrate adjacent crops, but you must still water Day 1</li>
+    </ol>
+
+    <div class="bundle-label">Tomato Growth Timeline (Per Plant)</div>
+
+    <!-- Visual Timeline -->
+    <div class="timeline">
+      <div class="timeline__day">
+        <div class="timeline__num">Day 1</div>
+        <div class="timeline__bar timeline__bar--water"></div>
+        <div class="timeline__icon">💧</div>
+        <div class="timeline__note">Plant &amp; water</div>
+      </div>
+      <div class="timeline__day">
+        <div class="timeline__num">Day 2</div>
+        <div class="timeline__bar timeline__bar--grow"></div>
+        <div class="timeline__icon">🌿</div>
+        <div class="timeline__note">Growing</div>
+      </div>
+      <div class="timeline__day">
+        <div class="timeline__num">Day 3</div>
+        <div class="timeline__bar timeline__bar--grow"></div>
+        <div class="timeline__icon">🌿</div>
+        <div class="timeline__note">Growing</div>
+      </div>
+      <div class="timeline__day">
+        <div class="timeline__num">Day 4</div>
+        <div class="timeline__bar timeline__bar--grow"></div>
+        <div class="timeline__icon">🌿</div>
+        <div class="timeline__note">Growing</div>
+      </div>
+      <div class="timeline__day">
+        <div class="timeline__num">Day 5</div>
+        <div class="timeline__bar timeline__bar--harvest"></div>
+        <div class="timeline__icon">🍅🍅🍅</div>
+        <div class="timeline__note"><strong>1st Harvest</strong></div>
+      </div>
+      <div class="timeline__day">
+        <div class="timeline__num">Day 6</div>
+        <div class="timeline__bar timeline__bar--grow"></div>
+        <div class="timeline__icon">🌿</div>
+        <div class="timeline__note">Regrowing</div>
+      </div>
+      <div class="timeline__day">
+        <div class="timeline__num">Day 7</div>
+        <div class="timeline__bar timeline__bar--harvest"></div>
+        <div class="timeline__icon">🍅🍅🍅</div>
+        <div class="timeline__note"><strong>2nd Harvest</strong></div>
+      </div>
+      <div class="timeline__day">
+        <div class="timeline__num">Day 9</div>
+        <div class="timeline__bar timeline__bar--harvest"></div>
+        <div class="timeline__icon">🍅🍅🍅</div>
+        <div class="timeline__note"><strong>3rd Harvest</strong></div>
+      </div>
+      <div class="timeline__day">
+        <div class="timeline__num">Day 11</div>
+        <div class="timeline__bar timeline__bar--harvest"></div>
+        <div class="timeline__icon">🍅🍅🍅</div>
+        <div class="timeline__note"><strong>4th Harvest</strong></div>
+      </div>
+    </div>
+
+    <div class="bundle-label">Daily Routine</div>
+    <ol class="step-list step-list--green">
+      <li><span class="em">Water all plants</span> — even with Water Retain, always check. Missed water = missed growth day</li>
+      <li>Reapply <span class="key">Harvest Boost Fertilizer</span> if consumed (1 per growth cycle per square)</li>
+      <li><span class="em">Harvest</span> any ready tomatoes — 3 per plant with Harvest Boost!</li>
+      <li>Feed tomatoes into <span class="key">Preserves Jar</span> (1 tomato = 1 Pickled Tomato, 27 min)</li>
+      <li>Feed 3 tomatoes into <span class="key">Seed Collector</span> to make 2 new seeds (30 min) — keeps the cycle self-sustaining</li>
+    </ol>
+
+    <div class="tip-box">
+      <strong>💧 Water Retain Synergy:</strong> Tomatoes' Water Retain buff hydrates adjacent crops. Plant in a connected grid so they keep each other hydrated — this reduces (but doesn't eliminate) the need for daily watering. Always verify they're watered!
+    </div>
+  </div>
+
+  <!-- ============ PRESERVES ============ -->
+  <div class="vault vault--preserve">
+    <div class="vault__header">
+      <div class="vault__icon">🫙</div>
+      <div class="vault__title">Step 3 — Pickle for Profit</div>
+    </div>
+
+    <div class="bundle-label">Why Pickle Instead of Selling Raw?</div>
+    <table>
+      <thead><tr><th>Item</th><th>Sell Price</th><th>⭐ Star Price</th><th>Process Time</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="item-name">🍅 Raw Tomato</td>
+          <td class="gold">23🪙</td>
+          <td class="gold">34🪙</td>
+          <td style="font-size:13px;color:var(--text-dim)">—</td>
+        </tr>
+        <tr>
+          <td class="item-name">🫙 Pickled Tomato</td>
+          <td class="gold">34🪙</td>
+          <td class="gold">51🪙</td>
+          <td style="font-size:13px;color:var(--text-dim)">27 min</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="bundle-label">Preserves Jar Breakdown</div>
+    <ol class="step-list step-list--purple">
+      <li>Place <span class="key">Preserves Jar</span> on your housing plot (craft at Worktable, recipe from Gardening Guild at Lv8)</li>
+      <li>Crafting: <span class="key">Heartwood Plank ×16</span> + <span class="key">Iron Bar ×2</span> + <span class="key">Fabric ×6</span></li>
+      <li>Load tomatoes into the jar — each becomes 1 Pickled Tomato in <span class="em">27 real minutes</span></li>
+      <li>Sell Pickled Tomatoes via <span class="em">Shipping Bin</span> on your plot</li>
+      <li>Place multiple jars to process in parallel — each jar runs independently</li>
+    </ol>
+
+    <div class="tip-box">
+      <strong>🫙 More Jars = More Gold:</strong> Each Preserves Jar processes 1 tomato at a time. For 9 plots producing ~108 tomatoes per cycle, you'll want <strong>3–4 jars</strong> minimum to keep up with production. Each jar costs the same recipe — you just craft more at the Worktable.
+    </div>
+  </div>
+
+  <!-- ============ SELF-SUSTAINING ============ -->
+  <div class="vault vault--cycle">
+    <div class="vault__header">
+      <div class="vault__icon">♻️</div>
+      <div class="vault__title">Step 4 — Self-Sustaining Cycle</div>
+    </div>
+
+    <div class="bundle-label">Never Buy Seeds Again</div>
+    <ol class="step-list step-list--blue">
+      <li>Unlock the <span class="key">Seed Collector</span> from Gardening Guild at <span class="em">Gardening Lv5</span> (1,000🪙 recipe)</li>
+      <li>Craft at Worktable: <span class="key">Sapwood Plank ×16</span> + <span class="key">Copper Bar ×2</span> + <span class="key">Ceramic ×6</span> + <span class="key">Plant Fiber ×10</span></li>
+      <li>Place on plot — it <span class="em">automatically</span> collects seeds from fully-grown crops nearby</li>
+      <li>Or manually feed: <span class="key">3 Tomatoes → 2 Seeds</span> (30 min craft time)</li>
+      <li>Each plant yields 12 tomatoes (4 harvests × 3 with boost). Sacrifice 3 tomatoes for 2 seeds — that's <span class="em">9 tomatoes profit per plant</span> after seed replacement</li>
+    </ol>
+
+    <div class="tip-box">
+      <strong>🔄 The Loop:</strong> Harvest tomatoes → ~3 per plant go to Seed Collector → ~9 per plant go to Preserves Jar → Sell pickled tomatoes → Replant seeds from collector. Once set up, the farm runs on itself.
+    </div>
+  </div>
+
+  <!-- ============ GOLD MATH ============ -->
+  <div class="vault vault--math">
+    <div class="vault__header">
+      <div class="vault__icon">💰</div>
+      <div class="vault__title">Gold Per Cycle Breakdown</div>
+    </div>
+
+    <div class="bundle-label">10-Day Cycle — 9 Plots, Harvest Boost Fertilizer</div>
+    <table>
+      <thead><tr><th>Metric</th><th>No Boost</th><th>With Boost</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="item-name">Harvests per plant</td>
+          <td class="stat">4</td>
+          <td class="stat">4</td>
+        </tr>
+        <tr>
+          <td class="item-name">Tomatoes per harvest</td>
+          <td class="stat">2</td>
+          <td class="stat" style="color:var(--accent-green)">3</td>
+        </tr>
+        <tr>
+          <td class="item-name">Total tomatoes per plant</td>
+          <td class="stat">8</td>
+          <td class="stat" style="color:var(--accent-green)">12</td>
+        </tr>
+        <tr>
+          <td class="item-name">Total tomatoes (9 plots)</td>
+          <td class="stat">72</td>
+          <td class="stat" style="color:var(--accent-green)">108</td>
+        </tr>
+        <tr>
+          <td class="item-name">Seeds needed (self-sustain)</td>
+          <td style="font-size:13px;color:var(--text-dim)">9 (−27 toma.)</td>
+          <td style="font-size:13px;color:var(--text-dim)">9 (−27 toma.)</td>
+        </tr>
+        <tr>
+          <td class="item-name">Tomatoes for Preserves Jar</td>
+          <td class="stat" style="color:var(--accent-purple)">45</td>
+          <td class="stat" style="color:var(--accent-green)">81</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="bundle-label">Total Income Per 10-Day Cycle</div>
+    <div class="profit-grid">
+      <div class="profit-card profit-card--gold">
+        <span class="profit-card__value">1,035🪙</span>
+        <span class="profit-card__label">Raw tomatoes (no boost)</span>
+      </div>
+      <div class="profit-card profit-card--pickled">
+        <span class="profit-card__value">1,530🪙</span>
+        <span class="profit-card__label">Pickled (no boost)</span>
+      </div>
+      <div class="profit-card profit-card--star">
+        <span class="profit-card__value">2,295🪙</span>
+        <span class="profit-card__label">Pickled + ⭐ Star</span>
+      </div>
+      <div class="profit-card profit-card--best">
+        <span class="profit-card__value">4,131🪙</span>
+        <span class="profit-card__label">Pickled + Boost + ⭐ Star</span>
+      </div>
+    </div>
+
+    <div class="bundle-label">How the Best Case Works Out</div>
+    <table>
+      <thead><tr><th>Component</th><th>Coin</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="item-name">81 Pickled Tomatoes (⭐)</td>
+          <td class="gold">4,131🪙</td>
+        </tr>
+        <tr>
+          <td class="item-name">Minus: Seed cost upfront (×9)</td>
+          <td style="color:var(--accent-red);font-weight:600">−720🪙</td>
+        </tr>
+        <tr>
+          <td class="item-name" style="color:var(--accent-green)">Net first cycle</td>
+          <td class="gold">3,411🪙</td>
+        </tr>
+        <tr>
+          <td class="item-name" style="color:var(--accent-green)">Net every cycle after (seeds free)</td>
+          <td class="gold">4,131🪙</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="tip-box">
+      <strong>📈 Annual projection:</strong> At ~3.5 cycles/month (10-day cycles), that's <strong>~14,000–17,000🪙/month passive</strong> from this farm alone. Stacked with other income (hunting, fishing, cooking), this is a solid gold floor.
+    </div>
+  </div>
+
+  <!-- ============ TIPS ============ -->
+  <div class="vault vault--tips">
+    <div class="vault__header">
+      <div class="vault__icon">💡</div>
+      <div class="vault__title">Pro Tips &amp; Optimizations</div>
+    </div>
+
+    <div class="bundle-label">Maximizing Yield</div>
+    <ol class="step-list step-list--green">
+      <li><span class="em">Always use Harvest Boost Fertilizer</span> — the +50% yield (2→3 per harvest) is the single biggest gold multiplier</li>
+      <li>Stack <span class="key">fertilizer</span> up to 99 per square — set it and forget it for the full cycle</li>
+      <li>Daily watering is <span class="em">non-negotiable</span> — missed water = missed growth day = delayed harvest</li>
+      <li>Tomatoes' <span class="key">Water Retain</span> helps neighbors but <strong>doesn't replace</strong> your own watering — always double-check</li>
+      <li>Place Preserves Jars <span class="em">near the garden</span> for quick loading — jars pull from storage automatically if connected</li>
+    </ol>
+
+    <div class="bundle-label">Getting ⭐ Star Quality</div>
+    <ol class="step-list step-list--purple">
+      <li>Star Quality tomatoes sell for <span class="gold-val">50% more</span> — 34🪙 raw, 51🪙 pickled</li>
+      <li>Higher gardening skill = higher star quality chance</li>
+      <li>Quality Up Fertilizer can boost star chance further — use it if you have surplus</li>
+      <li>Star quality carries through preserving — ⭐ tomato → ⭐ pickled tomato</li>
+    </ol>
+
+    <div class="bundle-label">Scaling Beyond 9 Plots</div>
+    <ol class="step-list step-list--orange">
+      <li>9 soil is the max per player — but you can farm on <span class="em">multiple housing plots</span></li>
+      <li>Each plot can hold its own garden + Preserves Jars</li>
+      <li>Stagger planting across plots so harvests don't all land on the same day</li>
+      <li>Automate seed production with Seed Collectors on each plot</li>
+    </ol>
+
+    <div class="bundle-label">Leveling Gardening Fast</div>
+    <ol class="step-list step-list--blue">
+      <li><span class="em">Gardening Lv5</span> — Unlocks Seed Collector (self-sustaining seeds)</li>
+      <li><span class="em">Gardening Lv8</span> — Unlocks Preserves Jar (the big gold multiplier)</li>
+      <li>Every harvest, watering, and fert application gives Gardening XP — the farm levels itself</li>
+      <li>Focus on getting to <span class="key">Lv8 ASAP</span> — that's where the gold really starts flowing</li>
+    </ol>
+  </div>
+
+  <div class="footer">
+    Nova · Palia Tomato Gold Farm Reference · 2026-04-17 · Source: palia.wiki.gg
+  </div>
+
+</body>
+</html>

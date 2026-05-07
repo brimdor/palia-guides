@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Palia — Fishing Leveling Guide 8→10</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg-deep: #0a0c14;
+      --bg-card: rgba(255,255,255,0.04);
+      --border: rgba(255,255,255,0.08);
+      --text: #e0e4ec;
+      --text-dim: #7a8399;
+      --accent-blue: #4a9eff;
+      --accent-green: #34d399;
+      --accent-yellow: #fbbf24;
+      --accent-purple: #a78bfa;
+      --accent-orange: #ff8c00;
+      --accent-red: #f87171;
+      --accent-cyan: #22d3ee;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+      background: var(--bg-deep);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 24px 16px 48px;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .header {
+      text-align: center;
+      padding: 28px 16px 20px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .header__icon { font-size: 36px; margin-bottom: 8px; }
+    .header__title {
+      font-size: 22px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #e0e4ec 0%, #34d399 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .header__sub { font-size: 13px; color: var(--text-dim); margin-top: 6px; }
+
+    .stat-row {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+    .stat {
+      text-align: center;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 20px;
+      min-width: 100px;
+    }
+    .stat__num {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--accent-green);
+      font-variant-numeric: tabular-nums;
+    }
+    .stat__label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-dim);
+      margin-top: 2px;
+    }
+
+    .vault {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .vault::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+    }
+    .vault__header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .vault__icon { font-size: 24px; }
+    .vault__title {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    th {
+      text-align: left;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-dim);
+      padding: 6px 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    td {
+      padding: 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      vertical-align: middle;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255,255,255,0.02); }
+
+    .fish-name { font-weight: 600; color: var(--text); }
+    .location { color: var(--text-dim); font-size: 13px; }
+    .time { color: var(--text-dim); font-size: 13px; }
+    .xp-num {
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      color: var(--accent-green);
+    }
+
+    .bait {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .bait--glow { background: rgba(34,211,238,0.12); color: #22d3ee; border: 1px solid rgba(34,211,238,0.2); }
+    .bait--worm { background: rgba(251,191,36,0.1); color: #fbbf24; border: 1px solid rgba(251,191,36,0.2); }
+    .bait--none { background: rgba(255,255,255,0.05); color: var(--text-dim); border: 1px solid rgba(255,255,255,0.06); }
+
+    .rarity {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .rarity--epic { background: rgba(167,139,250,0.12); color: var(--accent-purple); border: 1px solid rgba(167,139,250,0.2); }
+    .rarity--rare { background: rgba(74,158,255,0.1); color: var(--accent-blue); border: 1px solid rgba(74,158,255,0.15); }
+    .rarity--uncommon { background: rgba(52,211,153,0.1); color: var(--accent-green); border: 1px solid rgba(52,211,153,0.15); }
+
+    .strategy-list {
+      list-style: none;
+      padding: 0;
+    }
+    .strategy-list li {
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .strategy-list li:last-child { border-bottom: none; }
+    .strategy-list strong { color: var(--accent-yellow); }
+    .strategy-list .num {
+      display: inline-block;
+      width: 22px;
+      height: 22px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 6px;
+      text-align: center;
+      line-height: 22px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent-green);
+      margin-right: 8px;
+    }
+
+    .tip-box {
+      background: rgba(251,191,36,0.06);
+      border: 1px solid rgba(251,191,36,0.12);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-top: 24px;
+      font-size: 13px;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+    .tip-box strong { color: var(--accent-yellow); }
+
+    .highlight-box {
+      background: rgba(52,211,153,0.05);
+      border: 1px solid rgba(52,211,153,0.12);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 24px;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+    .highlight-box strong { color: var(--accent-green); }
+
+    .vault--glow { border-left: 3px solid var(--accent-cyan); }
+    .vault--worm { border-left: 3px solid var(--accent-yellow); }
+    .vault--strategy { border-left: 3px solid var(--accent-green); }
+    .vault--buffs { border-left: 3px solid var(--accent-purple); }
+
+    .vault--glow .vault__title { color: var(--accent-cyan); }
+    .vault--worm .vault__title { color: var(--accent-yellow); }
+    .vault--strategy .vault__title { color: var(--accent-green); }
+    .vault--buffs .vault__title { color: var(--accent-purple); }
+
+    .catch-count {
+      font-size: 12px;
+      color: var(--accent-green);
+      margin-top: 2px;
+      font-weight: 500;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-top: 32px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="header__icon">🎣</div>
+    <div class="header__title">Fishing Leveling Guide: 8 → 10</div>
+    <div class="header__sub">Fastest route to the Exquisite Rod — with exact XP values</div>
+
+    <div class="stat-row">
+      <div class="stat">
+        <div class="stat__num">3,720</div>
+        <div class="stat__label">XP: 8 → 9</div>
+      </div>
+      <div class="stat">
+        <div class="stat__num">5,000</div>
+        <div class="stat__label">XP: 9 → 10</div>
+      </div>
+      <div class="stat">
+        <div class="stat__num">8,720</div>
+        <div class="stat__label">Total XP Needed</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- XP Mechanics -->
+  <div class="highlight-box">
+    <strong>🧮 XP Formula</strong><br>
+    <strong>Base XP</strong> × <strong style="color:var(--accent-blue)">Perfect Catch (+20%)</strong> × <strong style="color:var(--accent-yellow)">Focus Bonus (up to +100%)</strong><br>
+    At 100% focus with perfect catch: <strong>Base XP × 2.4</strong><br>
+    Example: Giant Goldfish base = 202 → 242 (perfect) → <strong style="color:var(--accent-green)">484 XP</strong> at 100% focus<br>
+    Star quality (★) fish give ~2× more XP than non-star — always aim for star quality hot spots!
+  </div>
+
+  <!-- GLOW WORM - TOP XP FISH -->
+  <div class="vault vault--glow">
+    <div class="vault__header">
+      <div class="vault__icon">💎</div>
+      <div class="vault__title">Glow Worm — Top XP Fish (S-Tier)</div>
+    </div>
+    <table>
+      <thead><tr><th>Fish</th><th>Location</th><th>Time</th><th>Perfect ★</th><th>2× Focus</th><th>Rarity</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="fish-name">Giant Goldfish</td>
+          <td class="location">Ponds (Housing, Kilima, Bahari)</td>
+          <td class="time">Anytime ⏰</td>
+          <td class="xp-num">473</td>
+          <td class="xp-num">946</td>
+          <td><span class="rarity rarity--epic">Epic</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Long Nosed Unicorn Fish</td>
+          <td class="location">Bahari Bay Coast</td>
+          <td class="time">☀️ Day</td>
+          <td class="xp-num">473</td>
+          <td class="xp-num">946</td>
+          <td><span class="rarity rarity--epic">Epic</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Flametongue Ray</td>
+          <td class="location">Kilima Rivers</td>
+          <td class="time">🌅 Dawn, ☀️ Day</td>
+          <td class="xp-num">436</td>
+          <td class="xp-num">872</td>
+          <td><span class="rarity rarity--epic">Epic</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Swordfin Eel</td>
+          <td class="location">Bahari Rivers</td>
+          <td class="time">Anytime ⏰</td>
+          <td class="xp-num">436</td>
+          <td class="xp-num">872</td>
+          <td><span class="rarity rarity--epic">Epic</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Void Ray</td>
+          <td class="location">Caves (Kilima, Bahari)</td>
+          <td class="time">Anytime ⏰</td>
+          <td class="xp-num">436</td>
+          <td class="xp-num">872</td>
+          <td><span class="rarity rarity--epic">Epic</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Giant Kilima Stingray</td>
+          <td class="location">Kilima Lake</td>
+          <td class="time">🌅 Dawn/☀️ Day/🌇 Eve</td>
+          <td class="xp-num">400</td>
+          <td class="xp-num">800</td>
+          <td><span class="rarity rarity--epic">Epic</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="margin-top:12px; color:var(--text-dim); font-size:13px;">
+      Also solid: Blue Spotted Ray (217★), Cloudfish (217★), Hypnotic Moray (199★), Kenli's Carp (199★), Stormray (199★), Midnight Paddlefish (181★), Eleroo Eel (171★)
+    </div>
+  </div>
+
+  <!-- WORM - TOP XP FISH -->
+  <div class="vault vault--worm">
+    <div class="vault__header">
+      <div class="vault__icon">🪱</div>
+      <div class="vault__title">Worm — Top XP Fish (A-Tier)</div>
+    </div>
+    <table>
+      <thead><tr><th>Fish</th><th>Location</th><th>Time</th><th>Perfect ★</th><th>2× Focus</th><th>Rarity</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="fish-name">Blue Marlin</td>
+          <td class="location">Bahari Bay Coast</td>
+          <td class="time">Anytime ⏰</td>
+          <td class="xp-num">163</td>
+          <td class="xp-num">326</td>
+          <td><span class="rarity rarity--rare">Rare</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Mutated Angler</td>
+          <td class="location">Bahari Bay Caves</td>
+          <td class="time">Anytime ⏰</td>
+          <td class="xp-num">163</td>
+          <td class="xp-num">326</td>
+          <td><span class="rarity rarity--rare">Rare</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Fairy Carp</td>
+          <td class="location">Kilima Lake</td>
+          <td class="time">Anytime ⏰</td>
+          <td class="xp-num">163</td>
+          <td class="xp-num">326</td>
+          <td><span class="rarity rarity--rare">Rare</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Energized Piranha</td>
+          <td class="location">Bahari Rivers</td>
+          <td class="time">Anytime ⏰</td>
+          <td class="xp-num">145</td>
+          <td class="xp-num">290</td>
+          <td><span class="rarity rarity--rare">Rare</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Thundering Eel</td>
+          <td class="location">Bahari Rivers</td>
+          <td class="time">Anytime ⏰</td>
+          <td class="xp-num">145</td>
+          <td class="xp-num">290</td>
+          <td><span class="rarity rarity--rare">Rare</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Willow Lamprey</td>
+          <td class="location">Bahari Rivers</td>
+          <td class="time">Anytime ⏰</td>
+          <td class="xp-num">145</td>
+          <td class="xp-num">290</td>
+          <td><span class="rarity rarity--rare">Rare</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="margin-top:12px; color:var(--text-dim); font-size:13px;">
+      Also solid: Shimmerfin (127★), Stickleback (64★), Cutthroat Trout (64★), Paddlefish (64★), Freshwater Eel (64★)
+    </div>
+  </div>
+
+  <!-- NO BAIT - TOP XP FISH -->
+  <div class="vault vault--strategy">
+    <div class="vault__header">
+      <div class="vault__icon">🎯</div>
+      <div class="vault__title">No Bait — Top XP Fish (B-Tier, for saving bait)</div>
+    </div>
+    <table>
+      <thead><tr><th>Fish</th><th>Location</th><th>Time</th><th>Perfect ★</th><th>2× Focus</th><th>Rarity</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="fish-name">Channel Catfish</td>
+          <td class="location">Kilima Rivers</td>
+          <td class="time">🌅 Dawn, ☀️ Day</td>
+          <td class="xp-num">36</td>
+          <td class="xp-num">72</td>
+          <td><span class="rarity rarity--uncommon">Uncommon</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Rainbow Trout</td>
+          <td class="location">Kilima Rivers</td>
+          <td class="time">Anytime ⏰</td>
+          <td class="xp-num">36</td>
+          <td class="xp-num">72</td>
+          <td><span class="rarity rarity--uncommon">Uncommon</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Dawnray / Duskray</td>
+          <td class="location">Bahari Rivers</td>
+          <td class="time">🌅 Dawn / 🌇 Eve</td>
+          <td class="xp-num">36</td>
+          <td class="xp-num">72</td>
+          <td><span class="rarity rarity--uncommon">Uncommon</span></td>
+        </tr>
+        <tr>
+          <td class="fish-name">Cantankerous Koi</td>
+          <td class="location">Ponds</td>
+          <td class="time">Anytime ⏰</td>
+          <td class="xp-num">46</td>
+          <td class="xp-num">92</td>
+          <td><span class="rarity rarity--uncommon">Uncommon</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- STRATEGY -->
+  <div class="vault vault--strategy">
+    <div class="vault__header">
+      <div class="vault__icon">📋</div>
+      <div class="vault__title">Optimal Grinding Strategy</div>
+    </div>
+    <ul class="strategy-list">
+      <li>
+        <span class="num">1</span>
+        <strong>Housing Plot Ponds + Glow Worms</strong> — the single best grind if you have Glow Worms. Fish your own ponds 24/7 with no travel time. Giant Goldfish (946 XP with focus) is the holy grail, but even the common Glow Worm pond fish (Crucian Carp 82★, Fathead Minnow 82★, Chub 182★, Kenli's Carp 398★) outpace worm/no-bait fish elsewhere. <strong>Zero downtime, zero time restrictions.</strong>
+        <div class="catch-count">~8 perfect Giant Goldfish = Level 9 | ~11 more = Level 10</div>
+      </li>
+      <li>
+        <span class="num">2</span>
+        <strong>Bahari Coast + Worms</strong> — Blue Marlin (326 XP with focus) is your best worm fish, available anytime. Also snag Long Nosed Unicorn Fish (Glow Worm, Day) if you're there during daytime. Combine with nearby river spots for Energized Piranha / Thundering Eel.
+      </li>
+      <li>
+        <span class="num">3</span>
+        <strong>Cave Runs + Glow Worms</strong> — Void Ray (872 XP with focus) and Swordfin Eel (872 XP) are both available anytime. Bahari caves also spawn Mutated Angler (326 XP, worm). Caves have fewer fish types so your Glow Worm is more likely to land an Epic.
+      </li>
+      <li>
+        <span class="num">4</span>
+        <strong>Always aim for Perfect Catch</strong> — that +20% stacks with focus bonus. If rod health is full when you land the fish, you get the Perfect bonus. Use Fish Stew or Fisherman's Brew to make this easier.
+      </li>
+      <li>
+        <span class="num">5</span>
+        <strong>Keep Focus at 100% at all times</strong> — eat food that restores focus between catches. At 100% focus, you literally double your XP. Don't fish with empty focus.
+      </li>
+      <li>
+        <span class="num">6</span>
+        <strong>Hit Level 9 → Craft Exquisite Rod immediately</strong> — then the remaining 5,000 XP to level 10 will feel much easier with the best rod in the game.
+      </li>
+    </ul>
+  </div>
+
+  <!-- RECOMMENDED GEAR & BUFFS -->
+  <div class="vault vault--buffs">
+    <div class="vault__header">
+      <div class="vault__icon">⚙️</div>
+      <div class="vault__title">Recommended Gear & Food Buffs</div>
+    </div>
+    <table>
+      <thead><tr><th>Item</th><th>Effect</th><th>Unlock</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="fish-name">Fine Rod</td>
+          <td>2,000 durability, good reel speed</td>
+          <td style="color:var(--text-dim)">Fishing Lv6 (you have this)</td>
+        </tr>
+        <tr>
+          <td class="fish-name">Exquisite Rod</td>
+          <td>3,000 durability, fastest reel speed</td>
+          <td style="color:var(--accent-green)">Fishing Lv9 — the goal!</td>
+        </tr>
+        <tr>
+          <td class="fish-name">Major Safe Zone Booster</td>
+          <td>Bigger green reticle → easier perfects</td>
+          <td style="color:var(--text-dim)">Fishing Guild</td>
+        </tr>
+        <tr>
+          <td class="fish-name">Fisherman's Brew</td>
+          <td>Minor Safe Zone Size Boost (15 min)</td>
+          <td style="color:var(--accent-green)">Fishing Guild Lv8 (you have this!)</td>
+        </tr>
+        <tr>
+          <td class="fish-name">Fish Stew</td>
+          <td>Minor Rod Recovery Boost (8 min)</td>
+          <td style="color:var(--text-dim)">Fishing Guild Lv5</td>
+        </tr>
+        <tr>
+          <td class="fish-name">Sushi</td>
+          <td>Major Rod Health Boost</td>
+          <td style="color:var(--text-dim)">Cooking recipe</td>
+        </tr>
+        <tr>
+          <td class="fish-name">Trout Dinner</td>
+          <td>Minor Hook Time Boost</td>
+          <td style="color:var(--text-dim)">Cooking recipe</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Quick Tips -->
+  <div class="tip-box">
+    <strong>💡 Quick Tips</strong><br>
+    • <strong>Glow Worms are gated behind Fishing Lv10</strong> (Glow Worm Farm or Fishing Guild purchase). If you don't have a stash, use Worms for the Blue Marlin grind at Bahari Coast — 326 XP per perfect catch at 100% focus, ~12 perfect catches for 8→9<br>
+    • <strong>Party fishing gives bonus chance at double catches</strong> — fish near friends if possible<br>
+    • <strong>Star quality fish give ~2× the XP</strong> of regular. Fish from hot spots (rippling water nodes) for guaranteed star quality<br>
+    • <strong>Craft Fisherman's Brew</strong> (you unlocked it at Lv8!) — any fish + spice + wild garlic. Makes perfect catches much more consistent<br>
+    • No-bait fishing is very slow for leveling (72 XP max per catch with focus). Only do it if you're totally out of bait and desperate<br>
+    • Once you hit Lv9, the Exquisite Rod + Major Safe Zone Booster makes the 9→10 grind feel dramatically easier<br>
+    • <strong>Theoretical minimum:</strong> At 946 XP per Giant Goldfish, you need just ~4 for 8→9 and ~6 for 9→10. That's 10 perfect catches total! Realistically plan for 30-50 catches depending on your Glow Worm supply and luck
+  </div>
+
+  <div class="footer">
+    Nova · Palia Fishing Leveling Guide · 2026-04-27 · Data from palia.wiki.gg (Build 0.169)
+  </div>
+
+</body>
+</html>

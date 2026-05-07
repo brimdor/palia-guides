@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Palia Epic Fish Guide</title>
+<style>
+:root {
+  --bg-deep: #0a0c14;
+  --bg-card: rgba(255,255,255,0.04);
+  --border: rgba(255,255,255,0.08);
+  --text: #e0e4ec;
+  --text-dim: #7a8399;
+  --accent-purple: #a78bfa;
+  --accent-cyan: #22d3ee;
+  --accent-green: #34d399;
+  --accent-yellow: #fbbf24;
+  --accent-red: #f87171;
+  --accent-orange: #ff8c00;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg-deep);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  padding: 20px;
+  min-height: 100vh;
+}
+.container { max-width: 900px; margin: 0 auto; }
+
+/* Header */
+.header { text-align: center; padding: 40px 20px 30px; }
+.header-icon { font-size: 3rem; margin-bottom: 8px; }
+.header h1 {
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.header p { color: var(--text-dim); margin-top: 8px; font-size: 0.95rem; }
+
+/* Cards */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 20px;
+}
+.card--accent { border-left: 3px solid var(--accent-purple); }
+.card--cyan { border-left: 3px solid var(--accent-cyan); }
+.card--green { border-left: 3px solid var(--accent-green); }
+.card--orange { border-left: 3px solid var(--accent-orange); }
+
+.card h2 {
+  font-size: 1.3rem;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.card h3 { font-size: 1.05rem; color: var(--accent-cyan); margin: 16px 0 8px; }
+.card p { color: var(--text-dim); margin-bottom: 10px; font-size: 0.92rem; }
+.card strong { color: var(--text); }
+
+/* Badges */
+.badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  margin: 2px 0;
+  white-space: nowrap;
+}
+.badge--epic { background: rgba(167,139,250,0.2); color: #c4b5fd; }
+.badge--glow { background: rgba(34,211,238,0.15); color: #67e8f9; }
+.badge--worm { background: rgba(251,191,36,0.15); color: #fcd34d; }
+.badge--none { background: rgba(255,255,255,0.06); color: var(--text-dim); }
+.badge--fine { background: rgba(74,158,255,0.15); color: #93c5fd; }
+.badge--time { background: rgba(52,211,153,0.12); color: #6ee7b7; }
+.badge--food { background: rgba(255,140,0,0.15); color: #fbbf24; }
+.badge--medal { background: rgba(251,191,36,0.15); color: #fcd34d; }
+
+/* Tables */
+.table-wrap { overflow-x: auto; margin: 12px 0; }
+.table-wrap table {
+  width: 100%; border-collapse: collapse; min-width: 520px;
+  font-size: 0.88rem;
+}
+th {
+  text-align: left; padding: 10px 12px;
+  background: rgba(255,255,255,0.03);
+  color: var(--text-dim); font-weight: 600;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px;
+}
+td {
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  color: var(--text);
+}
+tr:hover td { background: rgba(255,255,255,0.02); }
+td .badge { margin: 1px 2px; }
+
+/* Upgrade path */
+.upgrade-path {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px;
+  margin: 12px 0;
+}
+.upgrade-path__item {
+  padding: 4px 12px; border-radius: 8px;
+  font-size: 0.82rem; font-weight: 500;
+  background: rgba(255,255,255,0.06); color: var(--text);
+}
+.upgrade-path__item--active {
+  background: rgba(167,139,250,0.2); color: #c4b5fd;
+  border: 1px solid rgba(167,139,250,0.3);
+}
+.upgrade-path__arrow { color: var(--text-dim); font-size: 0.9rem; }
+
+/* Recipe list */
+.recipe {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+  padding: 8px 12px; background: rgba(255,255,255,0.02);
+  border-radius: 8px; margin: 8px 0; font-size: 0.88rem;
+}
+.material { color: #67e8f9; }
+.gold { color: #fcd34d; }
+
+/* Tip box */
+.tip-box {
+  background: rgba(251,191,36,0.06);
+  border: 1px solid rgba(251,191,36,0.15);
+  border-left: 3px solid var(--accent-yellow);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin: 20px 0;
+}
+.tip-box h3 { color: var(--accent-yellow); margin-bottom: 8px; font-size: 1rem; }
+.tip-box p { color: var(--text-dim); font-size: 0.88rem; margin-bottom: 6px; }
+.tip-box strong { color: var(--text); }
+
+/* Key insight */
+.insight-box {
+  background: rgba(248,113,113,0.06);
+  border: 1px solid rgba(248,113,113,0.12);
+  border-left: 3px solid var(--accent-red);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin: 20px 0;
+}
+.insight-box p { color: var(--text-dim); font-size: 0.9rem; }
+.insight-box strong { color: var(--accent-red); }
+
+/* Footer */
+.footer {
+  text-align: center; padding: 30px 20px;
+  color: var(--text-dim); font-size: 0.8rem;
+}
+
+/* Loadout grid */
+.loadout-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px; margin: 16px 0;
+}
+.loadout-item {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: 12px; padding: 14px;
+  text-align: center;
+}
+.loadout-item .icon { font-size: 1.6rem; margin-bottom: 6px; }
+.loadout-item .slot { color: var(--text-dim); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; }
+.loadout-item .name { color: var(--text); font-weight: 600; font-size: 0.92rem; margin: 4px 0; }
+.loadout-item .why { color: var(--text-dim); font-size: 0.8rem; }
+
+/* Priority steps */
+.step-list { counter-reset: steps; list-style: none; padding: 0; margin: 16px 0; }
+.step-list li {
+  counter-increment: steps;
+  position: relative;
+  padding: 10px 16px 10px 44px;
+  margin-bottom: 6px;
+  background: rgba(255,255,255,0.02);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+.step-list li::before {
+  content: counter(steps);
+  position: absolute; left: 12px; top: 10px;
+  width: 24px; height: 24px;
+  background: rgba(167,139,250,0.2); color: #c4b5fd;
+  border-radius: 50%; text-align: center; line-height: 24px;
+  font-size: 0.75rem; font-weight: 700;
+}
+
+@media (prefers-reduced-motion: reduce) { * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; } }
+@media (prefers-reduced-transparency: reduce) { .card { background: rgba(20,16,12,0.95); } }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- Header -->
+<div class="header">
+  <div class="header-icon">🎣</div>
+  <h1>Epic Fish Guide</h1>
+  <p>Complete equipment, bait, locations &amp; loadout for all 9 Epic fish</p>
+</div>
+
+<!-- Equipment: Rod -->
+<div class="card card--accent">
+  <h2>🪱 The Rod: Exquisite Rod <span class="badge badge--epic">Best-in-Slot</span></h2>
+  <p>The highest tier rod — <strong>Epic rarity</strong>, 3,000 durability, fastest reel speed, most line health.</p>
+
+  <h3>Upgrade Path</h3>
+  <div class="upgrade-path">
+    <span class="upgrade-path__item">Makeshift Rod <span class="gold">(free)</span></span>
+    <span class="upgrade-path__arrow">→</span>
+    <span class="upgrade-path__item">Standard Rod <span class="gold">(Lvl 3, 200g)</span></span>
+    <span class="upgrade-path__arrow">→</span>
+    <span class="upgrade-path__item">Fine Rod <span class="gold">(Lvl 6, 1,500g)</span></span>
+    <span class="upgrade-path__arrow">→</span>
+    <span class="upgrade-path__item upgrade-path__item--active">Exquisite Rod <span class="gold">(Lvl 9, 3,000g)</span></span>
+  </div>
+
+  <h3>Crafting Recipe</h3>
+  <div class="recipe">
+    <span class="material">5× Flow-Infused Plank</span> +
+    <span class="material">5× Palium Bar</span> +
+    <span class="material">1× Fine Rod</span>
+    <span style="color:var(--text-dim)">→ at Worktable</span>
+  </div>
+
+  <div class="insight-box">
+    <p><strong>Key insight:</strong> Rod quality does <strong>NOT</strong> increase the probability of an Epic fish appearing — that's determined by <strong>location + time + bait</strong>. But a better rod makes the minigame <strong>dramatically easier</strong> when an Epic does hook, since Epics have very aggressive movement patterns.</p>
+  </div>
+</div>
+
+<!-- Equipment: Attachments & Bait -->
+<div class="card card--cyan">
+  <h2>⚙️ Attachment &amp; Bait</h2>
+
+  <h3>Attachment: Major Safe Zone Size Booster</h3>
+  <p>The <strong>single most impactful attachment</strong>. Enlarges the green catch zone during the minigame — critical for the erratic movement of Epic fish.</p>
+  <div class="recipe">
+    <span class="badge badge--medal">5 Fishing Medals</span>
+    <span style="color:var(--text-dim)">•</span>
+    <span>Requires: Fishing Lvl 10</span>
+    <span style="color:var(--text-dim)">•</span>
+    <span>Uses: 25 before breaking</span>
+  </div>
+  <p><strong>Secondary option:</strong> Major Rod Recovery Booster — great if struggling with line health on long fights.</p>
+
+  <h3>Bait: Glow Worm <span class="badge badge--glow">Non-Negotiable</span></h3>
+  <p>Every single Epic fish requires Glow Worms. Regular Worms will <strong>not</strong> attract them.</p>
+  <div class="recipe">
+    <span class="badge badge--medal">10 Fishing Medals → 20 Glow Worms</span>
+    <span style="color:var(--text-dim)">or</span>
+    <span class="material">1 Worm + 1 Glow Berry</span> → Glow Worm Farm
+  </div>
+</div>
+
+<!-- All 9 Epic Fish -->
+<div class="card card--green">
+  <h2>🐟 All 9 Epic Fish</h2>
+  <p>Every Epic fish in the game — no weather conditions affect any of them.</p>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Fish</th><th>Location</th><th>Time</th><th>Bait</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Ancient Fish</td><td>Kilima Lake, Temple of Waves</td><td><span class="badge badge--time">Anytime</span></td><td><span class="badge badge--glow">Glow Worm</span></td></tr>
+        <tr><td>Flametongue Ray</td><td>Kilima Rivers</td><td><span class="badge badge--time">Morning &amp; Day</span></td><td><span class="badge badge--glow">Glow Worm</span></td></tr>
+        <tr><td>Giant Goldfish</td><td>Ponds (Housing, Kilima, Bahari)</td><td><span class="badge badge--time">Anytime</span></td><td><span class="badge badge--glow">Glow Worm</span></td></tr>
+        <tr><td>Giant Kilima Stingray</td><td>Kilima Lake</td><td><span class="badge badge--time">Morning / Day / Evening</span></td><td><span class="badge badge--glow">Glow Worm</span></td></tr>
+        <tr><td>Inyrevn Mermaid</td><td>Elderwood Freshwater</td><td><span class="badge badge--time">Anytime</span></td><td><span class="badge badge--glow">Glow Worm</span></td></tr>
+        <tr><td>Long Nosed Unicorn Fish</td><td>Bahari Coast</td><td><span class="badge badge--time">Day</span></td><td><span class="badge badge--glow">Glow Worm</span></td></tr>
+        <tr><td>Majiri-of-War</td><td>Elderwood Saltwater</td><td><span class="badge badge--time">Morning &amp; Evening</span></td><td><span class="badge badge--glow">Glow Worm</span></td></tr>
+        <tr><td>Swordfin Eel</td><td>Bahari Rivers</td><td><span class="badge badge--time">Anytime</span></td><td><span class="badge badge--glow">Glow Worm</span></td></tr>
+        <tr><td>Void Ray</td><td>Caves (Kilima, Bahari, Underground)</td><td><span class="badge badge--time">Anytime</span></td><td><span class="badge badge--glow">Glow Worm</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tip-box">
+    <h3>💡 Quick Tips</h3>
+    <p><strong>5 of 9 Epics</strong> are catchable Anytime — no time-gating needed.</p>
+    <p><strong>Flametongue Ray</strong> has the tightest window (Morning &amp; Day only).</p>
+    <p><strong>No weather conditions</strong> affect any Epic fish — go whenever you have Glow Worms.</p>
+  </div>
+</div>
+
+<!-- Food Buffs -->
+<div class="card card--orange">
+  <h2>🍽️ Food Buffs</h2>
+  <p>Optional but helpful — stack with equipment for best results.</p>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Food</th><th>Effect</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="badge badge--food">Sashimi</span></td><td>Minor Rod Recovery Boost</td></tr>
+        <tr><td><span class="badge badge--food">Sushi</span></td><td>Major Rod Health Boost</td></tr>
+        <tr><td><span class="badge badge--food">Fisherman's Brew</span></td><td>Minor Safe Zone Size Boost</td></tr>
+        <tr><td><span class="badge badge--food">Trout Dinner</span></td><td>Minor Hook Time Boost</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Optimal Loadout -->
+<div class="card card--accent">
+  <h2>✅ Optimal Loadout</h2>
+  <div class="loadout-grid">
+    <div class="loadout-item">
+      <div class="icon">🎣</div>
+      <div class="slot">Rod</div>
+      <div class="name">Exquisite Rod</div>
+      <div class="why">Best reel speed + line health</div>
+    </div>
+    <div class="loadout-item">
+      <div class="icon">⚙️</div>
+      <div class="slot">Attachment</div>
+      <div class="name">Major Safe Zone Booster</div>
+      <div class="why">Bigger catch zone = easier</div>
+    </div>
+    <div class="loadout-item">
+      <div class="icon">🪱</div>
+      <div class="slot">Bait</div>
+      <div class="name">Glow Worm</div>
+      <div class="why">Required for all Epics</div>
+    </div>
+    <div class="loadout-item">
+      <div class="icon">🍽️</div>
+      <div class="slot">Food</div>
+      <div class="name">Sushi / Brew</div>
+      <div class="why">Extra health / zone size</div>
+    </div>
+  </div>
+
+  <h3>Priority Progression</h3>
+  <ol class="step-list">
+    <li>Level Fishing to 9</li>
+    <li>Craft Exquisite Rod</li>
+    <li>Level to 10</li>
+    <li>Buy Major Boosters at Fishing Guild</li>
+    <li>Stock up on Glow Worms</li>
+    <li>Grind Epics!</li>
+  </ol>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <p>Nova • Palia Epic Fish Guide • Data as of April 2026</p>
+</div>
+
+</div>
+</body>
+</html>
