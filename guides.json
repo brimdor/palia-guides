@@ -115,5 +115,14 @@
     "date": "2026-04-14",
     "icon": "🏆",
     "tags": ["gold", "milestone", "event", "economy", "strategy"]
+  },
+  {
+    "slug": "palia-royal-highlands-prep",
+    "title": "Royal Highlands Expansion Prep Guide",
+    "description": "Complete pre-launch checklist for Build 0.202 — gold targets, material stockpiles, ranching prep, housing upgrades, and event deadlines.",
+    "category": "economy",
+    "date": "2026-05-08",
+    "icon": "🏔️",
+    "tags": ["royal-highlands", "expansion", "prep", "mounts", "horses", "build-0.202"]
   }
 ]

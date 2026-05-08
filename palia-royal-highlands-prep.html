@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Palia — Royal Highlands Expansion Prep Guide</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg-deep: #0a0c14;
+      --bg-card: rgba(255,255,255,0.04);
+      --border: rgba(255,255,255,0.08);
+      --text: #e0e4ec;
+      --text-dim: #7a8399;
+      --accent-blue: #4a9eff;
+      --accent-green: #34d399;
+      --accent-yellow: #fbbf24;
+      --accent-purple: #a78bfa;
+      --accent-orange: #ff8c00;
+      --accent-red: #f87171;
+      --accent-cyan: #22d3ee;
+      --accent-amber: #d97706;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+      background: var(--bg-deep);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 24px 16px 48px;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .header {
+      text-align: center;
+      padding: 28px 16px 20px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .header__icon { font-size: 32px; margin-bottom: 8px; }
+    .header__title {
+      font-size: 22px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #e0e4ec 0%, var(--accent-purple) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .header__sub { font-size: 13px; color: var(--text-dim); margin-top: 6px; }
+
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .stat {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+    }
+    .stat__num {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--accent-green);
+    }
+    .stat__label {
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .section {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .section::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+    }
+    .section__header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .section__icon { font-size: 24px; }
+    .section__title {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .section--gold { border-left: 3px solid var(--accent-yellow); }
+    .section--gold .section__title { color: var(--accent-yellow); }
+    .section--materials { border-left: 3px solid var(--accent-blue); }
+    .section--materials .section__title { color: var(--accent-blue); }
+    .section--ranching { border-left: 3px solid var(--accent-orange); }
+    .section--ranching .section__title { color: var(--accent-orange); }
+    .section--housing { border-left: 3px solid var(--accent-purple); }
+    .section--housing .section__title { color: var(--accent-purple); }
+    .section--quests { border-left: 3px solid var(--accent-green); }
+    .section--quests .section__title { color: var(--accent-green); }
+    .section--storage { border-left: 3px solid var(--accent-cyan); }
+    .section--storage .section__title { color: var(--accent-cyan); }
+    .section--events { border-left: 3px solid var(--accent-red); }
+    .section--events .section__title { color: var(--accent-red); }
+
+    .checklist {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      font-size: 14px;
+    }
+    .checklist li:last-child { border-bottom: none; }
+    .checklist__box {
+      min-width: 18px;
+      height: 18px;
+      border: 2px solid var(--text-dim);
+      border-radius: 4px;
+      margin-top: 2px;
+    }
+    .checklist__text { flex: 1; }
+    .checklist__text strong { color: var(--text); font-weight: 600; }
+    .checklist__note {
+      display: block;
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-top: 2px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-left: 4px;
+    }
+    .badge--gold { background: rgba(251,191,36,0.12); color: var(--accent-yellow); border: 1px solid rgba(251,191,36,0.2); }
+    .badge--material { background: rgba(74,158,255,0.12); color: var(--accent-blue); border: 1px solid rgba(74,158,255,0.2); }
+    .badge--urgent { background: rgba(248,113,113,0.12); color: var(--accent-red); border: 1px solid rgba(248,113,113,0.2); }
+    .badge--reward { background: rgba(52,211,153,0.12); color: var(--accent-green); border: 1px solid rgba(52,211,153,0.2); }
+
+    .tip-box {
+      background: rgba(251,191,36,0.06);
+      border: 1px solid rgba(251,191,36,0.12);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-top: 24px;
+      font-size: 13px;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+    .tip-box strong { color: var(--accent-yellow); }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .feature-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      padding: 6px 0;
+    }
+    .feature-icon { font-size: 18px; min-width: 24px; text-align: center; }
+    .feature-text { flex: 1; }
+    .feature-text strong { color: var(--text); }
+    .feature-tag {
+      font-size: 11px;
+      color: var(--text-dim);
+      background: rgba(255,255,255,0.04);
+      padding: 2px 6px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    .countdown {
+      background: rgba(248,113,113,0.08);
+      border: 1px solid rgba(248,113,113,0.15);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 24px;
+      text-align: center;
+      font-size: 14px;
+      color: var(--text-dim);
+    }
+    .countdown strong { color: var(--accent-red); font-size: 16px; }
+
+    .footer {
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-top: 32px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="header__icon">🏔️</div>
+    <div class="header__title">Royal Highlands Expansion</div>
+    <div class="header__sub">Prep Guide — Build 0.202 · May 12, 2026</div>
+  </div>
+
+  <div class="countdown">
+    <strong>⏰ Launch: Tuesday, May 12, 2026 at 5:00 PM CT</strong><br>
+    Maintenance begins 7:00 AM PT · Downtime TBA
+  </div>
+
+  <div class="stat-row">
+    <div class="stat">
+      <div class="stat__num">300k–500k</div>
+      <div class="stat__label">Gold Target</div>
+    </div>
+    <div class="stat">
+      <div class="stat__num">4</div>
+      <div class="stat__label">Days Until Launch</div>
+    </div>
+  </div>
+
+  <!-- WHAT'S NEW -->
+  <div class="section">
+    <div class="section__header">
+      <div class="section__icon">✨</div>
+      <div class="section__title">What's Coming in Build 0.202</div>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-row">
+        <div class="feature-icon">🐴</div>
+        <div class="feature-text"><strong>Mounts & Horses</strong> — Saddle up! Three breeds: Dawnspur (free quest), Phoenixfire Dawnspur & Akwinduu Thoroughbred (breedable on your Ranch).</div>
+        <div class="feature-tag">New</div>
+      </div>
+      <div class="feature-row">
+        <div class="feature-icon">🏔️</div>
+        <div class="feature-text"><strong>Royal Highlands</strong> — Largest adventure zone yet. Rolling fields, old-world elegance, new gatherables, minerals, trees, creatures.</div>
+        <div class="feature-tag">Zone</div>
+      </div>
+      <div class="feature-row">
+        <div class="feature-icon">🏡</div>
+        <div class="feature-text"><strong>Ancient Human Home Line</strong> — New elevated housing plot style with a <strong>brand new 3rd story upgrade</strong>.</div>
+        <div class="feature-tag">Housing</div>
+      </div>
+      <div class="feature-row">
+        <div class="feature-icon">🗄️</div>
+        <div class="feature-text"><strong>Jadium Storage Tier</strong> — New chest tier above Palium. More slots for all the new loot.</div>
+        <div class="feature-tag">Storage</div>
+      </div>
+      <div class="feature-row">
+        <div class="feature-icon">🎨</div>
+        <div class="feature-text"><strong>Clothing Dye System</strong> — Dye your outfits any color for true customization.</div>
+        <div class="feature-tag">Cosmetic</div>
+      </div>
+      <div class="feature-row">
+        <div class="feature-icon">🌙</div>
+        <div class="feature-text"><strong>Lunar Path: Path of the Pony</strong> — New club progression track with pony-themed rewards.</div>
+        <div class="feature-tag">Progression</div>
+      </div>
+      <div class="feature-row">
+        <div class="feature-icon">📜</div>
+        <div class="feature-text"><strong>Bulletin Board: Nai'o's Dawnspur Prep</strong> — Help Nai'o prepare for the legendary horse's return with seasonal bundles.</div>
+        <div class="feature-tag">Event</div>
+      </div>
+      <div class="feature-row">
+        <div class="feature-icon">🍳</div>
+        <div class="feature-text"><strong>10 New Recipes</strong> — Campfire-cooked cozy meals for the Highlands trail.</div>
+        <div class="feature-tag">Cooking</div>
+      </div>
+      <div class="feature-row">
+        <div class="feature-icon">🏹</div>
+        <div class="feature-text"><strong>New Potions & Utility Arrows</strong> — Enhance your adventures with fresh consumables.</div>
+        <div class="feature-tag">Combat</div>
+      </div>
+      <div class="feature-row">
+        <div class="feature-icon">🎠</div>
+        <div class="feature-text"><strong>The Long Ride</strong> — Community event all about journeying Palia on horseback.</div>
+        <div class="feature-tag">Community</div>
+      </div>
+      <div class="feature-row">
+        <div class="feature-icon">🪑</div>
+        <div class="feature-text"><strong>Aristocrat's Decor & Teatime Sets</strong> — Rococo flair + 10 new Fancypods.</div>
+        <div class="feature-tag">Decor</div>
+      </div>
+      <div class="feature-row">
+        <div class="feature-icon">👤</div>
+        <div class="feature-text"><strong>New Villager</strong> — A fresh face to befriend in the Royal Highlands.</div>
+        <div class="feature-tag">NPC</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GOLD -->
+  <div class="section section--gold">
+    <div class="section__header">
+      <div class="section__icon">💰</div>
+      <div class="section__title">1. Stockpile Gold</div>
+    </div>
+    <ul class="checklist">
+      <li>
+        <div class="checklist__box"></div>
+        <div class="checklist__text">
+          <strong>Hit 300k–500k gold before May 12</strong>
+          <span class="checklist__note">The Handler's License (to ride bred horses), new recipes, decor, Jadium storage, and 3rd-story upgrade will all demand gold. Expect 50k+ for the license alone.</span>
+        </div>
+      </li>
+      <li>
+        <div class="checklist__box"></div>
+        <div class="checklist__text">
+          <strong>Maximize passive income: Apple Jam</strong> <span class="badge badge--gold">144g/jar</span>
+          <span class="checklist__note">Your 2 apple trees + preserve jars are the best AFK gold. One full shipping bin of Star Apple Jam ≈ 103,000g. Keep jars running 24/7.</span>
+        </div>
+      </li>
+      <li>
+        <div class="checklist__box"></div>
+        <div class="checklist__text">
+          <strong>Run Blueberry Jam as secondary</strong> <span class="badge badge--gold">88g/jar</span>
+          <span class="checklist__note">Second-best preserve jar product. Fill any empty jar slots with blueberry jam or pickled tomatoes (51g).</span>
+        </div>
+      </li>
+      <li>
+        <div class="checklist__box"></div>
+        <div class="checklist__text">
+          <strong>Do a Cake Party before launch</strong> <span class="badge badge--reward">80k+/hr</span>
+          <span class="checklist__note">Best active gold in the game. Coordinate via Palia Discord LFG. One session can bank 100k+ in an hour.</span>
+        </div>
+      </li>
+      <li>
+        <div class="checklist__box"></div>
+        <div class="checklist__text">
+          <strong>Use Seed Maker for potatoes/cotton</strong> <span class="badge badge--material">High value</span>
+          <span class="checklist__note">Star Potato Seeds and Star Cotton Seeds sell well. Seed makers should run on potatoes/cotton while preserve jars handle fruits.</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- MATERIALS -->
+  <div class="section section--materials">
+    <div class="section__header">
+      <div class="section__icon">🪵</div>
+      <div class="section__title">2. Gather Building Materials</div>
+    </div>
+    <ul class="checklist">
+      <li>
+        <div class="checklist__box"></div>
+        <div class="checklist__text">
+          <strong>Planks & Stone Bricks</strong> <span class="badge badge--material">Bulk</span>
+          <span class="checklist__note">The Ancient Human Home Line + 3rd story upgrade will be a massive material sink. Stockpile hundreds of each tier: Sapwood, Heartwood, Flow, and Stone Bricks.</span>
+        </div>
+      </li>
+      <li>
+        <div class="checklist__box"></div>
+        <div class="checklist__text">
+          <strong>Fabric & Leather</strong>
+          <span class="checklist__note">New decor, clothing dye system, and potentially saddle/crafting recipes may need cloth. Farm Sernuk for leather and cotton for fabric.</span>
+        </div>
+      </li>
+      <li>
+        <div class="checklist__box"></div>
+        <div class="checklist__text">
+          <strong>Palium Bars & Flow Planks</strong> <span class="badge badge--urgent">Epic tier</span>
+          <span class="checklist__note">Jadium storage chests and high-end housing upgrades will likely require the current top-tier materials. Mine Palium nodes in Bahari Bay and Elderwood caves daily.</span>
+        </div>
+      </li>
+      <li>
+        <div class="checklist__box"></div>
+        <div class="checklist__text">
+          <strong>Standard Arrows</strong>
+          <span class="checklist__note">New creatures to hunt in the Highlands = more arrow consumption. Craft a few hundred now so you can hunt immediately on arrival.</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- RANCHING -->
+  <div class="section section--ranching">
+    <div class="section__header">
+      <div class="section__icon">🐴</div>
+      <div class="section__title">3. Prep Your Ranch for Horses</div>
+    </div>
+    <ul class="checklist">
+      <li>
+        <div class="checklist__box"></div>
+        <div class="checklist__text">
+          <strong>Complete quest "Like a Bird"</strong> <span class="badge badge--urgent">Required</span>
+          <span class="checklist__note">If you haven't unlocked Ranching yet, this quest from Delaila is the gate. You need the Ranch to breed or stable horses.</span>
+        </div>
+      </li>
+      <li>
+        <div class="checklist__box"></div>
+        <div class="checklist__text">
+          <strong>Level Ranching to at least 5</strong> <span class="badge badge--reward">North Pen</span>
+          <span class="checklist__note">Ranching Lv5 unlocks the North (Water) Pen — 10 more animal slots. More pens = more room for horses + existing animals.</span>
+        </div>
+      </li>
+      <li>
+        <div class="checklist__box"></div>
+        <div class="checklist__text">
+          <strong>Push to Ranching 8 if possible</strong> <span class="badge badge--reward">East Pen</span>
+          <span class="checklist__note">Ranching Lv8 unlocks the East (Fire) Pen. That's 40 total animal slots across all pens — ideal for a full horse breeding operation.</span>
+        </div>
+      </li>
+      <li>
+        <div class="checklist__box"></div>
+        <div class="checklist__text">
+          <strong>Clear 2–4 animal slots</strong>
+          <span class="checklist__note">Horses will need pen space. Consider donating older animals (elders/venerated) or consolidating species. Remember: babies and venerated animals don't produce items.</span>
+        </div>
+      </li>
+      <li>
+        <div class="checklist__box"></div>
+        <div class="checklist__text">
+          <strong>Stockpile animal feed & treats</strong>
+          <span class="checklist__note">Horses will have happiness/focus mechanics just like other ranch animals. Keep feed ready so new horses hit max productivity fast.</span>
+        </div>
+      </li>
+      <li>
+        <div class="checklist__box"></div>
+        <div class="checklist__text">
+          <strong>Save gold for Handler's License</strong>
+          <span class="checklist__note">Bred horses can't leave your Ranch as mounts without this license. It's purchased with gold — expect a steep price (50k+ speculated).</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- HOUSING -->
+  <div class="section section--housing">
+    <div class="section__header">
+      <div class="section__icon">🏡</div>
+      <div class="section__title">4. Prepare Your Housing Plot</div>
+    </div>
+    <ul class="checklist">
+      <li>
+        <div class="checklist__box"></div>
+        <div class="checklist__text">
+          <strong>Plan for the Ancient Human Home Line</strong>
+          <span class="checklist__note">This is a new elevated plot style, not just a furniture set. It may require clearing or relocating existing structures. Scout your current plot for open space.</span>
+        </div>
+      </li>
+      <li>
+        <div class="checklist__box"></div>
+        <div class="checklist__text">
+          <strong>Save for the 3rd Story Upgrade</strong>
+          <span class="checklist__note">First-ever third-floor housing expansion. This will cost significant gold and materials. Don't blow your savings on decor before launch.</span>
+        </div>
+      </li>
+      <li>
+        <div class="checklist__box"></div>
+        <div class="checklist__text">
+          <strong>Clear plot clutter</strong>
+          <span class="checklist__note">New Aristocrat's Decor (Rococo), Teatime sets, and 10 Fancypods mean you'll want clean space to showcase them. Store unused decor in chests now.</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- STORAGE -->
+  <div class="section section--storage">
+    <div class="section__header">
+      <div class="section__icon">🗄️</div>
+      <div class="section__title">5. Maximize Storage</div>
+    </div>
+    <ul class="checklist">
+      <li>
+        <div class="checklist__box"></div>
+        <div class="checklist__text">
+          <strong>Place all 8 general + 3 lockbox chests</strong>
+          <span class="checklist__note">Current max is 8 general chests (Wooden→Palium) + 3 lockboxes. That's 14,300 slots total. Make sure yours are all placed — you can have 8 per plot.</span>
+        </div>
+      </li>
+      <li>
+        <div class="checklist__box"></div>
+        <div class="checklist__text">
+          <strong>Upgrade to Palium chests</strong> <span class="badge badge--material">1,750 slots each</span>
+          <span class="checklist__note">Recipe costs 100,000g from Tish's Material Store. If you haven't bought it yet, do so before launch. 8 Palium chests = 14,000 general slots.</span>
+        </div>
+      </li>
+      <li>
+        <div class="checklist__box"></div>
+        <div class="checklist__text">
+          <strong>Free up inventory space</strong>
+          <span class="checklist__note">A new zone means new gatherables, fish, bugs, and minerals. Don't hit launch day with a full backpack. Dump excess into chests or sell low-priority stacks.</span>
+        </div>
+      </li>
+      <li>
+        <div class="checklist__box"></div>
+        <div class="checklist__text">
+          <strong>Save gold for Jadium tier</strong> <span class="badge badge--urgent">New tier</span>
+          <span class="checklist__note">Jadium is the new storage tier above Palium. It will likely cost 150k–250k+ gold for the recipe and require new Highlands materials to craft.</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- QUESTS -->
+  <div class="section section--quests">
+    <div class="section__header">
+      <div class="section__icon">📜</div>
+      <div class="section__title">6. Clear Your Quest Backlog</div>
+    </div>
+    <ul class="checklist">
+      <li>
+        <div class="checklist__box"></div>
+        <div class="checklist__text">
+          <strong>Finish active Main Story quests</strong>
+          <span class="checklist__note">Build 0.202 adds new Main Story, Guide, and Discovery quests. Some may have prerequisites. Clearing your backlog ensures immediate access to all new content.</span>
+        </div>
+      </li>
+      <li>
+        <div class="checklist__box"></div>
+        <div class="checklist__text">
+          <strong>Complete Ranching 101 & 102</strong>
+          <span class="checklist__note">These skill guide quests teach the basics. If horse quests build on them, you'll want them done.</span>
+        </div>
+      </li>
+      <li>
+        <div class="checklist__box"></div>
+        <div class="checklist__text">
+          <strong>Finish Bulletin Board: Spring's Bounty</strong> <span class="badge badge--urgent">Ends with 0.201</span>
+          <span class="checklist__note">The current Bulletin Board event (Spring's Bounty) ends when 0.202 drops. Turn in all bundles now — they do not return. Rewards: Kilima Coins, Lunar XP, Hassian friendship.</span>
+        </div>
+      </li>
+      <li>
+        <div class="checklist__box"></div>
+        <div class="checklist__text">
+          <strong>Push friendship levels with key villagers</strong>
+          <span class="checklist__note">Nai'o is heavily involved in the horse content (Bulletin Board + Dawnspur quest). Raising his friendship now may unlock/help with post-launch content. Delaila is also key for Ranching.</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- EVENTS -->
+  <div class="section section--events">
+    <div class="section__header">
+      <div class="section__icon">🎉</div>
+      <div class="section__title">7. Don't Miss Live Events</div>
+    </div>
+    <ul class="checklist">
+      <li>
+        <div class="checklist__box"></div>
+        <div class="checklist__text">
+          <strong>10 Million Player Celebration</strong> <span class="badge badge--urgent">Ends May 11</span>
+          <span class="checklist__note">Daily login rewards. Grab the 2 free Mystery Premium Outfits, plushies, decor, and nameplate before it ends the day before launch.</span>
+        </div>
+      </li>
+      <li>
+        <div class="checklist__box"></div>
+        <div class="checklist__text">
+          <strong>The Long Ride — Community Event</strong> <span class="badge badge--reward">Post-launch</span>
+          <span class="checklist__note">A community-wide event focused on traveling Palia on horseback. Likely has milestones and shared rewards. Join early for maximum participation.</span>
+        </div>
+      </li>
+      <li>
+        <div class="checklist__box"></div>
+        <div class="checklist__text">
+          <strong>New Bulletin Board: Nai'o's Dawnspur Prep</strong> <span class="badge badge--reward">Post-launch</span>
+          <span class="checklist__note">New seasonal bundles tied to the Dawnspur horse. Kilima Coins, Lunar XP, and friendship rewards. Only available during the 0.202 patch window.</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- QUICK PRIORITY ORDER -->
+  <div class="section">
+    <div class="section__header">
+      <div class="section__icon">⚡</div>
+      <div class="section__title">Priority Order (4 Days Left)</div>
+    </div>
+    <ol style="padding-left: 20px; font-size: 14px; line-height: 1.8; color: var(--text);">
+      <li><strong>Login daily</strong> — 10 Million Celebration rewards end May 11.</li>
+      <li><strong>Finish Spring's Bounty Bulletin Board</strong> — disappears on launch.</li>
+      <li><strong>Run Cake Party or heavy farming session</strong> — push gold to 300k+.</li>
+      <li><strong>Keep preserve jars running</strong> — apple jam 24/7, blueberry/tomato as filler.</li>
+      <li><strong>Mine Palium & gather Flow Planks</strong> — stockpile epic-tier materials.</li>
+      <li><strong>Clear quest backlog</strong> — especially main story and ranching guides.</li>
+      <li><strong>Donate excess animals</strong> — free 2–4 pen slots for horses.</li>
+      <li><strong>Buy Palium chest recipe</strong> — if not already owned (100k gold).</li>
+      <li><strong>Craft arrows & potions</strong> — prep for immediate Highlands exploration.</li>
+      <li><strong>Clear inventory & organize chests</strong> — make room for new loot.</li>
+    </ol>
+  </div>
+
+  <div class="tip-box">
+    <strong>💡 Pro Tip:</strong> The free Dawnspur horse is obtained via a simple quest upon entering the Royal Highlands — no gold required. But the breedable horses (Phoenixfire Dawnspur and Akwinduu Thoroughbred) need Ranch space, breeding time, and a Handler's License to ride. Prioritize gold and Ranch prep if you want the full mount collection.
+  </div>
+
+  <div class="footer">
+    Palia Royal Highlands Prep Guide · Build 0.202 · Generated by Nova · May 8, 2026
+  </div>
+
+</body>
+</html>
