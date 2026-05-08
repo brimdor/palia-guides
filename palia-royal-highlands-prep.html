@@ -217,6 +217,57 @@
       padding-top: 16px;
       border-top: 1px solid var(--border);
     }
+
+    /* Interactive Checkboxes */
+    .checklist li {
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+    .checklist li:hover {
+      background: rgba(255,255,255,0.02);
+    }
+    .checklist li.completed .checklist__text,
+    .checklist li.completed .checklist__text strong {
+      color: var(--text-dim);
+      text-decoration: line-through;
+      text-decoration-color: rgba(255,255,255,0.15);
+    }
+    .checklist li.completed .badge {
+      opacity: 0.5;
+    }
+    .checklist input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      min-width: 18px;
+      height: 18px;
+      border: 2px solid var(--text-dim);
+      border-radius: 4px;
+      margin-top: 2px;
+      cursor: pointer;
+      position: relative;
+      background: transparent;
+      transition: all 0.15s ease;
+      flex-shrink: 0;
+    }
+    .checklist input[type="checkbox"]:checked {
+      background: var(--accent-green);
+      border-color: var(--accent-green);
+    }
+    .checklist input[type="checkbox"]:checked::after {
+      content: '✓';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 11px;
+      font-weight: 700;
+      color: #0a0c14;
+    }
+    .checklist input[type="checkbox"]:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(52,211,153,0.2);
+    }
+
   </style>
 </head>
 <body>
@@ -321,35 +372,35 @@
     </div>
     <ul class="checklist">
       <li>
-        <div class="checklist__box"></div>
+        <input type="checkbox" id="palia-prep-gold-0" data-section="gold">
         <div class="checklist__text">
           <strong>Hit 300k–500k gold before May 12</strong>
           <span class="checklist__note">The Handler's License (to ride bred horses), new recipes, decor, Jadium storage, and 3rd-story upgrade will all demand gold. Expect 50k+ for the license alone.</span>
         </div>
       </li>
       <li>
-        <div class="checklist__box"></div>
+        <input type="checkbox" id="palia-prep-gold-1" data-section="gold">
         <div class="checklist__text">
           <strong>Maximize passive income: Apple Jam</strong> <span class="badge badge--gold">144g/jar</span>
           <span class="checklist__note">Your 2 apple trees + preserve jars are the best AFK gold. One full shipping bin of Star Apple Jam ≈ 103,000g. Keep jars running 24/7.</span>
         </div>
       </li>
       <li>
-        <div class="checklist__box"></div>
+        <input type="checkbox" id="palia-prep-gold-2" data-section="gold">
         <div class="checklist__text">
           <strong>Run Blueberry Jam as secondary</strong> <span class="badge badge--gold">88g/jar</span>
           <span class="checklist__note">Second-best preserve jar product. Fill any empty jar slots with blueberry jam or pickled tomatoes (51g).</span>
         </div>
       </li>
       <li>
-        <div class="checklist__box"></div>
+        <input type="checkbox" id="palia-prep-gold-3" data-section="gold">
         <div class="checklist__text">
           <strong>Do a Cake Party before launch</strong> <span class="badge badge--reward">80k+/hr</span>
           <span class="checklist__note">Best active gold in the game. Coordinate via Palia Discord LFG. One session can bank 100k+ in an hour.</span>
         </div>
       </li>
       <li>
-        <div class="checklist__box"></div>
+        <input type="checkbox" id="palia-prep-gold-4" data-section="gold">
         <div class="checklist__text">
           <strong>Use Seed Maker for potatoes/cotton</strong> <span class="badge badge--material">High value</span>
           <span class="checklist__note">Star Potato Seeds and Star Cotton Seeds sell well. Seed makers should run on potatoes/cotton while preserve jars handle fruits.</span>
@@ -366,28 +417,28 @@
     </div>
     <ul class="checklist">
       <li>
-        <div class="checklist__box"></div>
+        <input type="checkbox" id="palia-prep-materials-0" data-section="materials">
         <div class="checklist__text">
           <strong>Planks & Stone Bricks</strong> <span class="badge badge--material">Bulk</span>
           <span class="checklist__note">The Ancient Human Home Line + 3rd story upgrade will be a massive material sink. Stockpile hundreds of each tier: Sapwood, Heartwood, Flow, and Stone Bricks.</span>
         </div>
       </li>
       <li>
-        <div class="checklist__box"></div>
+        <input type="checkbox" id="palia-prep-materials-1" data-section="materials">
         <div class="checklist__text">
           <strong>Fabric & Leather</strong>
           <span class="checklist__note">New decor, clothing dye system, and potentially saddle/crafting recipes may need cloth. Farm Sernuk for leather and cotton for fabric.</span>
         </div>
       </li>
       <li>
-        <div class="checklist__box"></div>
+        <input type="checkbox" id="palia-prep-materials-2" data-section="materials">
         <div class="checklist__text">
           <strong>Palium Bars & Flow Planks</strong> <span class="badge badge--urgent">Epic tier</span>
           <span class="checklist__note">Jadium storage chests and high-end housing upgrades will likely require the current top-tier materials. Mine Palium nodes in Bahari Bay and Elderwood caves daily.</span>
         </div>
       </li>
       <li>
-        <div class="checklist__box"></div>
+        <input type="checkbox" id="palia-prep-materials-3" data-section="materials">
         <div class="checklist__text">
           <strong>Standard Arrows</strong>
           <span class="checklist__note">New creatures to hunt in the Highlands = more arrow consumption. Craft a few hundred now so you can hunt immediately on arrival.</span>
@@ -404,42 +455,42 @@
     </div>
     <ul class="checklist">
       <li>
-        <div class="checklist__box"></div>
+        <input type="checkbox" id="palia-prep-ranching-0" data-section="ranching">
         <div class="checklist__text">
           <strong>Complete quest "Like a Bird"</strong> <span class="badge badge--urgent">Required</span>
           <span class="checklist__note">If you haven't unlocked Ranching yet, this quest from Delaila is the gate. You need the Ranch to breed or stable horses.</span>
         </div>
       </li>
       <li>
-        <div class="checklist__box"></div>
+        <input type="checkbox" id="palia-prep-ranching-1" data-section="ranching">
         <div class="checklist__text">
           <strong>Level Ranching to at least 5</strong> <span class="badge badge--reward">North Pen</span>
           <span class="checklist__note">Ranching Lv5 unlocks the North (Water) Pen — 10 more animal slots. More pens = more room for horses + existing animals.</span>
         </div>
       </li>
       <li>
-        <div class="checklist__box"></div>
+        <input type="checkbox" id="palia-prep-ranching-2" data-section="ranching">
         <div class="checklist__text">
           <strong>Push to Ranching 8 if possible</strong> <span class="badge badge--reward">East Pen</span>
           <span class="checklist__note">Ranching Lv8 unlocks the East (Fire) Pen. That's 40 total animal slots across all pens — ideal for a full horse breeding operation.</span>
         </div>
       </li>
       <li>
-        <div class="checklist__box"></div>
+        <input type="checkbox" id="palia-prep-ranching-3" data-section="ranching">
         <div class="checklist__text">
           <strong>Clear 2–4 animal slots</strong>
           <span class="checklist__note">Horses will need pen space. Consider donating older animals (elders/venerated) or consolidating species. Remember: babies and venerated animals don't produce items.</span>
         </div>
       </li>
       <li>
-        <div class="checklist__box"></div>
+        <input type="checkbox" id="palia-prep-ranching-4" data-section="ranching">
         <div class="checklist__text">
           <strong>Stockpile animal feed & treats</strong>
           <span class="checklist__note">Horses will have happiness/focus mechanics just like other ranch animals. Keep feed ready so new horses hit max productivity fast.</span>
         </div>
       </li>
       <li>
-        <div class="checklist__box"></div>
+        <input type="checkbox" id="palia-prep-ranching-5" data-section="ranching">
         <div class="checklist__text">
           <strong>Save gold for Handler's License</strong>
           <span class="checklist__note">Bred horses can't leave your Ranch as mounts without this license. It's purchased with gold — expect a steep price (50k+ speculated).</span>
@@ -456,21 +507,21 @@
     </div>
     <ul class="checklist">
       <li>
-        <div class="checklist__box"></div>
+        <input type="checkbox" id="palia-prep-housing-0" data-section="housing">
         <div class="checklist__text">
           <strong>Plan for the Ancient Human Home Line</strong>
           <span class="checklist__note">This is a new elevated plot style, not just a furniture set. It may require clearing or relocating existing structures. Scout your current plot for open space.</span>
         </div>
       </li>
       <li>
-        <div class="checklist__box"></div>
+        <input type="checkbox" id="palia-prep-housing-1" data-section="housing">
         <div class="checklist__text">
           <strong>Save for the 3rd Story Upgrade</strong>
           <span class="checklist__note">First-ever third-floor housing expansion. This will cost significant gold and materials. Don't blow your savings on decor before launch.</span>
         </div>
       </li>
       <li>
-        <div class="checklist__box"></div>
+        <input type="checkbox" id="palia-prep-housing-2" data-section="housing">
         <div class="checklist__text">
           <strong>Clear plot clutter</strong>
           <span class="checklist__note">New Aristocrat's Decor (Rococo), Teatime sets, and 10 Fancypods mean you'll want clean space to showcase them. Store unused decor in chests now.</span>
@@ -487,28 +538,28 @@
     </div>
     <ul class="checklist">
       <li>
-        <div class="checklist__box"></div>
+        <input type="checkbox" id="palia-prep-storage-0" data-section="storage">
         <div class="checklist__text">
           <strong>Place all 8 general + 3 lockbox chests</strong>
           <span class="checklist__note">Current max is 8 general chests (Wooden→Palium) + 3 lockboxes. That's 14,300 slots total. Make sure yours are all placed — you can have 8 per plot.</span>
         </div>
       </li>
       <li>
-        <div class="checklist__box"></div>
+        <input type="checkbox" id="palia-prep-storage-1" data-section="storage">
         <div class="checklist__text">
           <strong>Upgrade to Palium chests</strong> <span class="badge badge--material">1,750 slots each</span>
           <span class="checklist__note">Recipe costs 100,000g from Tish's Material Store. If you haven't bought it yet, do so before launch. 8 Palium chests = 14,000 general slots.</span>
         </div>
       </li>
       <li>
-        <div class="checklist__box"></div>
+        <input type="checkbox" id="palia-prep-storage-2" data-section="storage">
         <div class="checklist__text">
           <strong>Free up inventory space</strong>
           <span class="checklist__note">A new zone means new gatherables, fish, bugs, and minerals. Don't hit launch day with a full backpack. Dump excess into chests or sell low-priority stacks.</span>
         </div>
       </li>
       <li>
-        <div class="checklist__box"></div>
+        <input type="checkbox" id="palia-prep-storage-3" data-section="storage">
         <div class="checklist__text">
           <strong>Save gold for Jadium tier</strong> <span class="badge badge--urgent">New tier</span>
           <span class="checklist__note">Jadium is the new storage tier above Palium. It will likely cost 150k–250k+ gold for the recipe and require new Highlands materials to craft.</span>
@@ -525,28 +576,28 @@
     </div>
     <ul class="checklist">
       <li>
-        <div class="checklist__box"></div>
+        <input type="checkbox" id="palia-prep-quests-0" data-section="quests">
         <div class="checklist__text">
           <strong>Finish active Main Story quests</strong>
           <span class="checklist__note">Build 0.202 adds new Main Story, Guide, and Discovery quests. Some may have prerequisites. Clearing your backlog ensures immediate access to all new content.</span>
         </div>
       </li>
       <li>
-        <div class="checklist__box"></div>
+        <input type="checkbox" id="palia-prep-quests-1" data-section="quests">
         <div class="checklist__text">
           <strong>Complete Ranching 101 & 102</strong>
           <span class="checklist__note">These skill guide quests teach the basics. If horse quests build on them, you'll want them done.</span>
         </div>
       </li>
       <li>
-        <div class="checklist__box"></div>
+        <input type="checkbox" id="palia-prep-quests-2" data-section="quests">
         <div class="checklist__text">
           <strong>Finish Bulletin Board: Spring's Bounty</strong> <span class="badge badge--urgent">Ends with 0.201</span>
           <span class="checklist__note">The current Bulletin Board event (Spring's Bounty) ends when 0.202 drops. Turn in all bundles now — they do not return. Rewards: Kilima Coins, Lunar XP, Hassian friendship.</span>
         </div>
       </li>
       <li>
-        <div class="checklist__box"></div>
+        <input type="checkbox" id="palia-prep-quests-3" data-section="quests">
         <div class="checklist__text">
           <strong>Push friendship levels with key villagers</strong>
           <span class="checklist__note">Nai'o is heavily involved in the horse content (Bulletin Board + Dawnspur quest). Raising his friendship now may unlock/help with post-launch content. Delaila is also key for Ranching.</span>
@@ -563,21 +614,21 @@
     </div>
     <ul class="checklist">
       <li>
-        <div class="checklist__box"></div>
+        <input type="checkbox" id="palia-prep-events-0" data-section="events">
         <div class="checklist__text">
           <strong>10 Million Player Celebration</strong> <span class="badge badge--urgent">Ends May 11</span>
           <span class="checklist__note">Daily login rewards. Grab the 2 free Mystery Premium Outfits, plushies, decor, and nameplate before it ends the day before launch.</span>
         </div>
       </li>
       <li>
-        <div class="checklist__box"></div>
+        <input type="checkbox" id="palia-prep-events-1" data-section="events">
         <div class="checklist__text">
           <strong>The Long Ride — Community Event</strong> <span class="badge badge--reward">Post-launch</span>
           <span class="checklist__note">A community-wide event focused on traveling Palia on horseback. Likely has milestones and shared rewards. Join early for maximum participation.</span>
         </div>
       </li>
       <li>
-        <div class="checklist__box"></div>
+        <input type="checkbox" id="palia-prep-events-2" data-section="events">
         <div class="checklist__text">
           <strong>New Bulletin Board: Nai'o's Dawnspur Prep</strong> <span class="badge badge--reward">Post-launch</span>
           <span class="checklist__note">New seasonal bundles tied to the Dawnspur horse. Kilima Coins, Lunar XP, and friendship rewards. Only available during the 0.202 patch window.</span>
@@ -613,6 +664,77 @@
   <div class="footer">
     Palia Royal Highlands Prep Guide · Build 0.202 · Generated by Nova · May 8, 2026
   </div>
+
+
+<script>
+(function() {
+  const STORAGE_KEY = 'palia-royal-highlands-prep-v1';
+  
+  function loadState() {
+    try {
+      const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+      document.querySelectorAll('.checklist input[type="checkbox"]').forEach(cb => {
+        if (data[cb.id]) {
+          cb.checked = true;
+          cb.closest('li').classList.add('completed');
+        }
+      });
+    } catch(e) { console.error('Failed to load checklist state', e); }
+  }
+  
+  function saveState() {
+    try {
+      const data = {};
+      document.querySelectorAll('.checklist input[type="checkbox"]').forEach(cb => {
+        if (cb.checked) data[cb.id] = true;
+      });
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    } catch(e) { console.error('Failed to save checklist state', e); }
+  }
+  
+  function updateProgress() {
+    const total = document.querySelectorAll('.checklist input[type="checkbox"]').length;
+    const checked = document.querySelectorAll('.checklist input[type="checkbox"]:checked').length;
+    // Update any progress indicator if present
+    document.querySelectorAll('.progress__num').forEach(el => {
+      el.textContent = checked + ' / ' + total;
+    });
+  }
+  
+  // Initialize on load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+  
+  function init() {
+    loadState();
+    updateProgress();
+    
+    // Also handle clicking the entire list item (not just the checkbox)
+    document.querySelectorAll('.checklist li').forEach(li => {
+      li.addEventListener('click', function(e) {
+        // Don't toggle if clicking a link or badge
+        if (e.target.tagName === 'A' || e.target.closest('a')) return;
+        const cb = this.querySelector('input[type="checkbox"]');
+        if (cb && e.target !== cb) {
+          cb.checked = !cb.checked;
+          cb.dispatchEvent(new Event('change'));
+        }
+      });
+    });
+    
+    document.querySelectorAll('.checklist input[type="checkbox"]').forEach(cb => {
+      cb.addEventListener('change', function() {
+        this.closest('li').classList.toggle('completed', this.checked);
+        saveState();
+        updateProgress();
+      });
+    });
+  }
+})();
+</script>
 
 </body>
 </html>
