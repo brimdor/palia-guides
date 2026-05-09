@@ -235,6 +235,18 @@
     }
     .tip-box strong { color: var(--accent-yellow); }
 
+    .warning-box {
+      background: rgba(248,113,113,0.06);
+      border: 1px solid rgba(248,113,113,0.15);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-top: 16px;
+      font-size: 13px;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+    .warning-box strong { color: var(--accent-red); }
+
     .legend {
       display: flex;
       gap: 12px;
@@ -278,8 +290,8 @@
       <div class="stat__label">Total Planting Slots</div>
     </div>
     <div class="stat">
-      <div class="stat__num">~8,000g</div>
-      <div class="stat__label">Est. Revenue / 4 Days</div>
+      <div class="stat__num">~10,500g</div>
+      <div class="stat__label">Est. Revenue / 10 Days</div>
     </div>
   </div>
 
@@ -290,7 +302,7 @@
       <div class="section__title">Crop Buff System</div>
     </div>
     <p style="font-size:13px;color:var(--text-dim);margin-bottom:12px;">
-      Each crop type emits a passive buff to <strong>adjacent (non-diagonal)</strong> crops of <strong>different types</strong>. Buffs do not affect same-type neighbors and do not stack with fertilizer — but they <strong>do stack with each other</strong> (a crop can receive multiple adjacent buffs).
+      Each crop type emits a passive buff to <strong>adjacent (non-diagonal)</strong> crops of <strong>different types</strong>. Buffs do not affect same-type neighbors and do not stack with fertilizer of the same type — but they <strong>do stack with each other</strong> (a crop can receive multiple adjacent buffs).
     </p>
     <div class="buff-bar">
       <div class="buff-badge buff--water">💧 Water Retain — Adjacent crops stay watered longer (less watering)</div>
@@ -330,11 +342,15 @@
     </div>
     
     <ul style="font-size:13px;line-height:1.8;padding-left:18px;">
-      <li><strong>3 trees × ~4 apples each</strong> every 4 days = <strong style="color:var(--accent-red);">~12 apples</strong></li>
-      <li>Into preserve jars: <strong style="color:var(--accent-red);">12 × 144g = ~1,728g</strong> per 4-day cycle</li>
-      <li>With Star Quality: <strong style="color:var(--accent-red);">~2,592g</strong> per cycle</li>
-      <li>Requires <strong>12 preserve jar runs</strong> every 4 days</li>
+      <li><strong>3 trees</strong> — each fills one 3×3 plot entirely</li>
+      <li><strong>Estimated yield:</strong> ~2–3 apples per tree per 4-day harvest cycle</li>
+      <li>Over 10 days (2 harvest cycles): <strong style="color:var(--accent-red);">~12–18 apples</strong> → <strong style="color:var(--accent-red);">~1,728–2,592g</strong> in jam</li>
+      <li>Apple jam is the <strong>highest-value preserve</strong> in the game at 144g/jar</li>
     </ul>
+
+    <div class="warning-box">
+      <strong>⚠️ Estimate:</strong> Apple tree size and yield are based on community data and the gold-farming reference. Palia wiki API did not return verified yield numbers. Observe your own trees and adjust expectations.
+    </div>
   </div>
 
   <!-- PLOT 4-5: BLUEBERRY SYNERGY -->
@@ -360,16 +376,20 @@
     </div>
     
     <div class="buff-bar">
-      <div class="buff-badge buff--water">💧 Blueberry gets Water Retain from 3 adjacent Tomatoes</div>
+      <div class="buff-badge buff--water">💧 Blueberry gets Water Retain from 2 adjacent Tomatoes</div>
       <div class="buff-badge buff--harvest">🌾 Blueberry gets Harvest Boost from 2 adjacent Corn</div>
     </div>
     
     <ul style="font-size:13px;line-height:1.8;padding-left:18px;">
-      <li><strong>1 bush per plot</strong> with Harvest Boost = <strong style="color:var(--accent-purple);">~3 berries per harvest</strong> (vs 2 base)</li>
-      <li>Harvest every 4 days → 2 plots = <strong style="color:var(--accent-purple);">~6 berries</strong> → <strong style="color:var(--accent-purple);">~528g</strong> in jam</li>
+      <li><strong>1 bush per plot</strong> with Harvest Boost = <strong style="color:var(--accent-purple);">~3 berries per harvest</strong> (vs ~2 base)</li>
+      <li>Harvest every 4 days → 2 plots = <strong style="color:var(--accent-purple);">~6 berries per cycle</strong> → <strong style="color:var(--accent-purple);">~528g</strong> in jam</li>
+      <li>Over 10 days (2 cycles): <strong style="color:var(--accent-purple);">~12 berries = ~1,056g</strong></li>
       <li>Tomatoes provide Water Retain = <strong>blueberry + corn need less watering</strong></li>
-      <li>Bonus: 4 Corn per plot → pickled corn, and 3 Tomatoes → pickled tomatoes</li>
     </ul>
+
+    <div class="warning-box">
+      <strong>⚠️ Estimate:</strong> Blueberry bush yield is estimated at ~2 base / ~3 with Harvest Boost. Adjust after observing your own bushes.
+    </div>
   </div>
 
   <!-- PLOT 6-8: TOMATO-COTTON-CORN GRID -->
@@ -379,7 +399,7 @@
       <div class="section__title">Plots 6–8 · Tomato-Cotton-Corn Factory</div>
     </div>
     <p style="font-size:13px;color:var(--text-dim);margin-bottom:12px;">
-      This is the <strong>ultimate synergy grid</strong>. Every single crop receives <strong>two adjacent buffs</strong>. Center Cotton gets both Water Retain <strong>and</strong> Harvest Boost — perfect for Seed Maker output.
+      This is the <strong>ultimate synergy grid</strong>. The center Cotton receives <strong>two adjacent buffs</strong> simultaneously: Water Retain from 4 Tomatoes + Harvest Boost from 4 Corn. Perfect for Seed Maker output.
     </p>
     
     <div class="grid-3x3">
@@ -402,10 +422,10 @@
     
     <ul style="font-size:13px;line-height:1.8;padding-left:18px;">
       <li><strong>3 plots × 1 Cotton center</strong> with dual buffs = <strong>~3 cotton per harvest</strong> (Harvest Boost)</li>
-      <li>Cotton → Seed Maker = <strong>~120g per unit</strong>; with Quality Boost = more Star Quality seeds</li>
-      <li><strong>12 Tomatoes total</strong> across 3 plots → regrow every 2 days after initial 4-day grow = <strong>4 harvest cycles</strong></li>
-      <li>Tomato pickles: <strong>12 × 51g = 612g</strong> per full cycle</li>
-      <li><strong>12 Corn total</strong> → pickled corn or sell raw</li>
+      <li>Cotton → Seed Maker = <strong>~100–120g per unit</strong>; Quality Boost increases Star Quality seeds</li>
+      <li><strong>12 Tomatoes</strong> in these 3 plots → regrow every 2 days after day 4 = <strong>4 harvests in 10 days</strong></li>
+      <li>12 Tomatoes × 4 harvests = <strong>~48 tomatoes = ~2,448g</strong> in pickles (Plots 6–8 only)</li>
+      <li><strong>12 Corn</strong> in these 3 plots → 5-day grow, no regrow = <strong>2 harvests in 10 days = ~24 corn</strong></li>
     </ul>
   </div>
 
@@ -432,7 +452,7 @@
     </div>
     
     <p style="font-size:13px;color:var(--text-dim);margin-bottom:8px;">
-      <strong>Option A: Potato-Seed Factory</strong> (shown above) — checkerboard of Potato + Tomato. Potatoes go to Seed Maker. Tomatoes give Water Retain to reduce watering for the whole plot.
+      <strong>Option A: Potato-Seed Factory</strong> (shown above) — checkerboard of 5 Potato + 4 Tomato. Potatoes go to Seed Maker (~100–120g per unit). Tomatoes give Water Retain to reduce watering for the whole plot.
     </p>
     <p style="font-size:13px;color:var(--text-dim);margin-bottom:8px;">
       <strong>Option B: Spicy Pepper Test</strong> — Spicy Pepper is 2×2, requires Gardening Lv6, and needs 4 fertilizer per day. High risk/reward.
@@ -454,13 +474,17 @@
     </p>
     
     <ol style="font-size:13px;line-height:1.8;padding-left:18px;">
-      <li><strong style="color:var(--accent-red);">Apple Jam</strong> — 144g/jar. Always run first. 12 apples every 4 days = 12 jar runs.</li>
-      <li><strong style="color:var(--accent-purple);">Blueberry Jam</strong> — 88g/jar. Second priority. ~6 berries every 4 days = 6 jar runs.</li>
-      <li><strong style="color:var(--accent-orange);">Pickled Tomatoes</strong> — 51g/jar. Fill empty slots. ~24 tomatoes per 10-day cycle = 24 jar runs.</li>
-      <li><strong style="color:var(--accent-yellow);">Pickled Corn</strong> — 60g/jar. Use spare capacity while apples/berries/tomatoes are processing.</li>
-      <li><strong style="color:var(--accent-blue);">Seed Maker: Cotton & Potato</strong> — Run overnight or when preserve jars are full. Star seeds sell for ~120g.</li>
+      <li><strong style="color:var(--accent-red);">Apple Jam</strong> — 144g/jar. Always run first. ~12 apples every 10 days = ~12 jar runs.</li>
+      <li><strong style="color:var(--accent-purple);">Blueberry Jam</strong> — 88g/jar. Second priority. ~12 berries every 10 days = ~12 jar runs.</li>
+      <li><strong style="color:var(--accent-orange);">Pickled Tomatoes</strong> — 51g/jar. ~54–66 tomatoes every 10 days = ~54–66 jar runs.</li>
+      <li><strong style="color:var(--accent-yellow);">Pickled Corn</strong> — 60g/jar. ~32 corn every 10 days = ~32 jar runs.</li>
+      <li><strong style="color:var(--accent-blue);">Seed Maker: Cotton & Potato</strong> — Run overnight or when preserve jars are full. ~18 cotton + ~10 potatoes every 10 days.</li>
     </ol>
     
+    <div class="warning-box">
+      <strong>⚠️ Processing Bottleneck:</strong> This layout produces ~110–120 preserve-jar items every 10 days. That requires <strong>10–12 preserve jars</strong> running continuously. If you have fewer jars, sell excess tomatoes/corn raw or adjust the flex plot to fewer preserve crops.
+    </div>
+
     <div class="tip-box">
       <strong>💡 Pro Tip:</strong> Place your Preserve Jars and Seed Maker <strong>inside your house</strong> (not outside) so crafters can access materials directly from storage chests. This eliminates inventory micromanagement.
     </div>
@@ -487,7 +511,7 @@
     </table>
     
     <div class="tip-box">
-      <strong>⚠️ Important:</strong> Adjacent crop buffs <strong>do not stack with fertilizer</strong> of the same type. But they <strong>DO stack with different buffs</strong>. A cotton center getting Water Retain from tomatoes + Harvest Boost from corn will benefit from both simultaneously.
+      <strong>⚠️ Important:</strong> Adjacent crop buffs <strong>do not stack with fertilizer</strong> of the same type. But they <strong>DO stack with different buffs</strong>. A cotton center getting Water Retain from tomatoes + Harvest Boost from corn benefits from both simultaneously.
     </div>
   </div>
 
@@ -504,13 +528,13 @@
     
     <ul style="font-size:13px;line-height:1.8;padding-left:18px;">
       <li><strong>Apple Trees:</strong> Water once after planting; trees need minimal ongoing water</li>
-      <li><strong>Blueberry + Tomato plots:</strong> Tomatoes give Water Retain to blueberries and corn = <strong>water every 2 days</strong> instead of daily</li>
+      <li><strong>Blueberry + Tomato plots:</strong> 3 Tomatoes give Water Retain to blueberries and corn = <strong>water every 2 days</strong> instead of daily</li>
       <li><strong>Tomato-Cotton-Corn plots:</strong> 4 Tomatoes per plot give Water Retain to the center cotton and surrounding corn = <strong>water every 2 days</strong> for most tiles</li>
       <li><strong>Potato-Tomato flex plot:</strong> Checkerboard means every tile is adjacent to a tomato = <strong>uniform Water Retain coverage</strong></li>
     </ul>
     
     <div class="tip-box">
-      <strong>⏰ Time Saver:>/strong> Group your watered-together plots close to each other on your housing plot. A single watering can pass can hit multiple tiles. Apple trees at the far edge (minimal water); synergy grids clustered near your house.
+      <strong>⏰ Time Saver:</strong> Group your watered-together plots close to each other on your housing plot. A single watering can pass can hit multiple tiles. Apple trees at the far edge (minimal water); synergy grids clustered near your house.
     </div>
   </div>
 
@@ -522,25 +546,29 @@
     </div>
     
     <table class="revenue-table">
-      <thead><tr><th>Source</th><th>Output / 10 Days</th><th>Processor</th><th>Est. Gold</th></tr></thead>
+      <thead><tr><th>Source</th><th>Plants</th><th>Output / 10 Days</th><th>Processor</th><th>Est. Gold</th></tr></thead>
       <tbody>
-        <tr><td>🍎 3 Apple Trees</td><td>~12 apples (2 harvests)</td><td>Preserve Jar</td><td style="color:var(--accent-red);font-weight:700;">~1,728g</td></tr>
-        <tr><td>🫐 2 Blueberry Bushes</td><td>~12 berries (2 harvests + boost)</td><td>Preserve Jar</td><td style="color:var(--accent-purple);font-weight:700;">~1,056g</td></tr>
-        <tr><td>🍅 15 Tomato Plants</td><td>~45 tomatoes (regrow cycles)</td><td>Preserve Jar</td><td>~2,295g</td></tr>
-        <tr><td>☁️ 3 Cotton Centers</td><td>~9 cotton (with boost)</td><td>Seed Maker</td><td>~1,080g</td></tr>
-        <tr><td>🌽 12 Corn Plants</td><td>~24 corn (2 harvests)</td><td>Preserve Jar</td><td>~720g</td></tr>
-        <tr><td>🥔 Flex Plot (Potato)</td><td>~5 potatoes</td><td>Seed Maker</td><td>~600g</td></tr>
-        <tr style="border-top:2px solid var(--border);"><td><strong>TOTAL</strong></td><td>—</td><td>—</td><td style="color:var(--accent-green);font-weight:700;font-size:16px;">~7,479g</td></tr>
+        <tr><td>🍎 Apple Trees</td><td>3 trees</td><td>~12–18 apples (2 harvests)</td><td>Preserve Jar</td><td style="color:var(--accent-red);font-weight:700;">~1,728–2,592g</td></tr>
+        <tr><td>🫐 Blueberry Bushes</td><td>2 bushes</td><td>~12 berries (2 harvests + boost)</td><td>Preserve Jar</td><td style="color:var(--accent-purple);font-weight:700;">~1,056g</td></tr>
+        <tr><td>🍅 Tomato Plants</td><td>18 plants (Plots 4–8)</td><td>~54 tomatoes (3 harvests)</td><td>Preserve Jar</td><td>~2,754g</td></tr>
+        <tr><td>☁️ Cotton Centers</td><td>3 plants</td><td>~18 cotton (2 harvests + boost)</td><td>Seed Maker</td><td>~1,800g</td></tr>
+        <tr><td>🌽 Corn Plants</td><td>16 plants (Plots 4–8)</td><td>~32 corn (2 harvests)</td><td>Preserve Jar</td><td>~1,920g</td></tr>
+        <tr><td>🥔 Flex Plot (Potato)</td><td>5 plants</td><td>~10 potatoes (2 harvests)</td><td>Seed Maker</td><td>~1,200g</td></tr>
+        <tr><td colspan="5" style="border-top:2px solid var(--border); padding-top:10px;"></td></tr>
+        <tr><td><strong>BASE TOTAL</strong></td><td>—</td><td>—</td><td>—</td><td style="color:var(--accent-green);font-weight:700;font-size:16px;">~10,458g</td></tr>
+        <tr><td><strong>+ Flex Plot Tomatoes</strong></td><td>+4 plants</td><td>~12 more tomatoes</td><td>Preserve Jar</td><td>+~612g</td></tr>
+        <tr><td><strong>+ Star Quality (Apples/Berries)</strong></td><td>—</td><td>QualityUp fertilizer</td><td>—</td><td>+~1,500g</td></tr>
+        <tr style="border-top:2px solid var(--border);"><td><strong>OPTIMISTIC TOTAL</strong></td><td>—</td><td>—</td><td>—</td><td style="color:var(--accent-green);font-weight:700;font-size:18px;">~12,500g</td></tr>
       </tbody>
     </table>
     
-    <div class="tip-box">
-      <strong>📈 With Star Quality:</strong> Apply QualityUp fertilizer to apple trees and blueberries daily. Star products sell for ~50% more, pushing total 10-day revenue to approximately <strong>~11,000g</strong>.
+    <div class="warning-box">
+      <strong>⚠️ Revenue depends on processing capacity:</strong> The ~10,458g base total assumes <strong>all</strong> tomatoes and corn get pickled. If you lack preserve jars, sell excess raw (tomato ~23–34g, corn ~40–60g) — revenue will drop accordingly. The Seed Maker values (~100–120g) for cotton and potato are also estimates; verify actual seed sell prices in-game.
     </div>
   </div>
 
   <div class="footer">
-    Palia Optimal Garden Layout · 9 Plots · Generated by Nova · May 8, 2026
+    Palia Optimal Garden Layout · 9 Plots · Math-corrected · Generated by Nova · May 8, 2026
   </div>
 
 </body>
