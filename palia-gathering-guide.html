@@ -1,601 +1,335 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Palia Gathering Guide — Foraging, Flowers, Spices & More</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Palia Gathering & Foraging Guide — Enhanced</title>
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg-deep:#0a0c14;
-  --bg-card:rgba(255,255,255,0.04);
-  --border:rgba(255,255,255,0.08);
-  --text:#e0e4ec;
-  --text-dim:#7a8399;
-  --accent-green:#34d399;
-  --accent-blue:#4a9eff;
-  --accent-orange:#ff8c00;
-  --accent-cyan:#22d3ee;
-  --accent-purple:#a78bfa;
-  --accent-yellow:#fbbf24;
-  --accent-red:#f87171;
-  --accent-pink:#f472b6;
+:root {
+  --bg-deep: #0a0c14;
+  --bg-card: rgba(255,255,255,0.04);
+  --border: rgba(255,255,255,0.08);
+  --text: #e0e4ec;
+  --text-dim: #7a8399;
+  --text-muted: #4a5266;
+  --accent: #4a9eff;
+  --accent-2: #22d3ee;
+  --rarity-common: #7a8399;
+  --rarity-uncommon: #4ade80;
+  --rarity-rare: #60a5fa;
+  --rarity-epic: #f472b6;
+  --font: 'Segoe UI', system-ui, sans-serif;
 }
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg-deep);color:var(--text);line-height:1.6;min-height:100vh;padding:0 16px 48px}
-a{color:var(--accent-cyan);text-decoration:none}
-
-/* Header */
-.header{text-align:center;padding:40px 16px 24px;max-width:1100px;margin:0 auto}
-.header__icon{font-size:48px;margin-bottom:12px}
-.header__title{font-size:clamp(26px,5vw,36px);font-weight:700;background:linear-gradient(135deg,#34d399 0%,#22d3ee 50%,#4a9eff 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.header__sub{font-size:15px;color:var(--text-dim);margin-top:8px;max-width:700px;margin-left:auto;margin-right:auto}
-.header__badge{display:inline-block;margin-top:14px;background:rgba(52,211,153,0.1);border:1px solid rgba(52,211,153,0.2);padding:5px 16px;border-radius:20px;font-size:12px;color:var(--accent-green)}
-
-/* Search */
-.controls{max-width:1100px;margin:24px auto 0}
-.search-wrap{position:relative;max-width:500px;margin:0 auto 20px}
-.search-wrap input{width:100%;padding:12px 16px 12px 44px;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;color:var(--text);font-size:15px;outline:none;transition:border-color .2s}
-.search-wrap input:focus{border-color:var(--accent-green)}
-.search-wrap input::placeholder{color:var(--text-dim)}
-.search-wrap .search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:18px;pointer-events:none}
-
-/* Legend */
-.legend{max-width:1100px;margin:0 auto 28px;padding:16px;background:var(--bg-card);border:1px solid var(--border);border-radius:16px}
-.legend__title{font-size:13px;font-weight:600;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px}
-.legend__row{display:flex;flex-wrap:wrap;gap:8px}
-.legend__item{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:8px;font-size:12px;background:rgba(255,255,255,0.04)}
-.legend__dot{width:8px;height:8px;border-radius:50%}
-
-/* Zone Section */
-.zone{max-width:1100px;margin:32px auto 0}
-.zone__header{display:flex;align-items:center;gap:12px;padding:16px 20px;background:var(--bg-card);border:1px solid var(--border);border-radius:16px 16px 0 0}
-.zone__icon{font-size:28px}
-.zone__title{font-size:20px;font-weight:700}
-.zone__count{font-size:13px;color:var(--text-dim);margin-left:auto}
-
-/* Category */
-.category{border-left:3px solid var(--border);border-right:1px solid var(--border);border-bottom:1px solid var(--border);padding:0}
-.category__header{padding:10px 20px;background:rgba(255,255,255,0.02);display:flex;align-items:center;gap:8px}
-.category__title{font-size:14px;font-weight:600;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.06em}
-.category__count{font-size:12px;color:var(--text-dim)}
-
-/* Table */
-.table-wrap{overflow-x:auto}
-table{width:100%;border-collapse:collapse;font-size:14px}
-th{text-align:left;padding:10px 20px;background:rgba(255,255,255,0.02);font-size:12px;font-weight:600;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.04em;border-bottom:1px solid var(--border)}
-td{padding:10px 20px;border-bottom:1px solid var(--border);vertical-align:middle}
-tr:hover td{background:rgba(255,255,255,0.02)}
-
-/* Badges */
-.badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.04em}
-.badge--common{background:rgba(255,255,255,0.08);color:var(--text-dim)}
-.badge--uncommon{background:rgba(52,211,153,0.12);color:var(--accent-green)}
-.badge--rare{background:rgba(74,158,255,0.15);color:var(--accent-blue)}
-.badge--epic{background:rgba(251,191,36,0.15);color:var(--accent-yellow)}
-
-/* Zone accents */
-.zone--kilima .zone__header{border-left:3px solid var(--accent-green)}
-.zone--bahari .zone__header{border-left:3px solid var(--accent-orange)}
-.zone--elderwood .zone__header{border-left:3px solid var(--accent-purple)}
-.zone--housing .zone__header{border-left:3px solid var(--accent-cyan)}
-.zone--maji .zone__header{border-left:3px solid var(--accent-pink)}
-.zone--special .zone__header{border-left:3px solid var(--accent-yellow)}
-
-/* Value */
-.value{font-variant-numeric:tabular-nums;color:var(--accent-yellow);font-weight:600}
-
-/* Tip box */
-.tip{max-width:1100px;margin:32px auto 0;padding:16px 20px;background:rgba(251,191,36,0.06);border:1px solid rgba(251,191,36,0.15);border-radius:12px}
-.tip__icon{font-size:20px;margin-right:8px}
-.tip__title{font-size:14px;font-weight:600;color:var(--accent-yellow);margin-bottom:6px}
-.tip__text{font-size:13px;color:var(--text-dim);line-height:1.6}
-
-/* Footer */
-.footer{text-align:center;padding:24px 16px;border-top:1px solid var(--border);max-width:1100px;margin:40px auto 0;font-size:12px;color:var(--text-dim)}
-
-/* Hide unmatched rows */
-tr.hidden{display:none}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: var(--font);
+  background: var(--bg-deep);
+  color: var(--text);
+  min-height: 100vh;
+  padding: 2rem;
+}
+.header { text-align: center; margin-bottom: 2rem; }
+.header h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #4a9eff, #22d3ee);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+}
+.header p { color: var(--text-dim); font-size: 1rem; }
+.search-box {
+  max-width: 600px; margin: 0 auto 2rem; position: relative;
+}
+.search-box input {
+  width: 100%; padding: 0.8rem 1rem;
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 8px; color: var(--text); font-size: 1rem;
+  outline: none;
+}
+.search-box input::placeholder { color: var(--text-muted); }
+.search-box .count {
+  position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+  color: var(--text-muted); font-size: 0.85rem;
+}
+.zones-nav {
+  display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center;
+  margin-bottom: 2rem;
+}
+.zones-nav button {
+  padding: 0.5rem 1rem; border-radius: 20px; border: 1px solid var(--border);
+  background: var(--bg-card); color: var(--text-dim); cursor: pointer;
+  font-size: 0.9rem; transition: all 0.2s;
+}
+.zones-nav button:hover { border-color: var(--accent); color: var(--text); }
+.zones-nav button.active {
+  background: var(--accent); color: #fff; border-color: var(--accent);
+}
+.zone-section { display: none; }
+.zone-section.active { display: block; }
+.zone-section h2 {
+  font-size: 1.5rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;
+}
+.category-group {
+  margin-bottom: 1.5rem;
+  border-left: 3px solid;
+  padding-left: 1rem;
+}
+.category-header {
+  font-size: 1.05rem; font-weight: 600; margin-bottom: 0.5rem;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.items-table {
+  width: 100%; border-collapse: collapse; font-size: 0.9rem;
+}
+.items-table th {
+  text-align: left; padding: 0.5rem 0.75rem;
+  color: var(--text-dim); font-weight: 500;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em;
+}
+.items-table td {
+  padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.items-table tr:hover { background: rgba(255,255,255,0.02); }
+.items-table tr.hidden { display: none; }
+.item-name { font-weight: 500; }
+.item-zone { color: var(--text-dim); font-size: 0.85rem; }
+.item-subzone {
+  color: var(--accent-2); font-size: 0.82rem; line-height: 1.3;
+  margin-top: 0.2rem;
+}
+.item-subzone.has-data::before {
+  content: "📍 ";
+}
+.item-subzone.no-data {
+  color: var(--text-muted); font-style: italic;
+}
+.rarity-badge {
+  display: inline-block; padding: 0.15rem 0.5rem;
+  border-radius: 4px; font-size: 0.75rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.03em;
+}
+.value-badge {
+  color: #fbbf24; font-weight: 500;
+}
+.tip-box {
+  background: rgba(251, 191, 36, 0.08);
+  border: 1px solid rgba(251, 191, 36, 0.2);
+  border-radius: 8px; padding: 1rem 1.2rem;
+  margin-top: 2rem;
+}
+.tip-box h3 { color: #fbbf24; font-size: 1rem; margin-bottom: 0.5rem; }
+.tip-box p { color: var(--text-dim); font-size: 0.9rem; line-height: 1.5; }
+.tip-box ul { margin-left: 1.2rem; color: var(--text-dim); font-size: 0.9rem; }
+.tip-box li { margin-bottom: 0.3rem; }
+.footer {
+  text-align: center; margin-top: 3rem; padding-top: 1rem;
+  border-top: 1px solid var(--border); color: var(--text-muted);
+  font-size: 0.8rem;
+}
+.zone-note {
+  background: rgba(74, 158, 255, 0.08);
+  border: 1px solid rgba(74, 158, 255, 0.2);
+  border-radius: 6px;
+  padding: 0.6rem 0.9rem;
+  margin-bottom: 1rem;
+  color: var(--text-dim);
+  font-size: 0.85rem;
+}
 </style>
 </head>
 <body>
-
 <div class="header">
-<div class="header__icon">🌿</div>
-<div class="header__title">Palia Gathering Guide</div>
-<div class="header__sub">Complete foraging reference — flowers, mushrooms, spices, shells, trees, and more across every zone</div>
-<div class="header__badge">100+ gatherable items organized by zone & category</div>
+  <h1>🍄 Palia Gathering & Foraging Guide</h1>
+  <p>100+ gatherable items across 6 zones — with documented sub-zone locations</p>
 </div>
-
-<div class="controls">
-<div class="search-wrap">
-<span class="search-icon">🔍</span>
-<input type="text" id="search" placeholder="Search by item name, category, or zone..." autocomplete="off">
+<div class="search-box">
+  <input type="text" id="searchInput" placeholder="Search by item name, zone, or sub-zone...">
+  <span class="count" id="searchCount">100 items</span>
 </div>
+<div class="zones-nav" id="zonesNav"></div>
+<div id="content"></div>
+<div class="tip-box">
+  <h3>💡 Pro Tips</h3>
+  <ul>
+    <li><strong>Spice Sprouts</strong> — Found near <em>Mirror Fields</em> and <em>Leafhopper Hills</em> in Kilima Valley. Look west of the village.</li>
+    <li><strong>Dari Cloves</strong> — Check <em>Flooded Steps</em>, <em>Thorny Thicket</em>, and <em>Statue Garden</em> in northern Bahari Bay. Only 1 spawns per server at a time.</li>
+    <li><strong>Black Pearl (390g)</strong> — Elderwood shallow water. Check Mauvais Way and De Mer Dock.</li>
+    <li><strong>Honey</strong> — Hangs on trees in Bahari Bay AND on Pine Trees in Mitana Grove (Elderwood).</li>
+    <li><strong>Flow items</strong> — Flow Birch/Juniper/Oak/Pine appear during Flow events. Gather for rare seeds.</li>
+    <li><strong>Kopaa Nuts</strong> — Hanging from Adult and Mature Ancient Trees in the Elderwood.</li>
+    <li>Items marked <em>"📍 [area]"</em> have documented specific locations from the Palia wiki. Items without markers are confirmed in the zone but lack sub-zone documentation.</li>
+  </ul>
 </div>
-
-<div class="legend">
-<div class="legend__title">Rarity Legend</div>
-<div class="legend__row">
-<span class="legend__item"><span class="legend__dot" style="background:rgba(255,255,255,0.3)"></span> Common</span>
-<span class="legend__item"><span class="legend__dot" style="background:#34d399"></span> Uncommon</span>
-<span class="legend__item"><span class="legend__dot" style="background:#4a9eff"></span> Rare</span>
-<span class="legend__item"><span class="legend__dot" style="background:#fbbf24"></span> Epic</span>
-</div>
-</div>
-
-<div class="zone zone--kilima">
-<div class="zone__header">
-<span class="zone__icon">🏔️</span>
-<span class="zone__title">Kilima Valley</span>
-<span class="zone__count">31 items</span>
-</div>
-
-<div class="category">
-<div class="category__header">
-<span class="category__title">Flowers & Plants</span>
-<span class="category__count">(23)</span>
-</div>
-<div class="table-wrap">
-<table>
-<thead><tr><th>Item</th><th>Rarity</th><th>Base Value</th></tr></thead>
-<tbody>
-<tr><td>Blue Hydrangea Flower</td><td><span class="badge badge--common">Common</span></td><td class="value">16g</td></tr>
-<tr><td>Chapaatail Flower</td><td><span class="badge badge--common">Common</span></td><td class="value">13g</td></tr>
-<tr><td>Cottonball Flower</td><td><span class="badge badge--common">Common</span></td><td class="value">13g</td></tr>
-<tr><td>Crystal Lake Lotus</td><td><span class="badge badge--common">Uncommon</span></td><td class="value">23g</td></tr>
-<tr><td>Emerald Carpet Moss</td><td><span class="badge badge--common">Uncommon</span></td><td class="value">23g</td></tr>
-<tr><td>Fern</td><td><span class="badge badge--common">Common</span></td><td class="value">15g</td></tr>
-<tr><td>Flowering Black Bush</td><td><span class="badge badge--common">Common</span></td><td class="value">15g</td></tr>
-<tr><td>Flowering Blue Bush</td><td><span class="badge badge--common">Common</span></td><td class="value">15g</td></tr>
-<tr><td>Flowering Orange Bush</td><td><span class="badge badge--common">Common</span></td><td class="value">15g</td></tr>
-<tr><td>Flowering Pink Bush</td><td><span class="badge badge--common">Common</span></td><td class="value">15g</td></tr>
-<tr><td>Flowering Purple Bush</td><td><span class="badge badge--common">Common</span></td><td class="value">15g</td></tr>
-<tr><td>Flowering Red Bush</td><td><span class="badge badge--common">Common</span></td><td class="value">15g</td></tr>
-<tr><td>Flowering Yellow Bush</td><td><span class="badge badge--common">Common</span></td><td class="value">15g</td></tr>
-<tr><td>Forsythia Flower</td><td><span class="badge badge--common">Common</span></td><td class="value">13g</td></tr>
-<tr><td>Gardenia Flower</td><td><span class="badge badge--common">Common</span></td><td class="value">16g</td></tr>
-<tr><td>Grimalkintail Flower</td><td><span class="badge badge--common">Common</span></td><td class="value">15g</td></tr>
-<tr><td>Lavender Flower</td><td><span class="badge badge--common">Common</span></td><td class="value">15g</td></tr>
-<tr><td>Pinky Pompom Flower</td><td><span class="badge badge--common">Common</span></td><td class="value">15g</td></tr>
-<tr><td>Rose Flower</td><td><span class="badge badge--common">Common</span></td><td class="value">15g</td></tr>
-<tr><td>Sundrop Lily</td><td><span class="badge badge--common">Common</span></td><td class="value">11g</td></tr>
-<tr><td>Tiger Lily Flower</td><td><span class="badge badge--common">Common</span></td><td class="value">13g</td></tr>
-<tr><td>Trillium Flower</td><td><span class="badge badge--common">Common</span></td><td class="value">13g</td></tr>
-<tr><td>Tulip Flower</td><td><span class="badge badge--common">Common</span></td><td class="value">15g</td></tr>
-</tbody></table></div></div>
-
-<div class="category">
-<div class="category__header">
-<span class="category__title">Mushrooms & Fungi</span>
-<span class="category__count">(1)</span>
-</div>
-<div class="table-wrap">
-<table>
-<thead><tr><th>Item</th><th>Rarity</th><th>Base Value</th></tr></thead>
-<tbody>
-<tr><td>Mountain Morel</td><td><span class="badge badge--common">Common</span></td><td class="value">11g</td></tr>
-</tbody></table></div></div>
-
-<div class="category">
-<div class="category__header">
-<span class="category__title">Spices & Herbs</span>
-<span class="category__count">(4)</span>
-</div>
-<div class="table-wrap">
-<table>
-<thead><tr><th>Item</th><th>Rarity</th><th>Base Value</th></tr></thead>
-<tbody>
-<tr><td>Spice Sprouts</td><td><span class="badge badge--common">Uncommon</span></td><td class="value">23g</td></tr>
-<tr><td>Wild Garlic</td><td><span class="badge badge--common">Uncommon</span></td><td class="value">23g</td></tr>
-<tr><td>Wild Ginger</td><td><span class="badge badge--common">Uncommon</span></td><td class="value">23g</td></tr>
-<tr><td>Wild Green Onion</td><td><span class="badge badge--common">Uncommon</span></td><td class="value">11g</td></tr>
-</tbody></table></div></div>
-
-<div class="category">
-<div class="category__header">
-<span class="category__title">Trees & Wood</span>
-<span class="category__count">(1)</span>
-</div>
-<div class="table-wrap">
-<table>
-<thead><tr><th>Item</th><th>Rarity</th><th>Base Value</th></tr></thead>
-<tbody>
-<tr><td>Cypress Tree</td><td><span class="badge badge--common">Common</span></td><td class="value">15g</td></tr>
-</tbody></table></div></div>
-
-<div class="category">
-<div class="category__header">
-<span class="category__title">Seeds & Nuts</span>
-<span class="category__count">(1)</span>
-</div>
-<div class="table-wrap">
-<table>
-<thead><tr><th>Item</th><th>Rarity</th><th>Base Value</th></tr></thead>
-<tbody>
-<tr><td>Samara</td><td><span class="badge badge--common">Uncommon</span></td><td class="value">19g</td></tr>
-</tbody></table></div></div>
-
-<div class="category">
-<div class="category__header">
-<span class="category__title">Bushes</span>
-<span class="category__count">(1)</span>
-</div>
-<div class="table-wrap">
-<table>
-<thead><tr><th>Item</th><th>Rarity</th><th>Base Value</th></tr></thead>
-<tbody>
-<tr><td>Coastal Bush</td><td><span class="badge badge--common">Common</span></td><td class="value">15g</td></tr>
-</tbody></table></div></div>
-</div>
-
-<div class="zone zone--bahari">
-<div class="zone__header">
-<span class="zone__icon">🏖️</span>
-<span class="zone__title">Bahari Bay</span>
-<span class="zone__count">32 items</span>
-</div>
-
-<div class="category">
-<div class="category__header">
-<span class="category__title">Flowers & Plants</span>
-<span class="category__count">(18)</span>
-</div>
-<div class="table-wrap">
-<table>
-<thead><tr><th>Item</th><th>Rarity</th><th>Base Value</th></tr></thead>
-<tbody>
-<tr><td>Bluebell Flower</td><td><span class="badge badge--common">Common</span></td><td class="value">15g</td></tr>
-<tr><td>Briar Daisy</td><td><span class="badge badge--common">Uncommon</span></td><td class="value">23g</td></tr>
-<tr><td>Cave Cap Flower</td><td><span class="badge badge--common">Common</span></td><td class="value">16g</td></tr>
-<tr><td>Chapaatail Flower</td><td><span class="badge badge--common">Common</span></td><td class="value">13g</td></tr>
-<tr><td>Datura Flower</td><td><span class="badge badge--common">Common</span></td><td class="value">15g</td></tr>
-<tr><td>Fiddlefrond Flower</td><td><span class="badge badge--common">Common</span></td><td class="value">15g</td></tr>
-<tr><td>Forget-Me-Not Flower</td><td><span class="badge badge--common">Common</span></td><td class="value">16g</td></tr>
-<tr><td>Forsythia Flower</td><td><span class="badge badge--common">Common</span></td><td class="value">13g</td></tr>
-<tr><td>Gardenia Flower</td><td><span class="badge badge--common">Common</span></td><td class="value">16g</td></tr>
-<tr><td>Grimalkintail Flower</td><td><span class="badge badge--common">Common</span></td><td class="value">15g</td></tr>
-<tr><td>Heartdrop Lily</td><td><span class="badge badge--epic">Epic</span></td><td class="value">100g</td></tr>
-<tr><td>Hemitomes Flower</td><td><span class="badge badge--common">Common</span></td><td class="value">16g</td></tr>
-<tr><td>Nandina Flower</td><td><span class="badge badge--common">Common</span></td><td class="value">16g</td></tr>
-<tr><td>Pale Paintbrush Flower</td><td><span class="badge badge--common">Common</span></td><td class="value">16g</td></tr>
-<tr><td>Rose Flower</td><td><span class="badge badge--common">Common</span></td><td class="value">15g</td></tr>
-<tr><td>Sundrop Lily</td><td><span class="badge badge--common">Common</span></td><td class="value">11g</td></tr>
-<tr><td>Trillium Flower</td><td><span class="badge badge--common">Common</span></td><td class="value">13g</td></tr>
-<tr><td>Veronica Flower</td><td><span class="badge badge--common">Common</span></td><td class="value">16g</td></tr>
-</tbody></table></div></div>
-
-<div class="category">
-<div class="category__header">
-<span class="category__title">Mushrooms & Fungi</span>
-<span class="category__count">(2)</span>
-</div>
-<div class="table-wrap">
-<table>
-<thead><tr><th>Item</th><th>Rarity</th><th>Base Value</th></tr></thead>
-<tbody>
-<tr><td>Brightshroom</td><td><span class="badge badge--rare">Rare</span></td><td class="value">60g</td></tr>
-<tr><td>Mountain Morel</td><td><span class="badge badge--common">Common</span></td><td class="value">11g</td></tr>
-</tbody></table></div></div>
-
-<div class="category">
-<div class="category__header">
-<span class="category__title">Spices & Herbs</span>
-<span class="category__count">(3)</span>
-</div>
-<div class="table-wrap">
-<table>
-<thead><tr><th>Item</th><th>Rarity</th><th>Base Value</th></tr></thead>
-<tbody>
-<tr><td>Dari Cloves</td><td><span class="badge badge--epic">Epic</span></td><td class="value">145g</td></tr>
-<tr><td>Sweet Leaf</td><td><span class="badge badge--common">Uncommon</span></td><td class="value">23g</td></tr>
-<tr><td>Wild Garlic</td><td><span class="badge badge--common">Uncommon</span></td><td class="value">23g</td></tr>
-</tbody></table></div></div>
-
-<div class="category">
-<div class="category__header">
-<span class="category__title">Trees & Wood</span>
-<span class="category__count">(2)</span>
-</div>
-<div class="table-wrap">
-<table>
-<thead><tr><th>Item</th><th>Rarity</th><th>Base Value</th></tr></thead>
-<tbody>
-<tr><td>Juniper Seed</td><td><span class="badge badge--common">Uncommon</span></td><td class="value">19g</td></tr>
-<tr><td>Pinecone</td><td><span class="badge badge--common">Uncommon</span></td><td class="value">19g</td></tr>
-</tbody></table></div></div>
-
-<div class="category">
-<div class="category__header">
-<span class="category__title">Shells & Pearls</span>
-<span class="category__count">(4)</span>
-</div>
-<div class="table-wrap">
-<table>
-<thead><tr><th>Item</th><th>Rarity</th><th>Base Value</th></tr></thead>
-<tbody>
-<tr><td>Coral</td><td><span class="badge badge--common">Uncommon</span></td><td class="value">24g</td></tr>
-<tr><td>Green Pearl</td><td><span class="badge badge--epic">Epic</span></td><td class="value">295g</td></tr>
-<tr><td>Shell</td><td><span class="badge badge--common">Common</span></td><td class="value">12g</td></tr>
-<tr><td>Unopened Oyster</td><td><span class="badge badge--common">Common</span></td><td class="value">11g</td></tr>
-</tbody></table></div></div>
-
-<div class="category">
-<div class="category__header">
-<span class="category__title">Honey</span>
-<span class="category__count">(1)</span>
-</div>
-<div class="table-wrap">
-<table>
-<thead><tr><th>Item</th><th>Rarity</th><th>Base Value</th></tr></thead>
-<tbody>
-<tr><td>Honey</td><td><span class="badge badge--common">Uncommon</span></td><td class="value">23g</td></tr>
-</tbody></table></div></div>
-
-<div class="category">
-<div class="category__header">
-<span class="category__title">Special Materials</span>
-<span class="category__count">(2)</span>
-</div>
-<div class="table-wrap">
-<table>
-<thead><tr><th>Item</th><th>Rarity</th><th>Base Value</th></tr></thead>
-<tbody>
-<tr><td>Dragon's Beard Peat</td><td><span class="badge badge--rare">Rare</span></td><td class="value">60g</td></tr>
-<tr><td>Heat Root</td><td><span class="badge badge--rare">Rare</span></td><td class="value">60g</td></tr>
-</tbody></table></div></div>
-</div>
-
-<div class="zone zone--elderwood">
-<div class="zone__header">
-<span class="zone__icon">🌲</span>
-<span class="zone__title">Elderwood</span>
-<span class="zone__count">16 items</span>
-</div>
-
-<div class="category">
-<div class="category__header">
-<span class="category__title">Flowers & Plants</span>
-<span class="category__count">(7)</span>
-</div>
-<div class="table-wrap">
-<table>
-<thead><tr><th>Item</th><th>Rarity</th><th>Base Value</th></tr></thead>
-<tbody>
-<tr><td>Elderflower</td><td><span class="badge badge--epic">Epic</span></td><td class="value">145g</td></tr>
-<tr><td>Elderwood Cosmo</td><td><span class="badge badge--common">Common</span></td><td class="value">16g</td></tr>
-<tr><td>Elderwood Fern</td><td><span class="badge badge--common">Common</span></td><td class="value">16g</td></tr>
-<tr><td>Elderwood Lilac</td><td><span class="badge badge--common">Common</span></td><td class="value">32g</td></tr>
-<tr><td>Elderwood Lotus</td><td><span class="badge badge--rare">Rare</span></td><td class="value">60g</td></tr>
-<tr><td>Elderwood Orchid</td><td><span class="badge badge--common">Common</span></td><td class="value">9g</td></tr>
-<tr><td>Trillium Flower</td><td><span class="badge badge--common">Common</span></td><td class="value">13g</td></tr>
-</tbody></table></div></div>
-
-<div class="category">
-<div class="category__header">
-<span class="category__title">Mushrooms & Fungi</span>
-<span class="category__count">(4)</span>
-</div>
-<div class="table-wrap">
-<table>
-<thead><tr><th>Item</th><th>Rarity</th><th>Base Value</th></tr></thead>
-<tbody>
-<tr><td>Elder Clam Mushroom</td><td><span class="badge badge--common">Uncommon</span></td><td class="value">23g</td></tr>
-<tr><td>Floatfish Mushroom</td><td><span class="badge badge--common">Common</span></td><td class="value">9g</td></tr>
-<tr><td>Giant Mushroom</td><td><span class="badge badge--common">Common</span></td><td class="value">64g</td></tr>
-<tr><td>Staircase Mushroom</td><td><span class="badge badge--common">Common</span></td><td class="value">9g</td></tr>
-</tbody></table></div></div>
-
-<div class="category">
-<div class="category__header">
-<span class="category__title">Shells & Pearls</span>
-<span class="category__count">(1)</span>
-</div>
-<div class="table-wrap">
-<table>
-<thead><tr><th>Item</th><th>Rarity</th><th>Base Value</th></tr></thead>
-<tbody>
-<tr><td>Black Pearl</td><td><span class="badge badge--epic">Epic</span></td><td class="value">390g</td></tr>
-</tbody></table></div></div>
-
-<div class="category">
-<div class="category__header">
-<span class="category__title">Honey</span>
-<span class="category__count">(1)</span>
-</div>
-<div class="table-wrap">
-<table>
-<thead><tr><th>Item</th><th>Rarity</th><th>Base Value</th></tr></thead>
-<tbody>
-<tr><td>Honey</td><td><span class="badge badge--common">Uncommon</span></td><td class="value">23g</td></tr>
-</tbody></table></div></div>
-
-<div class="category">
-<div class="category__header">
-<span class="category__title">Other</span>
-<span class="category__count">(3)</span>
-</div>
-<div class="table-wrap">
-<table>
-<thead><tr><th>Item</th><th>Rarity</th><th>Base Value</th></tr></thead>
-<tbody>
-<tr><td>Flowtato</td><td><span class="badge badge--rare">Rare</span></td><td class="value">60g</td></tr>
-<tr><td>Kopaa Nuts</td><td><span class="badge badge--common">Uncommon</span></td><td class="value">23g</td></tr>
-<tr><td>Piksii Berries</td><td><span class="badge badge--common">Common</span></td><td class="value">9g</td></tr>
-</tbody></table></div></div>
-</div>
-
-<div class="zone zone--housing">
-<div class="zone__header">
-<span class="zone__icon">🏡</span>
-<span class="zone__title">Housing Plot</span>
-<span class="zone__count">26 items</span>
-</div>
-
-<div class="category">
-<div class="category__header">
-<span class="category__title">Mushrooms & Fungi</span>
-<span class="category__count">(1)</span>
-</div>
-<div class="table-wrap">
-<table>
-<thead><tr><th>Item</th><th>Rarity</th><th>Base Value</th></tr></thead>
-<tbody>
-<tr><td>Mountain Morel</td><td><span class="badge badge--common">Common</span></td><td class="value">11g</td></tr>
-</tbody></table></div></div>
-
-<div class="category">
-<div class="category__header">
-<span class="category__title">Trees & Wood</span>
-<span class="category__count">(25)</span>
-</div>
-<div class="table-wrap">
-<table>
-<thead><tr><th>Item</th><th>Rarity</th><th>Base Value</th></tr></thead>
-<tbody>
-<tr><td>Mature Birch Tree</td><td><span class="badge badge--common">Uncommon</span></td><td class="value">30g</td></tr>
-<tr><td>Mature Flow Birch Tree</td><td><span class="badge badge--rare">Rare</span></td><td class="value">55g</td></tr>
-<tr><td>Mature Flow Juniper Tree</td><td><span class="badge badge--rare">Rare</span></td><td class="value">55g</td></tr>
-<tr><td>Mature Flow Oak Tree</td><td><span class="badge badge--rare">Rare</span></td><td class="value">55g</td></tr>
-<tr><td>Mature Flow Pine Tree</td><td><span class="badge badge--rare">Rare</span></td><td class="value">55g</td></tr>
-<tr><td>Mature Juniper Tree</td><td><span class="badge badge--common">Uncommon</span></td><td class="value">30g</td></tr>
-<tr><td>Mature Oak Tree</td><td><span class="badge badge--common">Uncommon</span></td><td class="value">30g</td></tr>
-<tr><td>Mature Pine Tree</td><td><span class="badge badge--common">Uncommon</span></td><td class="value">30g</td></tr>
-<tr><td>Sapling Birch Tree</td><td><span class="badge badge--common">Uncommon</span></td><td class="value">5g</td></tr>
-<tr><td>Sapling Flow Birch Tree</td><td><span class="badge badge--rare">Rare</span></td><td class="value">20g</td></tr>
-<tr><td>Sapling Flow Juniper Tree</td><td><span class="badge badge--rare">Rare</span></td><td class="value">20g</td></tr>
-<tr><td>Sapling Flow Oak Tree</td><td><span class="badge badge--rare">Rare</span></td><td class="value">20g</td></tr>
-<tr><td>Sapling Flow Pine Tree</td><td><span class="badge badge--rare">Rare</span></td><td class="value">20g</td></tr>
-<tr><td>Sapling Juniper Tree</td><td><span class="badge badge--common">Uncommon</span></td><td class="value">5g</td></tr>
-<tr><td>Sapling Oak Tree</td><td><span class="badge badge--common">Uncommon</span></td><td class="value">5g</td></tr>
-<tr><td>Sapling Pine Tree</td><td><span class="badge badge--common">Uncommon</span></td><td class="value">5g</td></tr>
-<tr><td>Young Ancient Tree</td><td><span class="badge badge--common">Uncommon</span></td><td class="value">g</td></tr>
-<tr><td>Young Birch Tree</td><td><span class="badge badge--common">Uncommon</span></td><td class="value">10g</td></tr>
-<tr><td>Young Flow Birch Tree</td><td><span class="badge badge--rare">Rare</span></td><td class="value">25g</td></tr>
-<tr><td>Young Flow Juniper Tree</td><td><span class="badge badge--rare">Rare</span></td><td class="value">25g</td></tr>
-<tr><td>Young Flow Oak Tree</td><td><span class="badge badge--rare">Rare</span></td><td class="value">25g</td></tr>
-<tr><td>Young Flow Pine Tree</td><td><span class="badge badge--rare">Rare</span></td><td class="value">25g</td></tr>
-<tr><td>Young Juniper Tree</td><td><span class="badge badge--common">Uncommon</span></td><td class="value">10g</td></tr>
-<tr><td>Young Oak Tree</td><td><span class="badge badge--common">Uncommon</span></td><td class="value">10g</td></tr>
-<tr><td>Young Pine Tree</td><td><span class="badge badge--common">Uncommon</span></td><td class="value">10g</td></tr>
-</tbody></table></div></div>
-</div>
-
-<div class="zone zone--maji">
-<div class="zone__header">
-<span class="zone__icon">🎪</span>
-<span class="zone__title">Maji Market</span>
-<span class="zone__count">1 items</span>
-</div>
-
-<div class="category">
-<div class="category__header">
-<span class="category__title">Flowers & Plants</span>
-<span class="category__count">(1)</span>
-</div>
-<div class="table-wrap">
-<table>
-<thead><tr><th>Item</th><th>Rarity</th><th>Base Value</th></tr></thead>
-<tbody>
-<tr><td>Lunar Anemone Flower</td><td><span class="badge badge--common">Common</span></td><td class="value">13g</td></tr>
-</tbody></table></div></div>
-</div>
-
-<div class="zone zone--special">
-<div class="zone__header">
-<span class="zone__icon">✨</span>
-<span class="zone__title">Special (Flow)</span>
-<span class="zone__count">6 items</span>
-</div>
-
-<div class="category">
-<div class="category__header">
-<span class="category__title">Flowers & Plants</span>
-<span class="category__count">(1)</span>
-</div>
-<div class="table-wrap">
-<table>
-<thead><tr><th>Item</th><th>Rarity</th><th>Base Value</th></tr></thead>
-<tbody>
-<tr><td>Mixed Hydrangea Flower</td><td><span class="badge badge--common">Common</span></td><td class="value">16g</td></tr>
-</tbody></table></div></div>
-
-<div class="category">
-<div class="category__header">
-<span class="category__title">Trees & Wood</span>
-<span class="category__count">(2)</span>
-</div>
-<div class="table-wrap">
-<table>
-<thead><tr><th>Item</th><th>Rarity</th><th>Base Value</th></tr></thead>
-<tbody>
-<tr><td>Flow Juniper Seed</td><td><span class="badge badge--rare">Rare</span></td><td class="value">47g</td></tr>
-<tr><td>Flow Pinecone</td><td><span class="badge badge--rare">Rare</span></td><td class="value">47g</td></tr>
-</tbody></table></div></div>
-
-<div class="category">
-<div class="category__header">
-<span class="category__title">Shells & Pearls</span>
-<span class="category__count">(1)</span>
-</div>
-<div class="table-wrap">
-<table>
-<thead><tr><th>Item</th><th>Rarity</th><th>Base Value</th></tr></thead>
-<tbody>
-<tr><td>Pearl</td><td><span class="badge badge--rare">Rare</span></td><td class="value">115g</td></tr>
-</tbody></table></div></div>
-
-<div class="category">
-<div class="category__header">
-<span class="category__title">Seeds & Nuts</span>
-<span class="category__count">(2)</span>
-</div>
-<div class="table-wrap">
-<table>
-<thead><tr><th>Item</th><th>Rarity</th><th>Base Value</th></tr></thead>
-<tbody>
-<tr><td>Flow Acorn</td><td><span class="badge badge--rare">Rare</span></td><td class="value">47g</td></tr>
-<tr><td>Flow Samara</td><td><span class="badge badge--rare">Rare</span></td><td class="value">47g</td></tr>
-</tbody></table></div></div>
-</div>
-
-<div class="tip">
-<div class="tip__title">💡 Pro Tips for Gatherers</div>
-<div class="tip__text">
-• <strong>Spice Sprouts</strong> are found in Kilima Valley — look around the grassy areas near the river and village outskirts.<br>
-• <strong>Flow items</strong> (Flow Acorn, Flow Samara, Flow Pinecone, Flow Juniper Seed) are rare spawns that appear during Flow events or specific conditions — keep an eye out for glowing auras on gathering nodes.<br>
-• <strong>Housing Plot trees</strong> come in stages: Sapling → Young → Mature. Each stage has different sell values and some can be harvested for wood.<br>
-• <strong>Elderwood</strong> contains the most Epic-tier forageables (Black Pearl, Elderflower) — bring a large inventory.<br>
-• <strong>Bahari Bay</strong> has the widest variety of gatherables including shells, pearls, coral, and beach flowers.<br>
-• <strong>Wild Garlic, Wild Ginger, and Spice Sprouts</strong> are essential cooking ingredients — stock up when you find them.<br>
-• Many flowers appear in multiple zones — if a zone is crowded, try another for the same item.
-</div>
-</div>
-
 <div class="footer">
-Nova · Palia Gathering Guide · Data sourced from Palia wiki & in-game verification · Compiled: 2026-05-09
+  <p>Data sourced from palia.wiki.gg • Generated 2026-05-09 • Nova</p>
 </div>
-
 <script>
-const search = document.getElementById('search');
-search.addEventListener('input', function() {
-  const q = this.value.toLowerCase().trim();
-  const rows = document.querySelectorAll('tbody tr');
-  rows.forEach(row => {
-    const text = row.textContent.toLowerCase();
-    row.classList.toggle('hidden', q && !text.includes(q));
-  });
-  // Hide empty categories
-  document.querySelectorAll('.category').forEach(cat => {
-    const visible = cat.querySelectorAll('tbody tr:not(.hidden)').length;
-    cat.style.display = visible ? 'block' : 'none';
-  });
-  // Hide empty zones
-  document.querySelectorAll('.zone').forEach(zone => {
-    const visible = zone.querySelectorAll('tbody tr:not(.hidden)').length;
-    zone.style.display = visible ? 'block' : 'none';
+const data = [{"name": "Black Pearl", "rarity": "Epic", "value": "390", "description": "A pearl formed in the heart of an Elder Clam Mushroom. Maji works in strange ways sometimes.", "location": "Elderwood", "environment": "elderwood shallow water", "sub_zone": null}, {"name": "Blue Hydrangea Flower", "rarity": "Common", "value": "16", "description": "Feeling blue? This gorgeous hydrangea will be enough to brighten up your day. Plant on your housing plot and water to grow.", "location": "Kilima Valley", "environment": null, "sub_zone": null}, {"name": "Bluebell Flower", "rarity": "Common", "value": "15", "description": "These bluebell flowers are sure to take away your blues. Listen closely, and you may even hear them chime! Plant on your housing plot and water to grow.", "location": "Bahari Bay", "environment": null, "sub_zone": null}, {"name": "Briar Daisy", "rarity": "Uncommon", "value": "23", "description": "The mountainous Briar Daisy can survive even the harshest conditions.", "location": "Bahari Bay", "environment": "bahari cliffs", "sub_zone": "on cliffs and mountains throughout Bahari Bay, such as Pulsewater Plains, Proudhorn Pass, Ancient Aqueduct and on top of Pavel Mines at any time of day."}, {"name": "Brightshroom", "rarity": "Rare", "value": "60", "description": "Brightshrooms get their glow from absorbing Flow and thus have many alchemical uses.", "location": "Bahari Bay,Ranching|Ranch", "environment": "bahari north,bahari south", "sub_zone": "near ruins, temples, and other ancient structures throughout Bahari Bay, at any time of day."}, {"name": "Rose Flower", "rarity": "Common", "value": "15", "description": "Roses are the official flower of the [[Akwinduu]] royal family. In the old days, commoners were not even allowed to grow these precious blossoms. Plant on your housing plot and water to grow.", "location": "Kilima Valley,Bahari Bay", "environment": null, "sub_zone": null}, {"name": "Samara", "rarity": "Uncommon", "value": "19", "description": "Plant this on your housing plot and water to grow a birch tree.", "location": "Kilima Valley", "environment": null, "sub_zone": null}, {"name": "Sapling Birch Tree", "rarity": "Uncommon", "value": "5", "description": "Don't call it sappy! This birch tree is still in its first stage of life. Wait for it to grow to see it reach its full potential.", "location": "Housing Plot", "environment": null, "sub_zone": null}, {"name": "Sapling Flow Birch Tree", "rarity": "Rare", "value": "20", "description": "Don't call it sappy! This birch tree is still in its first stage of life. Wait for it to grow to see it reach its full potential. This tree is glowing with Flow.", "location": "Housing Plot", "environment": null, "sub_zone": null}, {"name": "Sapling Flow Juniper Tree", "rarity": "Rare", "value": "20", "description": "Don't call it sappy! This juniper tree is still in its first stage of life. Wait for it to grow to see it reach its full potential. This tree is glowing with Flow.", "location": "Housing Plot", "environment": null, "sub_zone": null}, {"name": "Sapling Flow Oak Tree", "rarity": "Rare", "value": "20", "description": "Don't call it sappy! This oak tree is still in its first stage of life. Wait for it to grow to see it reach its full potential. This tree is glowing with Flow.", "location": "Housing Plot", "environment": null, "sub_zone": null}, {"name": "Sapling Flow Pine Tree", "rarity": "Rare", "value": "20", "description": "Don't call it sappy! This pine tree is still in its first stage of life. Wait for it to grow to see it reach its full potential. This tree is glowing with Flow.", "location": "Housing Plot", "environment": null, "sub_zone": null}, {"name": "Sapling Juniper Tree", "rarity": "Uncommon", "value": "5", "description": "Don't call it sappy! This juniper tree is still in its first stage of life. Wait for it to grow to see it reach its full potential.", "location": "Housing Plot", "environment": null, "sub_zone": null}, {"name": "Sapling Oak Tree", "rarity": "Uncommon", "value": "5", "description": "Don't call it sappy! This oak tree is still in its first stage of life. Wait for it to grow to see it reach its full potential.", "location": "Housing Plot", "environment": null, "sub_zone": null}, {"name": "Sapling Pine Tree", "rarity": "Uncommon", "value": "5", "description": "Don't call it sappy! This pine tree is still in its first stage of life. Wait for it to grow to see it reach its full potential.", "location": "Housing Plot", "environment": null, "sub_zone": null}, {"name": "Shell", "rarity": "Common", "value": "12", "description": "Who sells sea shells by the sea shore? No one. You had to find this yourself.", "location": "Bahari Bay", "environment": "bahari shore", "sub_zone": "on the beaches of Coral Shores and Beachcomber Cove in Bahari Bay."}, {"name": "Spice Sprouts", "rarity": "Uncommon", "value": "23", "description": "Spice Sprouts will lend a rich color and earthy flavor to any dish. And they're pretty easy to find, too..", "location": "Kilima Valley", "environment": "kilima west", "sub_zone": "near Mirror Fields and Leafhopper Hills in Kilima Valley."}, {"name": "Staircase Mushroom", "rarity": "Common", "value": "9", "description": "These mushrooms grow on the walls of caves. While they don't have much flavor, they make a good ingredient for processing into muskin.", "location": "Elderwood,Ranching|Ranch", "environment": "elderwood caves", "sub_zone": "in Elderwood Caves in the Elderwood, at any time of day."}, {"name": "Sundrop Lily", "rarity": "Common", "value": "11", "description": "The Sundrop Lily grows in open fields where it can turn its petals to the sunlight.", "location": "Kilima Valley,Bahari Bay", "environment": "Bahari South, Kilima Central", "sub_zone": "in grassy areas around Kilima Valley and in the southern half of Bahari Bay during any time of day."}, {"name": "Sweet Leaf", "rarity": "Uncommon", "value": "23", "description": "Those with sweet teeth will love this Sweet Leaf, one of Palia's favorite dessert ingredients.", "location": "Bahari Bay", "environment": "bahari north", "sub_zone": "around all around northern Bahari Bay, including Statue Garden, Thorny Thicket, the Outskirts, Proudhorn Pass, Flooded Steps, and Ancient Aqueduct at any time."}, {"name": "Tiger Lily Flower", "rarity": "Common", "value": "13", "description": "Don't worry, this flower can't hurt you. It's more lily than tiger. Plant on your housing plot and water to grow.", "location": "Kilima Valley", "environment": null, "sub_zone": null}, {"name": "Trillium Flower", "rarity": "Common", "value": "13", "description": "Want to declare your love for someone? There's nothing better than trillions of trillium flowers! Plant on your housing plot and water to grow.", "location": "Kilima Valley,Bahari Bay,Elderwood", "environment": null, "sub_zone": null}, {"name": "Tulip Flower", "rarity": "Common", "value": "15", "description": "How many lips does this tulip have? None, it's just a flower... Plant on your housing plot and water to grow.", "location": "Kilima Valley", "environment": null, "sub_zone": null}, {"name": "Unopened Oyster", "rarity": "Common", "value": "11", "description": "Open up this oyster! Even if you don't find a pearl, you can at least eat it.", "location": "Bahari Bay", "environment": "bahari shore", "sub_zone": "on the ground at the Coral Shores, Lighthouse Lagoon and Beachcomber Cove areas of Bahari Bay."}, {"name": "Veronica Flower", "rarity": "Common", "value": "16", "description": "What's better than one flower? A veronica plant that produces copious little flowers! Plant on your housing plot and water to grow.", "location": "Bahari Bay", "environment": null, "sub_zone": null}, {"name": "Wild Garlic", "rarity": "Uncommon", "value": "23", "description": "Garlic is a delicious addition to any dish you cook! Or can be eaten raw to perfume one's breath.", "location": "Kilima Valley,Bahari Bay", "environment": "Bahari South, Kilima Central", "sub_zone": "in most areas of Kilima Valley, and in southern Bahari Bay at any time."}, {"name": "Wild Ginger", "rarity": "Uncommon", "value": "23", "description": "Spicy, sweet, and healing, ginger is valued for both its medicinal and culinary uses. Just don't eat them raw.", "location": "Kilima Valley", "environment": "kilima east", "sub_zone": "at the Whispering Banks, Chapaa Crossing, Maji's Hollow and near Phoenix Falls in Kilima Valley."}, {"name": "Wild Green Onion", "rarity": "Uncommon", "value": "11", "description": "No meal is complete without a sprinkle of green onion. Chop them up and add them to your dishes to unlock a world of flavor.", "location": "Kilima Valley", "environment": "kilima east", "sub_zone": "at the Whispering Banks, Chapaa Crossing, Maji's Hollow and near Phoenix Falls in Kilima Valley."}, {"name": "Young Ancient Tree", "rarity": "Uncommon", "value": "", "description": "Now entering the folly of youth, this young ancient tree is standing tall, but still has miles to grow.", "location": "Housing Plot", "environment": null, "sub_zone": null}, {"name": "Young Birch Tree", "rarity": "Uncommon", "value": "10", "description": "Now entering the folly of youth, this young birch tree is standing tall, but still has miles to grow.", "location": "Housing Plot", "environment": null, "sub_zone": null}, {"name": "Young Flow Birch Tree", "rarity": "Rare", "value": "25", "description": "Now entering the folly of youth, this young birch tree is standing tall, but still has miles to grow. This tree is glowing with Flow.", "location": "Housing Plot", "environment": null, "sub_zone": null}, {"name": "Young Flow Juniper Tree", "rarity": "Rare", "value": "25", "description": "Now entering the folly of youth, this young juniper tree is standing tall, but still has miles to grow. This tree is glowing with Flow.", "location": "Housing Plot", "environment": null, "sub_zone": null}, {"name": "Young Flow Oak Tree", "rarity": "Rare", "value": "25", "description": "Now entering the folly of youth, this young oak tree is standing tall, but still has miles to grow. This tree is glowing with Flow.", "location": "Housing Plot", "environment": null, "sub_zone": null}, {"name": "Young Flow Pine Tree", "rarity": "Rare", "value": "25", "description": "Now entering the folly of youth, this young pine tree is standing tall, but still has miles to grow. This tree is glowing with Flow.", "location": "Housing Plot", "environment": null, "sub_zone": null}, {"name": "Young Juniper Tree", "rarity": "Uncommon", "value": "10", "description": "Now entering the folly of youth, this young juniper tree is standing tall, but still has miles to grow.", "location": "Housing Plot", "environment": null, "sub_zone": null}, {"name": "Young Oak Tree", "rarity": "Uncommon", "value": "10", "description": "Now entering the folly of youth, this young oak tree is standing tall, but still has miles to grow.", "location": "Housing Plot", "environment": null, "sub_zone": null}, {"name": "Young Pine Tree", "rarity": "Uncommon", "value": "10", "description": "Now entering the folly of youth, this young pine tree is standing tall, but still has miles to grow.", "location": "Housing Plot", "environment": null, "sub_zone": null}, {"name": "Cave Cap Flower", "rarity": "Common", "value": "16", "description": "The cave cap is actually a mushroom, but you probably could still use them in a bouquet. Plant on your housing plot and water to grow.", "location": "Bahari Bay", "environment": null, "sub_zone": null}, {"name": "Chapaatail Flower", "rarity": "Common", "value": "13", "description": "Despite its name, this flower is not actually the tail of a chapaa. Plant on your housing plot and water to grow.", "location": "Kilima Valley,Bahari Bay", "environment": null, "sub_zone": null}, {"name": "Coastal Bush", "rarity": "Common", "value": "15", "description": "Although this bush is native to seaside areas like Bahari Bay, it can grow just about anywhere when given the right care. Including in your house!", "location": "Kilima Valley", "environment": null, "sub_zone": null}, {"name": "Coral", "rarity": "Uncommon", "value": "24", "description": "Bring the beach home with you with this piece of coral. You can almost smell the reef!", "location": "Bahari Bay", "environment": "bahari shore", "sub_zone": "on the beaches and in the shallow waters of Coral Shores and Beachcomber Cove in Bahari Bay at any time of day."}, {"name": "Cottonball Flower", "rarity": "Common", "value": "13", "description": "The good news? This cottonball is a beautiful flower that will be joy to even the gloomiest of days. The bad news? You can't actually use it to make fabric. Plant on your housing plot and water to grow.", "location": "Kilima Valley", "environment": null, "sub_zone": null}, {"name": "Crystal Lake Lotus", "rarity": "Uncommon", "value": "23", "description": "The Crystal Lake Lotus is named after where it was discovered and is now used to make dyes.", "location": "Kilima Valley", "environment": "Kilima Shore", "sub_zone": "along the waters of Kilima Lake, including Fisherman's Lagoon and Remembrance Beach, at any time of day."}, {"name": "Cypress Tree", "rarity": "Common", "value": "15", "description": "If you're looking for something that says \"tree,\" but the options are looking a little too unrefined for your taste, you might find the Cypress to be a touch more sophisticated.", "location": "Kilima Valley", "environment": null, "sub_zone": null}, {"name": "Dari Cloves", "rarity": "Epic", "value": "145", "description": "The rare Dari Clove is a spice loved by chefs and alchemists alike. Said to have magical properties.", "location": "Bahari Bay", "environment": "bahari north", "sub_zone": "in the Northern part of Bahari Bay, including Flooded Steps, Thorny Thicket, and Statue Garden, at any time of day."}, {"name": "Datura Flower", "rarity": "Common", "value": "15", "description": "These flowers can be poisonous, but they are said to gain magical properties when both moons are full. Plant on your housing plot and water to grow.", "location": "Bahari Bay", "environment": null, "sub_zone": null}, {"name": "Dragon's Beard Peat", "rarity": "Rare", "value": "60", "description": "Dragon's Beard Peat is a rare, alchemical, moss named for its color, which resembles Maji's.", "location": "Bahari Bay", "environment": "Coral Shores, Lighthouse Lagoon, Beachcomber Cove", "sub_zone": "on the beaches of Coral Shores, Lighthouse Lagoon and Beachcomber Cove in Bahari Bay. It is typically found on top of and around the bases of sandy cliffs."}, {"name": "Elder Clam Mushroom", "rarity": "Uncommon", "value": "23", "description": "The Elder Clam Mushroom defies all attempts to categorize it. How it manages to grow a pearl while being a mushroom is a mystery that will torment biologists for years to come.", "location": "Elderwood,Ranching|Ranch", "environment": "elderwood shallow water", "sub_zone": "in shallow waters in Mauvais Way and De Mer Dock in the Elderwood."}, {"name": "Elderflower", "rarity": "Epic", "value": "145", "description": "It's said to bloom in places where the Veil is thinnest.", "location": "Elderwood", "environment": "on trees, Deep Woods", "sub_zone": "near the canopy of the trees in the Deep Woods of the Elderwood at any time of day."}, {"name": "Elderwood Cosmo", "rarity": "Common", "value": "16", "description": "A popular flower among the gardens of Zendruu Outpost. Since the war, the cosmo has propagated wildly around the Elderwood.<br><br>New seeds are only obtained via Piksii Blossom Bounce.", "location": "Elderwood", "environment": "Deep Woods", "sub_zone": null}, {"name": "Elderwood Fern", "rarity": "Common", "value": "16", "description": "This fern is quite hardy and can grow almost anywhere.<br><br>New seeds are only obtained via Piksii Blossom Bounce.", "location": "Elderwood", "environment": "Deep Woods", "sub_zone": null}, {"name": "Elderwood Lilac", "rarity": "Common", "value": "32", "description": "A particularly fragrant variant of lilac that thrives in the low light of the Elderwood.<br><br>New seeds are only obtained via Piksii Blossom Bounce.", "location": "Elderwood", "environment": "Deep Woods", "sub_zone": null}, {"name": "Elderwood Lotus", "rarity": "Rare", "value": "60", "description": "Residents of the Elderwood used to harvest the seeds of this lotus for a healthy snack.", "location": "Elderwood", "environment": "elderwood shallow water", "sub_zone": null}, {"name": "Elderwood Orchid", "rarity": "Common", "value": "9", "description": "This hardy Elderwood Orchid can survive even low-light environments.", "location": "Elderwood", "environment": "deep woods, elderwood swamp, elderwood northeast", "sub_zone": null}, {"name": "Emerald Carpet Moss", "rarity": "Uncommon", "value": "23", "description": "Filling your home with the bright color of Emerald Carpet Moss is said to bring good luck.", "location": "Kilima Valley", "environment": "Kilima Shore", "sub_zone": "on the ground along the waters of Kilima Lake, including Fisherman's Lagoon, in Kilima Valley, at any time of day."}, {"name": "Fern", "rarity": "Common", "value": "15", "description": "No bells, whistles, or flowers with this fern. But even though it's all buisness[sic], you'd be hard pressed to find a bush with more verdant leaves.", "location": "Kilima Valley", "environment": null, "sub_zone": null}, {"name": "Fiddlefrond Flower", "rarity": "Common", "value": "15", "description": "The fiddlefrond is popular with foragers since its curly top makes a delicious salad. Plant on your housing plot and water to grow.", "location": "Bahari Bay", "environment": null, "sub_zone": null}, {"name": "Floatfish Mushroom", "rarity": "Common", "value": "9", "description": "Unlike its namesake, the Floatfish Mushroom only grows near the canopy of the Elderwood's oldest trees.", "location": "Elderwood,Ranching|Ranch", "environment": "on trees, deep woods", "sub_zone": "on the sides of giant trees in the Deep Woods of Elderwood during any time of day."}, {"name": "Flow Acorn", "rarity": "Rare", "value": "47", "description": "Plant this to grow an oak tree.", "location": "", "environment": "|group = Seeds", "sub_zone": null}, {"name": "Flow Juniper Seed", "rarity": "Rare", "value": "47", "description": "Plant this to grow a juniper tree.", "location": "", "environment": "|group = Seeds", "sub_zone": null}, {"name": "Flow Pinecone", "rarity": "Rare", "value": "47", "description": "Plant this to grow a pine tree.", "location": "", "environment": "|group = Seeds", "sub_zone": null}, {"name": "Flow Samara", "rarity": "Rare", "value": "47", "description": "Plant this to grow a a birch tree.", "location": "", "environment": "|group = Seeds", "sub_zone": null}, {"name": "Flowering Black Bush", "rarity": "Common", "value": "15", "description": "If short, dark, and leafy is just your type of bush, then look no further than this fine specimen.", "location": "Kilima Valley", "environment": null, "sub_zone": null}, {"name": "Flowering Blue Bush", "rarity": "Common", "value": "15", "description": "Feeling blue? Consider planting this bush. Then it can be blue with you, too.", "location": "Kilima Valley", "environment": null, "sub_zone": null}, {"name": "Flowering Orange Bush", "rarity": "Common", "value": "15", "description": "Orange you glad you can decorate your home with this bush?", "location": "Kilima Valley", "environment": null, "sub_zone": null}, {"name": "Flowering Pink Bush", "rarity": "Common", "value": "15", "description": "A bush that grows the rosiest non-roses you ever did see.", "location": "Kilima Valley", "environment": null, "sub_zone": null}, {"name": "Flowering Purple Bush", "rarity": "Common", "value": "15", "description": "In Traditional [[Majiri]] flower language, recieving[sic] a bud from one of these bushes means that whoever gave them to you probably has one of these cool bushes.", "location": "Kilima Valley", "environment": null, "sub_zone": null}, {"name": "Flowering Red Bush", "rarity": "Common", "value": "15", "description": "Redolent of flowering bush, this plant will add a nice pop of color to any space.", "location": "Kilima Valley", "environment": null, "sub_zone": null}, {"name": "Flowering Yellow Bush", "rarity": "Common", "value": "15", "description": "Yellow? It's this bush you're looking for.", "location": "Kilima Valley", "environment": null, "sub_zone": null}, {"name": "Flowtato", "rarity": "Rare", "value": "60", "description": "Unlike the regular potato, the Flowtato has a lightly sweet flavor and a tang of magic with every bite. Try roasting and enjoying as a lovely winter snack.", "location": "Elderwood", "environment": "Deep Woods", "sub_zone": "on the ground around the Deep Woods and The Fallen Aqueduct within the Elderwood."}, {"name": "Forget-Me-Not Flower", "rarity": "Common", "value": "16", "description": "You should grow a forget-me-not for everything you need to remember! Just don't forget where you planted it. Plant on your housing plot and water to grow.", "location": "Bahari Bay", "environment": null, "sub_zone": null}, {"name": "Forsythia Flower", "rarity": "Common", "value": "13", "description": "No one knows who this \"Sythia\" is supposed to be, but it doesn't matter, this forsythia flower is actually for everybody! Plant on your housing plot and water to grow.", "location": "Kilima Valley,Bahari Bay", "environment": null, "sub_zone": null}, {"name": "Gardenia Flower", "rarity": "Common", "value": "16", "description": "This lovely flower is often associated with luck in the [[:Majiri|<span>Majiri</span>]] culture. Will planting gardenias bring you good luck? The only way to find out is to plant more. Plant on your housing plot and water to grow.", "location": "Kilima Valley,Bahari Bay", "environment": null, "sub_zone": null}, {"name": "Giant Mushroom", "rarity": "Common", "value": "64", "description": "You can try to chop this bad boy down, but your axe will just bounce off!<br><br>New seeds are only obtained via Piksii Blossom Bounce.", "location": "Elderwood", "environment": "Deep Woods", "sub_zone": null}, {"name": "Green Pearl", "rarity": "Epic", "value": "295", "description": "Holy mother of Green Pearl! You actually found one! Sells for a very high price.", "location": "Bahari Bay", "environment": null, "sub_zone": null}, {"name": "Grimalkintail Flower", "rarity": "Common", "value": "15", "description": "Despite its name, this flower is not actually the tail of a [[:Grimalkin|<span>Grimalkin</span>]]. Plant on your housing plot and water to grow.", "location": "Kilima Valley,Bahari Bay", "environment": null, "sub_zone": null}, {"name": "Heartdrop Lily", "rarity": "Epic", "value": "100", "description": "The Heartdrop Lily is a rare flower with a special meaning to Palians: the blossoming of romantic love.", "location": "Bahari Bay", "environment": "bahari cliffs", "sub_zone": "tucked away in specific locations on hills, cliffs and mountains throughout Bahari Bay."}, {"name": "Heat Root", "rarity": "Rare", "value": "60", "description": "Don't sweat it! Whether it's cooking or healing, spicy Heat Root will warm you up from the inside out.", "location": "Bahari Bay", "environment": "bahari cliffs", "sub_zone": "on the walls of cliffs throughout Bahari Bay at any time of day."}, {"name": "Hemitomes Flower", "rarity": "Common", "value": "16", "description": "This odd flower gets its nutrients from fungi that live inside it. The leaves are just decoration. Plant on your housing plot and water to grow.", "location": "Bahari Bay", "environment": null, "sub_zone": null}, {"name": "Honey", "rarity": "Uncommon", "value": "23", "description": "Honey is a sweetener that can be eaten raw or cooked. You won't bee-lieve how good it is!", "location": "Bahari Bay,Elderwood,Ranching|Ranch", "environment": "on trees", "sub_zone": "hanging on in Bahari Bay, as well as on Pine Trees in Mitana Grove in the Elderwood."}, {"name": "Juniper Seed", "rarity": "Uncommon", "value": "19", "description": "Plant this on your housing plot and water to grow a juniper tree.", "location": "Bahari Bay", "environment": null, "sub_zone": null}, {"name": "Kopaa Nuts", "rarity": "Uncommon", "value": "23", "description": "These versatile nuts can be roasted for a toasty treat, chopped up to be included in various recipes, or processed into butter. What can't a Kopaa Nut do?", "location": "Elderwood", "environment": "on trees", "sub_zone": "hanging from the branches of Adult and Mature Ancient Trees in the Elderwood during any time of day."}, {"name": "Lavender Flower", "rarity": "Common", "value": "15", "description": "If you love the sight of boundless purple fields, you'll love this lavender. If not, it might not be for you. Plant on your housing plot and water to grow.", "location": "Kilima Valley", "environment": null, "sub_zone": null}, {"name": "Lunar Anemone Flower", "rarity": "Common", "value": "13", "description": "A flower beloved by the Naga. [[Inyrevn|Inyrevyns]] often plant these blooms in their garden to pay worship to their God. It is said to glow particularly brightly during the Year of the Naga.", "location": "Maji Market", "environment": null, "sub_zone": null}, {"name": "Mature Birch Tree", "rarity": "Uncommon", "value": "30", "description": "It's time for this tree to enjoy the golden age of retirement. Who knows, maybe this birch tree will take up knitting or Chezuu?", "location": "Housing Plot", "environment": null, "sub_zone": null}, {"name": "Mature Flow Birch Tree", "rarity": "Rare", "value": "55", "description": "It's time for this tree to enjoy the golden age of retirement. Who knows, maybe this birch tree will take up knitting or Chezuu? This tree is glowing with Flow.", "location": "Housing Plot", "environment": null, "sub_zone": null}, {"name": "Mature Flow Juniper Tree", "rarity": "Rare", "value": "55", "description": "It's time for this tree to enjoy the golden age of retirement. Who knows, maybe this juniper tree will take up knitting or Chezuu? This tree is glowing with Flow.", "location": "Housing Plot", "environment": null, "sub_zone": null}, {"name": "Mature Flow Oak Tree", "rarity": "Rare", "value": "55", "description": "It's time for this tree to enjoy the golden age of retirement. Who knows, maybe this oak tree will take up knitting or Chezuu? This tree is glowing with Flow.", "location": "Housing Plot", "environment": null, "sub_zone": null}, {"name": "Mature Flow Pine Tree", "rarity": "Rare", "value": "55", "description": "It's time for this tree to enjoy the golden age of retirement. Who knows, maybe this pine tree will take up knitting or Chezuu? This tree is glowing with Flow.", "location": "Housing Plot", "environment": null, "sub_zone": null}, {"name": "Mature Juniper Tree", "rarity": "Uncommon", "value": "30", "description": "It's time for this tree to enjoy the golden age of retirement. Who knows, maybe this juniper tree will take up knitting or Chezuu?", "location": "Housing Plot", "environment": null, "sub_zone": null}, {"name": "Mature Oak Tree", "rarity": "Uncommon", "value": "30", "description": "It's time for this tree to enjoy the golden age of retirement. Who knows, maybe this oak tree will take up knitting or Chezuu?", "location": "Housing Plot", "environment": null, "sub_zone": null}, {"name": "Mature Pine Tree", "rarity": "Uncommon", "value": "30", "description": "It's time for this tree to enjoy the golden age of retirement. Who knows, maybe this pine tree will take up knitting or Chezuu?", "location": "Housing Plot", "environment": null, "sub_zone": null}, {"name": "Mixed Hydrangea Flower", "rarity": "Common", "value": "16", "description": "Can't decide on a color? This hydrangea has a little of column A and a little of column B. Plant on your housing plot and water to grow.", "location": "", "environment": null, "sub_zone": null}, {"name": "Mountain Morel", "rarity": "Common", "value": "11", "description": "A common mushroom, Mountain Morels can be found right at home! Super popular, raw or cooked.", "location": "Kilima Valley,Bahari Bay,Housing Plot,Ranching|Ranch", "environment": "Bahari North, Kilima East", "sub_zone": "right at home! Super popular, raw or cooked."}, {"name": "Nandina Flower", "rarity": "Common", "value": "16", "description": "Most leaves are green, but this nandina always has a bit of red. Is it a sunburn, or is it blushing? Plant on your housing plot and water to grow.", "location": "Bahari Bay", "environment": null, "sub_zone": null}, {"name": "Pale Paintbrush Flower", "rarity": "Common", "value": "16", "description": "This puffy little flower looks just like a paintbrush! But if you tried to use it on canvas, it'd probably just wilt. Plant on your housing plot and water to grow.", "location": "Bahari Bay", "environment": null, "sub_zone": null}, {"name": "Pearl", "rarity": "Rare", "value": "115", "description": "Here's a pearl of wisdom: open more oysters for a chance at other colors of pearls! Sells for a high price.", "location": "", "environment": null, "sub_zone": null}, {"name": "Piksii Berries", "rarity": "Common", "value": "9", "description": "They say to be careful when picking Piksii Berries, for the mischievous creatures that inhabit the Elderwood may not let you leave without paying the price.", "location": "Elderwood", "environment": "elderwood swamp, deep woods", "sub_zone": null}, {"name": "Pinecone", "rarity": "Uncommon", "value": "19", "description": "Plant this on your housing plot and water to grow a pine tree.", "location": "Bahari Bay", "environment": null, "sub_zone": null}, {"name": "Pinky Pompom Flower", "rarity": "Common", "value": "15", "description": "Pom-poms are a great decoration for clothing. Now they can also decorate your yard! Plant on your housing plot and water to grow.", "location": "Kilima Valley", "environment": null, "sub_zone": null}];
+
+function getCategory(name) {
+  const n = name.toLowerCase();
+  if (n.includes('tree') || n.includes('sapling')) return 'Trees & Wood';
+  if (n.includes('bush')) return 'Bushes';
+  if (['flower','lily','orchid','daisy','hydrangea','bell','rose','tulip','carnation','dahlia','datura','dandelion','elderflower','elderwood cosmo','elderwood fern','elderwood lilac','forsythia','gardenia','grimal','heartdrop','hemitomes','lunar anemone','midnight','nandina','pale paintbrush','veronica','cottonball','chapaatail','fiddlefrond','forget-me-not','grimalkintail','pinky pompom','tiger'].some(x => n.includes(x))) return 'Flowers';
+  if (['mushroom','morel','shroom','clam'].some(x => n.includes(x))) return 'Mushrooms';
+  if (['spice','garlic','ginger','onion','root','leaf','clove'].some(x => n.includes(x))) return 'Spices & Herbs';
+  if (['pearl','shell','coral','oyster','peat'].some(x => n.includes(x))) return 'Shells & Pearls';
+  if (n.includes('honey')) return 'Honey';
+  if (['seed','nut','acorn','pinecone','samara'].some(x => n.includes(x))) return 'Seeds & Nuts';
+  if (['moss','carpet','fern'].some(x => n.includes(x))) return 'Other';
+  return 'Other';
+}
+
+const zonesOrder = ['Kilima Valley','Bahari Bay','Elderwood','Housing Plot','Maji Market','Ranching|Ranch'];
+const zoneIcons = {'Kilima Valley':'🏔️','Bahari Bay':'🏖️','Elderwood':'🌲','Housing Plot':'🏡','Maji Market':'🎪','Ranching|Ranch':'🐄'};
+const catOrder = ['Flowers','Spices & Herbs','Mushrooms','Trees & Wood','Bushes','Shells & Pearls','Honey','Seeds & Nuts','Other'];
+const catColors = {'Flowers':'#ff85c0','Spices & Herbs':'#ff9f43','Mushrooms':'#a78bfa','Trees & Wood':'#7fd67f','Bushes':'#68c8c8','Shells & Pearls':'#22d3ee','Honey':'#fbbf24','Seeds & Nuts':'#c0a060','Other':'#7a8399'};
+
+const rarityClass = r => {
+  const c = (r || 'common').toLowerCase();
+  if (c === 'common') return 'var(--rarity-common)';
+  if (c === 'uncommon') return 'var(--rarity-uncommon)';
+  if (c === 'rare') return 'var(--rarity-rare)';
+  if (c === 'epic') return 'var(--rarity-epic)';
+  return 'var(--rarity-common)';
+};
+
+// Group items by zone
+const zones = {};
+data.forEach(item => {
+  item.location.split(',').forEach(z => {
+    z = z.trim();
+    if (!z) return;
+    if (!zones[z]) zones[z] = [];
+    zones[z].push(item);
   });
 });
-</script>
 
+let activeZone = 'Kilima Valley';
+
+function renderNav() {
+  const nav = document.getElementById('zonesNav');
+  nav.innerHTML = '';
+  zonesOrder.forEach(z => {
+    if (!zones[z]) return;
+    const btn = document.createElement('button');
+    btn.textContent = zoneIcons[z] + ' ' + z.replace('|Ranch', ' / Ranch');
+    if (z === activeZone) btn.classList.add('active');
+    btn.onclick = () => { activeZone = z; renderNav(); renderContent(); };
+    nav.appendChild(btn);
+  });
+  // Add "All Zones" button
+  const allBtn = document.createElement('button');
+  allBtn.textContent = '🌍 All Zones';
+  if (activeZone === 'ALL') allBtn.classList.add('active');
+  allBtn.onclick = () => { activeZone = 'ALL'; renderNav(); renderContent(); };
+  nav.appendChild(allBtn);
+}
+
+function renderContent() {
+  const content = document.getElementById('content');
+  content.innerHTML = '';
+  const zonesToRender = activeZone === 'ALL' ? zonesOrder.filter(z => zones[z]) : [activeZone];
+  
+  zonesToRender.forEach(zoneName => {
+    const items = zones[zoneName];
+    if (!items) return;
+    
+    const section = document.createElement('div');
+    section.className = 'zone-section' + (activeZone === zoneName || activeZone === 'ALL' ? ' active' : '');
+    section.dataset.zone = zoneName;
+    
+    const h2 = document.createElement('h2');
+    h2.textContent = zoneIcons[zoneName] + ' ' + zoneName.replace('|Ranch', ' / Ranch') + ` (${items.length})`;
+    section.appendChild(h2);
+    
+    // Group by category
+    const cats = {};
+    items.forEach(item => {
+      const c = getCategory(item.name);
+      if (!cats[c]) cats[c] = [];
+      cats[c].push(item);
+    });
+    
+    catOrder.forEach(cat => {
+      if (!cats[cat]) return;
+      const group = document.createElement('div');
+      group.className = 'category-group';
+      group.style.borderLeftColor = catColors[cat] || '#7a8399';
+      
+      const header = document.createElement('div');
+      header.className = 'category-header';
+      header.textContent = cat + ' (' + cats[cat].length + ')';
+      header.style.color = catColors[cat] || '#7a8399';
+      group.appendChild(header);
+      
+      const table = document.createElement('table');
+      table.className = 'items-table';
+      table.innerHTML = '<tr><th>Name</th><th>Sub-Zone</th><th>Rarity</th><th>Value</th></tr>';
+      
+      cats[cat].forEach(item => {
+        const tr = document.createElement('tr');
+        tr.dataset.search = (item.name + ' ' + item.location + ' ' + (item.sub_zone || '') + ' ' + item.rarity).toLowerCase();
+        
+        const subZoneHtml = item.sub_zone
+          ? '<div class="item-subzone has-data">📍 ' + item.sub_zone + '</div>'
+          : '<div class="item-subzone no-data">Zone-wide spawn</div>';
+        
+        tr.innerHTML = `
+          <td>
+            <div class="item-name">${item.name}</div>
+          </td>
+          <td>${subZoneHtml}</td>
+          <td><span class="rarity-badge" style="background:${rarityClass(item.rarity)}22;color:${rarityClass(item.rarity)}">${item.rarity}</span></td>
+          <td class="value-badge">${item.value}g</td>
+        `;
+        table.appendChild(tr);
+      });
+      
+      group.appendChild(table);
+      section.appendChild(group);
+    });
+    
+    content.appendChild(section);
+  });
+}
+
+function doSearch(q) {
+  q = q.toLowerCase().trim();
+  let visible = 0, total = 0;
+  document.querySelectorAll('.items-table tr').forEach(tr => {
+    if (!tr.dataset.search) return;
+    total++;
+    if (!q || tr.dataset.search.includes(q)) {
+      tr.classList.remove('hidden');
+      visible++;
+    } else {
+      tr.classList.add('hidden');
+    }
+  });
+  document.getElementById('searchCount').textContent = visible + ' / ' + total;
+  
+  // Show/hide empty category groups
+  document.querySelectorAll('.category-group').forEach(g => {
+    const visibleRows = g.querySelectorAll('tr:not(.hidden)');
+    g.style.display = visibleRows.length > 0 ? 'block' : 'none';
+  });
+  
+  // Show/hide empty zone sections
+  document.querySelectorAll('.zone-section').forEach(s => {
+    const visibleGroups = s.querySelectorAll('.category-group[style*="block"], .category-group:not([style])');
+    s.style.display = visibleGroups.length > 0 ? 'block' : 'none';
+  });
+}
+
+document.getElementById('searchInput').addEventListener('input', e => doSearch(e.target.value));
+
+renderNav();
+renderContent();
+document.getElementById('searchCount').textContent = data.length + ' items';
+</script>
 </body>
 </html>
