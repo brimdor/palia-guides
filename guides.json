@@ -219,5 +219,23 @@
       "optimization",
       "profit"
     ]
+  },
+  {
+    "slug": "palia-gathering-guide",
+    "title": "Gathering and Foraging Guide",
+    "description": "Complete foraging reference \u2014 100+ gatherable items including flowers, mushrooms, spices, shells, trees organized by zone and category with search.",
+    "category": "foraging",
+    "date": "2026-05-09",
+    "icon": "leaf",
+    "tags": [
+      "foraging",
+      "gathering",
+      "flowers",
+      "mushrooms",
+      "spices",
+      "shells",
+      "trees",
+      "zones"
+    ]
   }
 ]
