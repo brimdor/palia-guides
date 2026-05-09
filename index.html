@@ -103,7 +103,7 @@ function getCategoryColor(cat) {
 
 async function load() {
   try {
-    const r = await fetch('guides.json');
+    const r = await fetch('guides.json?_' + Date.now(), {cache: 'no-store'});
     const data = await r.json();
     guides.push(...data);
     buildFilters();
