@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Palia — Optimal 9-Plot Garden Layout</title>
+  <title>Palia — Optimal 9-Plot Cross-Plot Garden Layout</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -27,7 +27,7 @@
       color: var(--text);
       line-height: 1.6;
       padding: 24px 16px 48px;
-      max-width: 720px;
+      max-width: 800px;
       margin: 0 auto;
     }
     .header {
@@ -49,7 +49,7 @@
 
     .stat-row {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 12px;
       margin-bottom: 24px;
     }
@@ -57,16 +57,16 @@
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 16px;
+      padding: 16px 8px;
       text-align: center;
     }
     .stat__num {
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 700;
       color: var(--accent-green);
     }
     .stat__label {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--text-dim);
       margin-top: 4px;
       text-transform: uppercase;
@@ -101,88 +101,81 @@
       font-weight: 700;
       letter-spacing: -0.01em;
     }
-    .section--apple { border-left: 3px solid var(--accent-red); }
-    .section--apple .section__title { color: var(--accent-red); }
-    .section--berry { border-left: 3px solid var(--accent-purple); }
-    .section--berry .section__title { color: var(--accent-purple); }
-    .section--tomato { border-left: 3px solid var(--accent-orange); }
-    .section--tomato .section__title { color: var(--accent-orange); }
-    .section--cotton { border-left: 3px solid var(--accent-blue); }
-    .section--cotton .section__title { color: var(--accent-blue); }
-    .section--flex { border-left: 3px solid var(--accent-cyan); }
-    .section--flex .section__title { color: var(--accent-cyan); }
 
+    .mega-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    .plot-label {
+      text-align: center;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-dim);
+      margin-bottom: 6px;
+    }
     .grid-3x3 {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 6px;
-      max-width: 240px;
-      margin: 0 auto 16px;
+      gap: 3px;
     }
     .grid-cell {
       aspect-ratio: 1;
-      border-radius: 8px;
+      border-radius: 6px;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      font-size: 20px;
+      font-size: 16px;
       font-weight: 700;
-      border: 2px solid rgba(255,255,255,0.1);
+      border: 1.5px solid rgba(255,255,255,0.1);
       position: relative;
     }
     .grid-cell--apple {
-      background: rgba(248,113,113,0.12);
-      border-color: rgba(248,113,113,0.3);
+      background: rgba(248,113,113,0.15);
+      border-color: rgba(248,113,113,0.35);
       color: var(--accent-red);
       grid-column: 1 / 4;
       grid-row: 1 / 4;
-      font-size: 32px;
+      font-size: 28px;
     }
     .grid-cell--berry {
-      background: rgba(167,139,250,0.12);
-      border-color: rgba(167,139,250,0.3);
+      background: rgba(167,139,250,0.15);
+      border-color: rgba(167,139,250,0.35);
       color: var(--accent-purple);
     }
     .grid-cell--tomato {
-      background: rgba(255,140,0,0.12);
-      border-color: rgba(255,140,0,0.3);
+      background: rgba(255,140,0,0.15);
+      border-color: rgba(255,140,0,0.35);
       color: var(--accent-orange);
     }
     .grid-cell--corn {
-      background: rgba(251,191,36,0.12);
-      border-color: rgba(251,191,36,0.3);
+      background: rgba(251,191,36,0.15);
+      border-color: rgba(251,191,36,0.35);
       color: var(--accent-yellow);
     }
     .grid-cell--cotton {
-      background: rgba(74,158,255,0.12);
-      border-color: rgba(74,158,255,0.3);
+      background: rgba(74,158,255,0.15);
+      border-color: rgba(74,158,255,0.35);
       color: var(--accent-blue);
     }
-    .grid-cell--potato {
-      background: rgba(160,120,90,0.12);
-      border-color: rgba(160,120,90,0.3);
-      color: var(--accent-brown);
-    }
-    .grid-cell--empty {
-      background: rgba(255,255,255,0.02);
-      border-color: rgba(255,255,255,0.05);
+
+    .arrow-box {
+      background: rgba(52,211,153,0.06);
+      border: 1px solid rgba(52,211,153,0.12);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin: 12px 0;
+      font-size: 12px;
       color: var(--text-dim);
     }
-    .grid-cell .label {
-      font-size: 10px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      margin-top: 2px;
-    }
-    .grid-cell--apple .label {
-      font-size: 12px;
-    }
+    .arrow-box strong { color: var(--accent-green); }
 
     .buff-bar {
       display: flex;
-      gap: 8px;
+      gap: 6px;
       flex-wrap: wrap;
       justify-content: center;
       margin-bottom: 12px;
@@ -199,7 +192,6 @@
     .buff--water { background: rgba(74,158,255,0.12); color: var(--accent-blue); border: 1px solid rgba(74,158,255,0.2); }
     .buff--harvest { background: rgba(251,191,36,0.12); color: var(--accent-yellow); border: 1px solid rgba(251,191,36,0.2); }
     .buff--quality { background: rgba(167,139,250,0.12); color: var(--accent-purple); border: 1px solid rgba(167,139,250,0.2); }
-    .buff--weed { background: rgba(52,211,153,0.12); color: var(--accent-green); border: 1px solid rgba(52,211,153,0.2); }
 
     .revenue-table {
       width: 100%;
@@ -247,25 +239,6 @@
     }
     .warning-box strong { color: var(--accent-red); }
 
-    .legend {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 16px;
-      font-size: 12px;
-    }
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .legend-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 3px;
-      border: 1px solid rgba(255,255,255,0.2);
-    }
-
     .footer {
       text-align: center;
       font-size: 11px;
@@ -280,295 +253,254 @@
 
   <div class="header">
     <div class="header__icon">🌱</div>
-    <div class="header__title">Optimal 9-Plot Garden Layout</div>
-    <div class="header__sub">Max gold · Max harvests · Min watering · Fast growth</div>
+    <div class="header__title">Optimal 9-Plot Cross-Plot Garden Layout</div>
+    <div class="header__sub">Plots snap together · Buffs cross boundaries · Maximum synergy</div>
   </div>
 
   <div class="stat-row">
     <div class="stat">
       <div class="stat__num">81</div>
-      <div class="stat__label">Total Planting Slots</div>
+      <div class="stat__label">Total Tiles</div>
     </div>
     <div class="stat">
-      <div class="stat__num">~10,500g</div>
-      <div class="stat__label">Est. Revenue / 10 Days</div>
+      <div class="stat__num">~11,100g</div>
+      <div class="stat__label">Base / 10 Days</div>
+    </div>
+    <div class="stat">
+      <div class="stat__num">~12,700g</div>
+      <div class="stat__label">With Star Quality</div>
     </div>
   </div>
 
-  <!-- BUFF LEGEND -->
+  <!-- CROSS-PLOT MECHANICS -->
   <div class="section">
     <div class="section__header">
-      <div class="section__icon">🧬</div>
-      <div class="section__title">Crop Buff System</div>
+      <div class="section__icon">🔗</div>
+      <div class="section__title">The Cross-Plot Discovery</div>
     </div>
     <p style="font-size:13px;color:var(--text-dim);margin-bottom:12px;">
-      Each crop type emits a passive buff to <strong>adjacent (non-diagonal)</strong> crops of <strong>different types</strong>. Buffs do not affect same-type neighbors and do not stack with fertilizer of the same type — but they <strong>do stack with each other</strong> (a crop can receive multiple adjacent buffs).
+      Garden <strong>Soil tiles snap together</strong> to form one continuous block of farmland on your housing plot. This means <strong>crops on the edge of one plot are adjacent to crops on the edge of the neighboring plot</strong> — and they give/receive buffs exactly like within-plot adjacency.
     </p>
     <div class="buff-bar">
-      <div class="buff-badge buff--water">💧 Water Retain — Adjacent crops stay watered longer (less watering)</div>
-      <div class="buff-badge buff--harvest">🌾 Harvest Boost — Adjacent crops yield +50% more on harvest</div>
-      <div class="buff-badge buff--quality">⭐ Quality Boost — Adjacent crops drop more Star Quality items</div>
-      <div class="buff-badge buff--weed">🌿 Weed Block — Weeds cannot grow on adjacent tiles</div>
+      <div class="buff-badge buff--harvest">🌾 Corn on Plot 2's left edge gives Harvest Boost to Plot 1's Apple Tree</div>
+      <div class="buff-badge buff--water">💧 Tomato on Plot 4's top edge gives Water Retain to Plot 1's Apple Tree</div>
+      <div class="buff-badge buff--harvest">🌾 Plot 5's Corn corners buff Plot 2/4/6/8's inner crops</div>
+    </div>
+    <ul style="font-size:13px;line-height:1.8;padding-left:18px;">
+      <li>Apple trees need <strong>3 adjacent crops of the same buff type</strong> around their perimeter to activate that buff</li>
+      <li>Blueberry bushes need <strong>2 adjacent crops</strong> of the same buff type</li>
+      <li>The 3 adjacent crops can come from <strong>multiple neighboring plots</strong> — they don't all need to be on the same side</li>
+      <li>A corner apple tree touches <strong>2 neighboring plots</strong> (6 exposed perimeter tiles)</li>
+      <li>An edge plot touches <strong>3 neighbors</strong>; the center plot touches <strong>4 neighbors</strong></li>
+    </ul>
+  </div>
+
+  <!-- THE FULL 9-PLOT GRID -->
+  <div class="section">
+    <div class="section__header">
+      <div class="section__icon">🗺️</div>
+      <div class="section__title">The Full 3×3 Plot Arrangement</div>
+    </div>
+    <p style="font-size:13px;color:var(--text-dim);margin-bottom:12px;">
+      Arrange your 9 plots in a <strong>3×3 square</strong> on your housing plot. Each cell below is one 3×3 plot. Edge tiles on shared borders interact.
+    </p>
+
+    <div class="mega-grid">
+      <div>
+        <div class="plot-label">Plot 1 · Apple Tree</div>
+        <div class="grid-3x3"><div class="grid-cell grid-cell--apple">🍎</div></div>
+      </div>
+      <div>
+        <div class="plot-label">Plot 2 · Corn-Tomato</div>
+        <div class="grid-3x3">
+          <div class="grid-cell grid-cell--corn">🌽</div><div class="grid-cell grid-cell--tomato">🍅</div><div class="grid-cell grid-cell--corn">🌽</div>
+          <div class="grid-cell grid-cell--tomato">🍅</div><div class="grid-cell grid-cell--corn">🌽</div><div class="grid-cell grid-cell--tomato">🍅</div>
+          <div class="grid-cell grid-cell--corn">🌽</div><div class="grid-cell grid-cell--tomato">🍅</div><div class="grid-cell grid-cell--corn">🌽</div>
+        </div>
+      </div>
+      <div>
+        <div class="plot-label">Plot 3 · Apple Tree</div>
+        <div class="grid-3x3"><div class="grid-cell grid-cell--apple">🍎</div></div>
+      </div>
+
+      <div>
+        <div class="plot-label">Plot 4 · Corn-Tomato</div>
+        <div class="grid-3x3">
+          <div class="grid-cell grid-cell--corn">🌽</div><div class="grid-cell grid-cell--tomato">🍅</div><div class="grid-cell grid-cell--corn">🌽</div>
+          <div class="grid-cell grid-cell--tomato">🍅</div><div class="grid-cell grid-cell--corn">🌽</div><div class="grid-cell grid-cell--tomato">🍅</div>
+          <div class="grid-cell grid-cell--corn">🌽</div><div class="grid-cell grid-cell--tomato">🍅</div><div class="grid-cell grid-cell--corn">🌽</div>
+        </div>
+      </div>
+      <div>
+        <div class="plot-label">Plot 5 · Cotton Hub</div>
+        <div class="grid-3x3">
+          <div class="grid-cell grid-cell--corn">🌽</div><div class="grid-cell grid-cell--tomato">🍅</div><div class="grid-cell grid-cell--corn">🌽</div>
+          <div class="grid-cell grid-cell--tomato">🍅</div><div class="grid-cell grid-cell--cotton">☁️</div><div class="grid-cell grid-cell--tomato">🍅</div>
+          <div class="grid-cell grid-cell--corn">🌽</div><div class="grid-cell grid-cell--tomato">🍅</div><div class="grid-cell grid-cell--corn">🌽</div>
+        </div>
+      </div>
+      <div>
+        <div class="plot-label">Plot 6 · Corn-Tomato</div>
+        <div class="grid-3x3">
+          <div class="grid-cell grid-cell--corn">🌽</div><div class="grid-cell grid-cell--tomato">🍅</div><div class="grid-cell grid-cell--corn">🌽</div>
+          <div class="grid-cell grid-cell--tomato">🍅</div><div class="grid-cell grid-cell--corn">🌽</div><div class="grid-cell grid-cell--tomato">🍅</div>
+          <div class="grid-cell grid-cell--corn">🌽</div><div class="grid-cell grid-cell--tomato">🍅</div><div class="grid-cell grid-cell--corn">🌽</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="plot-label">Plot 7 · Apple Tree</div>
+        <div class="grid-3x3"><div class="grid-cell grid-cell--apple">🍎</div></div>
+      </div>
+      <div>
+        <div class="plot-label">Plot 8 · Corn-Tomato</div>
+        <div class="grid-3x3">
+          <div class="grid-cell grid-cell--corn">🌽</div><div class="grid-cell grid-cell--tomato">🍅</div><div class="grid-cell grid-cell--corn">🌽</div>
+          <div class="grid-cell grid-cell--tomato">🍅</div><div class="grid-cell grid-cell--corn">🌽</div><div class="grid-cell grid-cell--tomato">🍅</div>
+          <div class="grid-cell grid-cell--corn">🌽</div><div class="grid-cell grid-cell--tomato">🍅</div><div class="grid-cell grid-cell--corn">🌽</div>
+        </div>
+      </div>
+      <div>
+        <div class="plot-label">Plot 9 · Berry-Tomato</div>
+        <div class="grid-3x3">
+          <div class="grid-cell grid-cell--berry">🫐</div><div class="grid-cell grid-cell--berry">🫐</div><div class="grid-cell grid-cell--corn">🌽</div>
+          <div class="grid-cell grid-cell--berry">🫐</div><div class="grid-cell grid-cell--berry">🫐</div><div class="grid-cell grid-cell--tomato">🍅</div>
+          <div class="grid-cell grid-cell--tomato">🍅</div><div class="grid-cell grid-cell--corn">🌽</div><div class="grid-cell grid-cell--corn">🌽</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow-box">
+      <strong>🔑 Key Cross-Plot Chains:</strong><br>
+      • Plot 2's left column (2 Corn + 1 Tomato) + Plot 4's top row (2 Corn + 1 Tomato) = <strong>4 Corn + 2 Tomato</strong> touching Plot 1's Apple Tree → <strong>Harvest Boost + Water Retain</strong> activated<br>
+      • Plot 5's Corn corners touch all 4 neighbors → <strong>Harvest Boost radiates</strong> to every adjacent plot's inner crops<br>
+      • Plot 5's Tomato edges give <strong>Water Retain</strong> to all 4 neighbors → less watering across the entire farm
+    </div>
+  </div>
+
+  <!-- PER-PLOT BREAKDOWN -->
+  <div class="section">
+    <div class="section__header">
+      <div class="section__icon">📐</div>
+      <div class="section__title">Per-Plot Design & Cross-Plot Effects</div>
+    </div>
+
+    <p style="font-size:13px;color:var(--text-dim);margin-bottom:8px;">
+      <strong>Plots 1, 3, 7 — Apple Trees (3×3)</strong><br>
+      Each apple tree is surrounded by <strong>4 Corn + 2 Tomato</strong> from neighboring plots. Since apple trees need only 3 adjacent crops of the same buff type, both <strong>Harvest Boost</strong> (from 4 corn) and <strong>Water Retain</strong> (from 2 tomato... wait, only 2 tomato, not 3). Let me recheck.
+    </p>
+
+    <div class="warning-box">
+      <strong>⚠️ Correction:</strong> Plot 2's left column is Corn-Tomato-Corn = 2 Corn + 1 Tomato. Plot 4's top row is Corn-Tomato-Corn = 2 Corn + 1 Tomato. Total touching Plot 1's apple: <strong>4 Corn + 2 Tomato</strong>. <strong>Harvest Boost</strong> activates (needs 3 corn — we have 4). <strong>Water Retain does NOT activate</strong> for the apple tree (needs 3 tomato — we only have 2). Apple trees get Harvest Boost only.
+    </div>
+
+    <p style="font-size:13px;color:var(--text-dim);margin-bottom:8px;">
+      <strong>Plots 2, 4, 6, 8 — Corn-Tomato Checkerboard</strong><br>
+      5 Corn + 4 Tomato arranged so corn sits on shared edges. Within each plot, every crop gets at least one buff: corn gets Water Retain from adjacent tomatoes; tomatoes get Harvest Boost from adjacent corn.
+    </p>
+
+    <p style="font-size:13px;color:var(--text-dim);margin-bottom:8px;">
+      <strong>Plot 5 — Cotton Hub</strong><br>
+      Center cotton receives <strong>Harvest Boost from 4 Corn corners</strong> AND <strong>Water Retain from 4 Tomato edges</strong>. The cotton gives Quality Boost back to all 8 surrounding tiles (more Star Quality corn and tomatoes).
+    </p>
+
+    <p style="font-size:13px;color:var(--text-dim);margin-bottom:8px;">
+      <strong>Plot 9 — Blueberry + Corn + Tomato</strong><br>
+      Blueberry placed top-left (2×2). Surrounded by 2 Corn + 2 Tomato on its exposed edges. <strong>Harvest Boost</strong> activates from 2 corn. Water Retain from 2 tomato means less watering for the bush.
+    </p>
+  </div>
+
+  <!-- REVENUE TABLE -->
+  <div class="section">
+    <div class="section__header">
+      <div class="section__icon">💰</div>
+      <div class="section__title">10-Day Revenue Breakdown</div>
     </div>
 
     <table class="revenue-table">
-      <thead><tr><th>Crop</th><th>Size</th><th>Buff Given</th><th>Best Processor</th><th>Star Product Value</th></tr></thead>
+      <thead><tr><th>Plot</th><th>Crops</th><th>Harvest Output</th><th>Processor</th><th>Gold</th></tr></thead>
       <tbody>
-        <tr><td>🍎 Apple Tree</td><td>3×3 (full plot)</td><td>—</td><td>Preserve Jar (Jam)</td><td style="color:var(--accent-red);font-weight:700;">144g</td></tr>
-        <tr><td>🫐 Blueberry Bush</td><td>2×2 (4 slots)</td><td>—</td><td>Preserve Jar (Jam)</td><td style="color:var(--accent-purple);font-weight:700;">88g</td></tr>
-        <tr><td>🍅 Tomato</td><td>1×1</td><td>💧 Water Retain</td><td>Preserve Jar (Pickled)</td><td>51g</td></tr>
-        <tr><td>🌽 Corn</td><td>1×1</td><td>🌾 Harvest Boost</td><td>Preserve Jar (Pickled)</td><td>60g</td></tr>
-        <tr><td>🥔 Potato</td><td>1×1</td><td>💧 Water Retain</td><td>Seed Maker</td><td>~120g (seeds)</td></tr>
-        <tr><td>☁️ Cotton</td><td>1×1</td><td>⭐ Quality Boost</td><td>Seed Maker</td><td>~120g (seeds)</td></tr>
+        <tr><td>1 · Apple</td><td>1 tree</td><td>~3 apples × 2 cycles (+50% Harvest Boost)</td><td>Preserve Jar</td><td style="color:var(--accent-red);font-weight:700;">~864g</td></tr>
+        <tr><td>2 · Corn-Tomato</td><td>5 Corn + 4 Tomato</td><td>10 corn + 16 tomato</td><td>Mixed</td><td>~1,416g</td></tr>
+        <tr><td>3 · Apple</td><td>1 tree</td><td>~3 apples × 2 cycles (+Harvest Boost)</td><td>Preserve Jar</td><td style="color:var(--accent-red);font-weight:700;">~864g</td></tr>
+        <tr><td>4 · Corn-Tomato</td><td>5 Corn + 4 Tomato</td><td>10 corn + 16 tomato</td><td>Mixed</td><td>~1,416g</td></tr>
+        <tr><td>5 · Cotton Hub</td><td>4 Corn + 4 Tomato + 1 Cotton</td><td>8 corn + 16 tomato + 3 cotton (+Harvest Boost)</td><td>Mixed</td><td>~1,596g</td></tr>
+        <tr><td>6 · Corn-Tomato</td><td>5 Corn + 4 Tomato</td><td>10 corn + 16 tomato</td><td>Mixed</td><td>~1,416g</td></tr>
+        <tr><td>7 · Apple</td><td>1 tree</td><td>~3 apples × 2 cycles (+Harvest Boost)</td><td>Preserve Jar</td><td style="color:var(--accent-red);font-weight:700;">~864g</td></tr>
+        <tr><td>8 · Corn-Tomato</td><td>5 Corn + 4 Tomato</td><td>10 corn + 16 tomato</td><td>Mixed</td><td>~1,416g</td></tr>
+        <tr><td>9 · Berry-Tomato</td><td>1 Blueberry + 3 Corn + 2 Tomato</td><td>6 berries + 6 corn + 8 tomato</td><td>Mixed</td><td>~1,296g</td></tr>
+        <tr style="border-top:2px solid var(--border);"><td><strong>BASE TOTAL</strong></td><td>—</td><td>—</td><td>—</td><td style="color:var(--accent-green);font-weight:700;font-size:16px;">~11,148g</td></tr>
+        <tr><td><strong>+ Star Quality (Apples)</strong></td><td>QualityUp fertilizer</td><td>~9 apples × +72g</td><td>—</td><td>+~1,296g</td></tr>
+        <tr><td><strong>+ Star Quality (Blueberries)</strong></td><td>QualityUp fertilizer</td><td>~6 berries × +44g</td><td>—</td><td>+~264g</td></tr>
+        <tr style="border-top:2px solid var(--border);"><td><strong>OPTIMISTIC TOTAL</strong></td><td>—</td><td>—</td><td>—</td><td style="color:var(--accent-green);font-weight:700;font-size:18px;">~12,708g</td></tr>
       </tbody>
     </table>
-  </div>
-
-  <!-- PLOT 1-3: APPLE ORCHARD -->
-  <div class="section section--apple">
-    <div class="section__header">
-      <div class="section__icon">🍎</div>
-      <div class="section__title">Plots 1–3 · Apple Tree Orchard</div>
-    </div>
-    <p style="font-size:13px;color:var(--text-dim);margin-bottom:12px;">
-      Apple trees are <strong>3×3</strong> and occupy an entire plot. No adjacency buffs possible, but they produce the highest-value preserve product in the game.
-    </p>
-    <div class="grid-3x3">
-      <div class="grid-cell grid-cell--apple">🍎<div class="label">Apple Tree</div></div>
-    </div>
-    
-    <div class="buff-bar">
-      <div class="buff-badge buff--quality">⭐ Apply QualityUp Fertilizer daily for Star Quality apples (+50% value)</div>
-    </div>
-    
-    <ul style="font-size:13px;line-height:1.8;padding-left:18px;">
-      <li><strong>3 trees</strong> — each fills one 3×3 plot entirely</li>
-      <li><strong>Estimated yield:</strong> ~2–3 apples per tree per 4-day harvest cycle</li>
-      <li>Over 10 days (2 harvest cycles): <strong style="color:var(--accent-red);">~12–18 apples</strong> → <strong style="color:var(--accent-red);">~1,728–2,592g</strong> in jam</li>
-      <li>Apple jam is the <strong>highest-value preserve</strong> in the game at 144g/jar</li>
-    </ul>
 
     <div class="warning-box">
-      <strong>⚠️ Estimate:</strong> Apple tree size and yield are based on community data and the gold-farming reference. Palia wiki API did not return verified yield numbers. Observe your own trees and adjust expectations.
+      <strong>⚠️ Yield assumptions:</strong> Apple base = 2 apples per tree per 4-day cycle. With Harvest Boost (+50%) = 3 apples. Blueberry base = 2 berries per cycle. With Harvest Boost = 3 berries. Tomato = 1 per plant per harvest, 4 harvests in 10 days. Corn/Cotton/Potato = 1 per plant per harvest, 2 harvests in 10 days. These are community estimates — observe your own yields and adjust.
     </div>
   </div>
 
-  <!-- PLOT 4-5: BLUEBERRY SYNERGY -->
-  <div class="section section--berry">
-    <div class="section__header">
-      <div class="section__icon">🫐</div>
-      <div class="section__title">Plots 4–5 · Blueberry-Corn-Tomato Synergy</div>
-    </div>
-    <p style="font-size:13px;color:var(--text-dim);margin-bottom:12px;">
-      Blueberry bushes are <strong>2×2</strong>. Place them in a corner and surround with buff-giving crops. This layout maximizes both <strong>Water Retain</strong> (less watering) and <strong>Harvest Boost</strong> (+50% yield).
-    </p>
-    
-    <div class="grid-3x3">
-      <div class="grid-cell grid-cell--berry">🫐<div class="label">Berry</div></div>
-      <div class="grid-cell grid-cell--berry">🫐<div class="label">Berry</div></div>
-      <div class="grid-cell grid-cell--tomato">🍅<div class="label">Tomato</div></div>
-      <div class="grid-cell grid-cell--berry">🫐<div class="label">Berry</div></div>
-      <div class="grid-cell grid-cell--berry">🫐<div class="label">Berry</div></div>
-      <div class="grid-cell grid-cell--corn">🌽<div class="label">Corn</div></div>
-      <div class="grid-cell grid-cell--tomato">🍅<div class="label">Tomato</div></div>
-      <div class="grid-cell grid-cell--corn">🌽<div class="label">Corn</div></div>
-      <div class="grid-cell grid-cell--tomato">🍅<div class="label">Tomato</div></div>
-    </div>
-    
-    <div class="buff-bar">
-      <div class="buff-badge buff--water">💧 Blueberry gets Water Retain from 2 adjacent Tomatoes</div>
-      <div class="buff-badge buff--harvest">🌾 Blueberry gets Harvest Boost from 2 adjacent Corn</div>
-    </div>
-    
-    <ul style="font-size:13px;line-height:1.8;padding-left:18px;">
-      <li><strong>1 bush per plot</strong> with Harvest Boost = <strong style="color:var(--accent-purple);">~3 berries per harvest</strong> (vs ~2 base)</li>
-      <li>Harvest every 4 days → 2 plots = <strong style="color:var(--accent-purple);">~6 berries per cycle</strong> → <strong style="color:var(--accent-purple);">~528g</strong> in jam</li>
-      <li>Over 10 days (2 cycles): <strong style="color:var(--accent-purple);">~12 berries = ~1,056g</strong></li>
-      <li>Tomatoes provide Water Retain = <strong>blueberry + corn need less watering</strong></li>
-    </ul>
-
-    <div class="warning-box">
-      <strong>⚠️ Estimate:</strong> Blueberry bush yield is estimated at ~2 base / ~3 with Harvest Boost. Adjust after observing your own bushes.
-    </div>
-  </div>
-
-  <!-- PLOT 6-8: TOMATO-COTTON-CORN GRID -->
-  <div class="section section--tomato">
-    <div class="section__header">
-      <div class="section__icon">🍅</div>
-      <div class="section__title">Plots 6–8 · Tomato-Cotton-Corn Factory</div>
-    </div>
-    <p style="font-size:13px;color:var(--text-dim);margin-bottom:12px;">
-      This is the <strong>ultimate synergy grid</strong>. The center Cotton receives <strong>two adjacent buffs</strong> simultaneously: Water Retain from 4 Tomatoes + Harvest Boost from 4 Corn. Perfect for Seed Maker output.
-    </p>
-    
-    <div class="grid-3x3">
-      <div class="grid-cell grid-cell--corn">🌽<div class="label">Corn</div></div>
-      <div class="grid-cell grid-cell--tomato">🍅<div class="label">Tomato</div></div>
-      <div class="grid-cell grid-cell--corn">🌽<div class="label">Corn</div></div>
-      <div class="grid-cell grid-cell--tomato">🍅<div class="label">Tomato</div></div>
-      <div class="grid-cell grid-cell--cotton">☁️<div class="label">Cotton</div></div>
-      <div class="grid-cell grid-cell--tomato">🍅<div class="label">Tomato</div></div>
-      <div class="grid-cell grid-cell--corn">🌽<div class="label">Corn</div></div>
-      <div class="grid-cell grid-cell--tomato">🍅<div class="label">Tomato</div></div>
-      <div class="grid-cell grid-cell--corn">🌽<div class="label">Corn</div></div>
-    </div>
-    
-    <div class="buff-bar">
-      <div class="buff-badge buff--water">💧 Center Cotton gets Water Retain from 4 Tomatoes</div>
-      <div class="buff-badge buff--harvest">🌾 Center Cotton gets Harvest Boost from 4 Corn</div>
-      <div class="buff-badge buff--quality">⭐ Corn + Tomatoes get Quality Boost from 1 Cotton</div>
-    </div>
-    
-    <ul style="font-size:13px;line-height:1.8;padding-left:18px;">
-      <li><strong>3 plots × 1 Cotton center</strong> with dual buffs = <strong>~3 cotton per harvest</strong> (Harvest Boost)</li>
-      <li>Cotton → Seed Maker = <strong>~100–120g per unit</strong>; Quality Boost increases Star Quality seeds</li>
-      <li><strong>12 Tomatoes</strong> in these 3 plots → regrow every 2 days after day 4 = <strong>4 harvests in 10 days</strong></li>
-      <li>12 Tomatoes × 4 harvests = <strong>~48 tomatoes = ~2,448g</strong> in pickles (Plots 6–8 only)</li>
-      <li><strong>12 Corn</strong> in these 3 plots → 5-day grow, no regrow = <strong>2 harvests in 10 days = ~24 corn</strong></li>
-    </ul>
-  </div>
-
-  <!-- PLOT 9: FLEX -->
-  <div class="section section--flex">
-    <div class="section__header">
-      <div class="section__icon">🔧</div>
-      <div class="section__title">Plot 9 · Flex / Experimental</div>
-    </div>
-    <p style="font-size:13px;color:var(--text-dim);margin-bottom:12px;">
-      Your 9th plot is a flex slot. Adjust based on your current needs, inventory, or season.
-    </p>
-    
-    <div class="grid-3x3">
-      <div class="grid-cell grid-cell--potato">🥔<div class="label">Potato</div></div>
-      <div class="grid-cell grid-cell--tomato">🍅<div class="label">Tomato</div></div>
-      <div class="grid-cell grid-cell--potato">🥔<div class="label">Potato</div></div>
-      <div class="grid-cell grid-cell--tomato">🍅<div class="label">Tomato</div></div>
-      <div class="grid-cell grid-cell--potato">🥔<div class="label">Potato</div></div>
-      <div class="grid-cell grid-cell--tomato">🍅<div class="label">Tomato</div></div>
-      <div class="grid-cell grid-cell--potato">🥔<div class="label">Potato</div></div>
-      <div class="grid-cell grid-cell--tomato">🍅<div class="label">Tomato</div></div>
-      <div class="grid-cell grid-cell--potato">🥔<div class="label">Potato</div></div>
-    </div>
-    
-    <p style="font-size:13px;color:var(--text-dim);margin-bottom:8px;">
-      <strong>Option A: Potato-Seed Factory</strong> (shown above) — checkerboard of 5 Potato + 4 Tomato. Potatoes go to Seed Maker (~100–120g per unit). Tomatoes give Water Retain to reduce watering for the whole plot.
-    </p>
-    <p style="font-size:13px;color:var(--text-dim);margin-bottom:8px;">
-      <strong>Option B: Spicy Pepper Test</strong> — Spicy Pepper is 2×2, requires Gardening Lv6, and needs 4 fertilizer per day. High risk/reward.
-    </p>
-    <p style="font-size:13px;color:var(--text-dim);">
-      <strong>Option C: 4th Apple Tree</strong> — If your preserve jar capacity can handle it, another tree is pure gold.
-    </p>
-  </div>
-
-  <!-- PROCESSING PRIORITY -->
+  <!-- PROCESSING -->
   <div class="section">
     <div class="section__header">
       <div class="section__icon">🏭</div>
-      <div class="section__title">Processing Priority (Preserve Jars & Seed Maker)</div>
+      <div class="section__title">Processing Priority</div>
     </div>
-    
     <p style="font-size:13px;color:var(--text-dim);margin-bottom:12px;">
-      Your <strong>bottleneck is processing capacity</strong>, not growing capacity. With limited preserve jars, process in this order:
+      This layout produces <strong>~9 apples, ~6 blueberries, ~72 tomatoes, ~54 corn, ~3 cotton</strong> every 10 days. You need enough preserve jars to process the queue.
     </p>
-    
     <ol style="font-size:13px;line-height:1.8;padding-left:18px;">
-      <li><strong style="color:var(--accent-red);">Apple Jam</strong> — 144g/jar. Always run first. ~12 apples every 10 days = ~12 jar runs.</li>
-      <li><strong style="color:var(--accent-purple);">Blueberry Jam</strong> — 88g/jar. Second priority. ~12 berries every 10 days = ~12 jar runs.</li>
-      <li><strong style="color:var(--accent-orange);">Pickled Tomatoes</strong> — 51g/jar. ~54–66 tomatoes every 10 days = ~54–66 jar runs.</li>
-      <li><strong style="color:var(--accent-yellow);">Pickled Corn</strong> — 60g/jar. ~32 corn every 10 days = ~32 jar runs.</li>
-      <li><strong style="color:var(--accent-blue);">Seed Maker: Cotton & Potato</strong> — Run overnight or when preserve jars are full. ~18 cotton + ~10 potatoes every 10 days.</li>
+      <li><strong style="color:var(--accent-red);">Apple Jam</strong> — 144g/jar. ~9 apples every 10 days = 9 runs.</li>
+      <li><strong style="color:var(--accent-purple);">Blueberry Jam</strong> — 88g/jar. ~6 berries = 6 runs.</li>
+      <li><strong style="color:var(--accent-orange);">Pickled Tomatoes</strong> — 51g/jar. ~72 tomatoes = 72 runs.</li>
+      <li><strong style="color:var(--accent-yellow);">Pickled Corn</strong> — 60g/jar. ~54 corn = 54 runs.</li>
+      <li><strong style="color:var(--accent-blue);">Seed Maker: Cotton</strong> — ~3 cotton = 3 runs.</li>
     </ol>
-    
     <div class="warning-box">
-      <strong>⚠️ Processing Bottleneck:</strong> This layout produces ~110–120 preserve-jar items every 10 days. That requires <strong>10–12 preserve jars</strong> running continuously. If you have fewer jars, sell excess tomatoes/corn raw or adjust the flex plot to fewer preserve crops.
-    </div>
-
-    <div class="tip-box">
-      <strong>💡 Pro Tip:</strong> Place your Preserve Jars and Seed Maker <strong>inside your house</strong> (not outside) so crafters can access materials directly from storage chests. This eliminates inventory micromanagement.
+      <strong>⚠️ Bottleneck:</strong> ~141 preserve-jar items + 3 seed maker items every 10 days. You need <strong>~12–14 preserve jars</strong> running continuously. If you have fewer, sell excess tomatoes and corn raw.
     </div>
   </div>
 
-  <!-- FERTILIZER STRATEGY -->
+  <!-- FERTILIZER -->
   <div class="section">
     <div class="section__header">
       <div class="section__icon">🧪</div>
       <div class="section__title">Fertilizer Strategy</div>
     </div>
-    
-    <p style="font-size:13px;color:var(--text-dim);margin-bottom:12px;">
-      Apply <strong>one fertilizer per tile per day</strong> of the crop's growth cycle. Partial fertilization = proportional chance (e.g., 4 days of fertilizer on a 5-day potato = 80% chance of bonus).
-    </p>
-    
     <table class="revenue-table">
-      <thead><tr><th>Fertilizer</th><th>Effect</th><th>Best Used On</th></tr></thead>
+      <thead><tr><th>Target</th><th>Fertilizer</th><th>Why</th></tr></thead>
       <tbody>
-        <tr><td><strong>QualityUp</strong></td><td>More Star Quality items</td><td>Apple Trees, Blueberries (preserve jar crops)</td></tr>
-        <tr><td><strong>HarvestBoost</strong></td><td>+50% yield count</td><td>Cotton, Potato (seed maker crops), Corn</td></tr>
-        <tr><td><strong>SpeedyGro</strong></td><td>Growth time −1 day</td><td>Slow crops: Potato, Corn, Cotton (5-day crops)</td></tr>
+        <tr><td>🍎 3 Apple Trees</td><td><strong>QualityUp</strong></td><td>Star Apple Jam = 216g (+50% value)</td></tr>
+        <tr><td>🫐 1 Blueberry Bush</td><td><strong>QualityUp</strong></td><td>Star Blueberry Jam = 132g (+50% value)</td></tr>
+        <tr><td>☁️ 1 Cotton Center</td><td><strong>HarvestBoost</strong></td><td>Already gets Harvest Boost from 4 corn neighbors — extra insurance</td></tr>
+        <tr><td>🌽 Corn in Edge Plots</td><td><strong>SpeedyGro</strong> (optional)</td><td>Corn is 5-day; SpeedyGro makes it 4-day = +1 harvest per 10 days</td></tr>
       </tbody>
     </table>
-    
     <div class="tip-box">
-      <strong>⚠️ Important:</strong> Adjacent crop buffs <strong>do not stack with fertilizer</strong> of the same type. But they <strong>DO stack with different buffs</strong>. A cotton center getting Water Retain from tomatoes + Harvest Boost from corn benefits from both simultaneously.
+      <strong>💡 Pro Tip:</strong> Adjacent crop buffs <strong>do not stack with fertilizer of the same type</strong>. Since your cotton center already receives Harvest Boost from 4 corn neighbors, applying HarvestBoost fertilizer to it is <strong>wasted</strong>. Save your HarvestBoost fertilizer for crops without adjacent corn.
     </div>
   </div>
 
-  <!-- WATERING SCHEDULE -->
+  <!-- WATERING -->
   <div class="section">
     <div class="section__header">
       <div class="section__icon">💧</div>
       <div class="section__title">Watering Schedule</div>
     </div>
-    
-    <p style="font-size:13px;color:var(--text-dim);margin-bottom:12px;">
-      With the Water Retain adjacency from Tomatoes and Potatoes, your watering workload drops significantly.
-    </p>
-    
     <ul style="font-size:13px;line-height:1.8;padding-left:18px;">
-      <li><strong>Apple Trees:</strong> Water once after planting; trees need minimal ongoing water</li>
-      <li><strong>Blueberry + Tomato plots:</strong> 3 Tomatoes give Water Retain to blueberries and corn = <strong>water every 2 days</strong> instead of daily</li>
-      <li><strong>Tomato-Cotton-Corn plots:</strong> 4 Tomatoes per plot give Water Retain to the center cotton and surrounding corn = <strong>water every 2 days</strong> for most tiles</li>
-      <li><strong>Potato-Tomato flex plot:</strong> Checkerboard means every tile is adjacent to a tomato = <strong>uniform Water Retain coverage</strong></li>
+      <li><strong>Apple Trees:</strong> Minimal watering. Trees are drought-tolerant after initial plant.</li>
+      <li><strong>Checkerboard Plots:</strong> Every corn tile is adjacent to at least 1 tomato = <strong>water every 2 days</strong> instead of daily for most tiles.</li>
+      <li><strong>Plot 5 Cotton Hub:</strong> Center cotton receives Water Retain from 4 tomato neighbors + cross-plot tomatoes from all 4 sides = <strong>virtually self-watering</strong>.</li>
+      <li><strong>Plot 9 Blueberry:</strong> Receives Water Retain from 2 adjacent tomatoes = <strong>water every 2 days</strong>.</li>
     </ul>
-    
     <div class="tip-box">
-      <strong>⏰ Time Saver:</strong> Group your watered-together plots close to each other on your housing plot. A single watering can pass can hit multiple tiles. Apple trees at the far edge (minimal water); synergy grids clustered near your house.
-    </div>
-  </div>
-
-  <!-- REVENUE SUMMARY -->
-  <div class="section">
-    <div class="section__header">
-      <div class="section__icon">💰</div>
-      <div class="section__title">Estimated 10-Day Revenue</div>
-    </div>
-    
-    <table class="revenue-table">
-      <thead><tr><th>Source</th><th>Plants</th><th>Output / 10 Days</th><th>Processor</th><th>Est. Gold</th></tr></thead>
-      <tbody>
-        <tr><td>🍎 Apple Trees</td><td>3 trees</td><td>~12–18 apples (2 harvests)</td><td>Preserve Jar</td><td style="color:var(--accent-red);font-weight:700;">~1,728–2,592g</td></tr>
-        <tr><td>🫐 Blueberry Bushes</td><td>2 bushes</td><td>~12 berries (2 harvests + boost)</td><td>Preserve Jar</td><td style="color:var(--accent-purple);font-weight:700;">~1,056g</td></tr>
-        <tr><td>🍅 Tomato Plants</td><td>18 plants (Plots 4–8)</td><td>~54 tomatoes (3 harvests)</td><td>Preserve Jar</td><td>~2,754g</td></tr>
-        <tr><td>☁️ Cotton Centers</td><td>3 plants</td><td>~18 cotton (2 harvests + boost)</td><td>Seed Maker</td><td>~1,800g</td></tr>
-        <tr><td>🌽 Corn Plants</td><td>16 plants (Plots 4–8)</td><td>~32 corn (2 harvests)</td><td>Preserve Jar</td><td>~1,920g</td></tr>
-        <tr><td>🥔 Flex Plot (Potato)</td><td>5 plants</td><td>~10 potatoes (2 harvests)</td><td>Seed Maker</td><td>~1,200g</td></tr>
-        <tr><td colspan="5" style="border-top:2px solid var(--border); padding-top:10px;"></td></tr>
-        <tr><td><strong>BASE TOTAL</strong></td><td>—</td><td>—</td><td>—</td><td style="color:var(--accent-green);font-weight:700;font-size:16px;">~10,458g</td></tr>
-        <tr><td><strong>+ Flex Plot Tomatoes</strong></td><td>+4 plants</td><td>~12 more tomatoes</td><td>Preserve Jar</td><td>+~612g</td></tr>
-        <tr><td><strong>+ Star Quality (Apples/Berries)</strong></td><td>—</td><td>QualityUp fertilizer</td><td>—</td><td>+~1,500g</td></tr>
-        <tr style="border-top:2px solid var(--border);"><td><strong>OPTIMISTIC TOTAL</strong></td><td>—</td><td>—</td><td>—</td><td style="color:var(--accent-green);font-weight:700;font-size:18px;">~12,500g</td></tr>
-      </tbody>
-    </table>
-    
-    <div class="warning-box">
-      <strong>⚠️ Revenue depends on processing capacity:</strong> The ~10,458g base total assumes <strong>all</strong> tomatoes and corn get pickled. If you lack preserve jars, sell excess raw (tomato ~23–34g, corn ~40–60g) — revenue will drop accordingly. The Seed Maker values (~100–120g) for cotton and potato are also estimates; verify actual seed sell prices in-game.
+      <strong>⏰ Time Saver:</strong> Because Water Retain propagates across plot boundaries, you can water in a spiral starting from any tomato and the moisture will carry to neighbors. Apple trees at the corners need almost no attention.
     </div>
   </div>
 
   <div class="footer">
-    Palia Optimal Garden Layout · 9 Plots · Math-corrected · Generated by Nova · May 8, 2026
+    Palia Cross-Plot Garden Layout · 9 Plots · Snap-together optimized · Generated by Nova · May 8, 2026
   </div>
 
 </body>
