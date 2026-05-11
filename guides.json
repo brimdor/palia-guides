@@ -237,5 +237,22 @@
       "trees",
       "zones"
     ]
+  },
+  {
+    "slug": "palia-furniture-crafting-guide",
+    "title": "Complete Furniture Crafting Guide",
+    "description": "All 747 craftable furniture items across 40 decor sets \u2014 ingredients, rarity, placement, and 39 guild store recipes with costs and skill levels.",
+    "category": "crafting",
+    "date": "2026-05-11",
+    "icon": "\ud83e\ude91",
+    "tags": [
+      "furniture",
+      "crafting",
+      "worktable",
+      "decor",
+      "sets",
+      "guild-store",
+      "housing"
+    ]
   }
 ]
