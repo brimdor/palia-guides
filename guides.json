@@ -254,5 +254,37 @@
       "guild-store",
       "housing"
     ]
+  },
+  {
+    "slug": "palia-royal-highlands-guide",
+    "title": "Royal Highlands Zone Guide",
+    "description": "Complete guide to the Royal Highlands zone \u2014 Amber Echo, campsites, Vaults, Flow Masks, Eshelon, and all new systems",
+    "category": "locations",
+    "date": "2026-05-12",
+    "icon": "\ud83c\udff0"
+  },
+  {
+    "slug": "palia-mounts-ranching-guide",
+    "title": "Mounts & Ranching Guide",
+    "description": "Horse breeds, riding mechanics, stamina, breeding, ranch animals, and the Ranching skill",
+    "category": "skills",
+    "date": "2026-05-12",
+    "icon": "\ud83d\udc34"
+  },
+  {
+    "slug": "palia-campfire-cooking-guide",
+    "title": "Campfire Cooking Guide",
+    "description": "New campfire recipes, teas, and cooking mechanics in the Royal Highlands",
+    "category": "cooking",
+    "date": "2026-05-12",
+    "icon": "\ud83d\udd25"
+  },
+  {
+    "slug": "palia-relics-artifacts-guide",
+    "title": "Relics & Artifacts Guide",
+    "description": "Enfield family relics, artifacts, Vaults, Flow Masks, and discoverables in the Royal Highlands",
+    "category": "quests",
+    "date": "2026-05-12",
+    "icon": "\ud83c\udffa"
   }
 ]

@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Palia Mounts &amp; Ranching Guide</title>
+<style>
+:root {
+  --bg-deep: #0a0c14;
+  --bg-card: rgba(255,255,255,0.04);
+  --bg-card-hover: rgba(255,255,255,0.07);
+  --border: rgba(255,255,255,0.08);
+  --text: #e0e4ec;
+  --text-dim: #7a8399;
+  --accent-blue: #4a9eff;
+  --accent-orange: #ff8c00;
+  --accent-cyan: #22d3ee;
+  --accent-green: #34d399;
+  --accent-yellow: #fbbf24;
+  --accent-red: #f87171;
+  --accent-purple: #a78bfa;
+  --accent-gold: #ffd700;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--bg-deep);
+  color: var(--text);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  line-height: 1.7;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+h1, h2, h3, h4 { margin-top: 1.5em; margin-bottom: 0.5em; }
+h1 {
+  font-size: 2rem;
+  background: linear-gradient(135deg, var(--accent-orange), var(--accent-yellow));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  padding: 30px 0 10px;
+}
+h2 {
+  font-size: 1.4rem;
+  color: var(--accent-cyan);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 8px;
+  margin-top: 2em;
+}
+h3 { font-size: 1.15rem; color: var(--accent-orange); }
+p { margin-bottom: 1em; }
+.hero {
+  text-align: center;
+  padding: 20px 0;
+  color: var(--text-dim);
+  font-size: 1.1rem;
+}
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 16px 0;
+  transition: background 0.2s;
+}
+.card:hover { background: var(--bg-card-hover); }
+.breed-card {
+  border-left: 3px solid var(--accent-purple);
+}
+.breed-card.dawnspur { border-left-color: var(--accent-orange); }
+.breed-card.akwindu { border-left-color: var(--accent-cyan); }
+.breed-card.phoenixfire { border-left-color: var(--accent-red); }
+.breed-card .breed-name {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.breed-card .breed-subtitle {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+}
+.breed-card .inspiration {
+  display: inline-block;
+  background: rgba(167,139,250,0.15);
+  color: var(--accent-purple);
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+}
+.tip-box {
+  background: rgba(251,191,36,0.08);
+  border-left: 4px solid var(--accent-yellow);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 16px 0;
+}
+.tip-box strong { color: var(--accent-yellow); }
+.info-box {
+  background: rgba(74,158,255,0.08);
+  border-left: 4px solid var(--accent-blue);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 16px 0;
+}
+.info-box strong { color: var(--accent-blue); }
+.warning-box {
+  background: rgba(248,113,113,0.08);
+  border-left: 4px solid var(--accent-red);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 16px 0;
+}
+.warning-box strong { color: var(--accent-red); }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+  font-size: 0.95rem;
+}
+th {
+  background: rgba(74,158,255,0.15);
+  color: var(--accent-blue);
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 2px solid var(--border);
+}
+td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+}
+tr:hover td { background: rgba(255,255,255,0.02); }
+.badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.badge--free { background: rgba(52,211,153,0.15); color: var(--accent-green); }
+.badge--premium { background: rgba(251,191,36,0.15); color: var(--accent-yellow); }
+.badge--quest { background: rgba(74,158,255,0.15); color: var(--accent-blue); }
+.badge--rare { background: rgba(167,139,250,0.15); color: var(--accent-purple); }
+.badge--legendary { background: rgba(248,113,113,0.15); color: var(--accent-red); }
+.badge--stamina { background: rgba(34,211,238,0.15); color: var(--accent-cyan); }
+.badge--walk { background: rgba(52,211,153,0.15); color: var(--accent-green); }
+.badge--trot { background: rgba(74,158,255,0.15); color: var(--accent-blue); }
+.badge--canter { background: rgba(167,139,250,0.15); color: var(--accent-purple); }
+.badge--gallop { background: rgba(255,140,0,0.15); color: var(--accent-orange); }
+.badge--sprint { background: rgba(248,113,113,0.15); color: var(--accent-red); }
+.stat-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 16px 0;
+}
+.stat {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 20px;
+  flex: 1;
+  min-width: 140px;
+  text-align: center;
+}
+.stat .stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent-green);
+}
+.stat .stat-label {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  margin-top: 4px;
+}
+.gait-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0;
+}
+.gait-bar .gait-label {
+  min-width: 80px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.gait-bar .gait-dots {
+  flex: 1;
+  display: flex;
+  gap: 3px;
+}
+.gait-bar .dot {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+}
+.gait-bar .dot.active { opacity: 1; }
+.gait-bar .dot.inactive { opacity: 0.15; }
+.control-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 12px 0;
+}
+@media (max-width: 600px) {
+  .control-section { grid-template-columns: 1fr; }
+}
+.control-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+}
+.control-item .ctrl-title {
+  font-weight: 600;
+  color: var(--accent-cyan);
+  margin-bottom: 4px;
+}
+.control-item .ctrl-desc {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+}
+.animal-card {
+  border-left: 3px solid var(--accent-green);
+}
+.animal-card .animal-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+.animal-card .animal-desc {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+footer {
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  padding: 30px 0 10px;
+  border-top: 1px solid var(--border);
+  margin-top: 40px;
+}
+</style>
+</head>
+<body>
+
+<h1>🐴 Mounts &amp; Ranching Guide</h1>
+<div class="hero">Royal Highlands Expansion — Build 0.202<br>Everything you need to know about horses, riding, breeding, and ranching</div>
+
+<div class="info-box">
+<strong>🐎 New Feature:</strong> Mounts have arrived in Palia! For the first time, you can own, ride, and breed horses. The Royal Highlands expansion introduces an entire ranching system alongside the mount mechanic.
+</div>
+
+<h2>Getting Your First Horse</h2>
+
+<div class="card">
+<h3>🐴 The Introductory Quest</h3>
+<p>When you first arrive in the <strong>Royal Highlands</strong>, you'll pick up a quest that introduces you to your first horse. This quest is <span class="badge badge--free">Available Immediately</span> — it's not tied to Main Story progression, so you can complete it regardless of where you are in your questing journey.</p>
+<p><strong>Quest reward:</strong> Your very first <strong>Dawnspur</strong> horse! This also unlocks horse ranching, allowing you to purchase, breed, and raise additional horses.</p>
+</div>
+
+<div class="tip-box">
+<strong>💡 Tip:</strong> Finish your <strong>Elderwood quests and adventures</strong> before heading to the Royal Highlands for the best experience. Access the Highlands via the <strong>De Mer Docks</strong> in the Elderwood — take the boat across.
+</div>
+
+<h2>Horse Breeds</h2>
+
+<div class="breed-card dawnspur card">
+<div class="breed-name">🐴 Dawnspur</div>
+<div class="breed-subtitle">Your first companion — loyal and versatile</div>
+<div class="inspiration">🐎 Inspired by: American Quarter Horse</div>
+<p>The Dawnspur is the horse every player will meet first. Originally bred by the Mudan and once favored by Ancient Human royalty, it's a reliable, approachable mount perfect for exploring the Highlands.</p>
+<p><span class="badge badge--free">Free — Quest Reward</span> <span class="badge badge--quest">No Premium Required</span></p>
+<p><strong>How to get:</strong> Complete the introductory horse quest upon arriving in the Royal Highlands.</p>
+</div>
+
+<div class="breed-card akwindu card">
+<div class="breed-name">🐎 Akwindu Thoroughbred</div>
+<div class="breed-subtitle">The collector's breed — unlock through breeding mastery</div>
+<div class="inspiration">🐎 Inspired by: Arabian</div>
+<p>This elegant breed is unlocked by collecting a wide variety of <strong>horse traits through breeding</strong>. The more traits you discover through your breeding program, the closer you get to unlocking the Akwindu Thoroughbred.</p>
+<p><span class="badge badge--quest">Breeding Unlock</span> <span class="badge badge--premium">Riding License (Supporter Pack)</span></p>
+<p><strong>Riding access:</strong> Requires a <strong>Riding License</strong> that comes exclusively in the <strong>Highlands Supporter Packs</strong>.</p>
+</div>
+
+<div class="breed-card phoenixfire card">
+<div class="breed-name">🔥 Phoenixfire Dawnspur</div>
+<div class="breed-subtitle">Mythical variant — touched by the Phoenix itself</div>
+<div class="inspiration">🔥 Rarity: Mythical</div>
+<p>Long thought to exist only in legend, the Phoenixfire Dawnspur is the rarest of mounts. Obtain it by progressing through <strong>Binnie's side quests</strong> in the Royal Highlands.</p>
+<p><span class="badge badge--legendary">Mythical</span> <span class="badge badge--premium">Riding License (Premium Store)</span></p>
+<p><strong>Riding access:</strong> Requires a <strong>Riding License</strong> purchased from the <strong>Premium Store</strong>.</p>
+</div>
+
+<div class="warning-box">
+<strong>⚠️ Riding License:</strong> Both the Akwindu Thoroughbred and Phoenixfire Dawnspur require a <strong>Riding License</strong> to actually ride them — even after you obtain the horse. The Dawnspur from the intro quest does not require a license for that specific horse. Licenses come from:
+<ul>
+<li><strong>Highlands Supporter Packs</strong> (for Akwindu Thoroughbred)</li>
+<li><strong>Premium Store</strong> (for Phoenixfire Dawnspur)</li>
+</ul>
+</div>
+
+<h2>Riding Mechanics</h2>
+
+<div class="stat-row">
+  <div class="stat"><div class="stat-value">5</div><div class="stat-label">Gait Speeds</div></div>
+  <div class="stat"><div class="stat-value">1</div><div class="stat-label">Stamina System</div></div>
+  <div class="stat"><div class="stat-value">∞</div><div class="stat-label">Flow Sparks</div></div>
+  <div class="stat"><div class="stat-value">✓</div><div class="stat-label">Housing Plot</div></div>
+</div>
+
+<h3>The Five Gaits</h3>
+<table>
+<tr><th>Gait</th><th>Speed</th><th>Stamina Use</th><th>Notes</th></tr>
+<tr><td><span class="badge badge--walk">Walk</span></td><td>Slowest</td><td>None</td><td> Leisurely exploration</td></tr>
+<tr><td><span class="badge badge--trot">Trot</span></td><td>Moderate</td><td>None</td><td>Comfortable cruising speed</td></tr>
+<tr><td><span class="badge badge--canter">Canter</span></td><td>Brisk</td><td>Minimal</td><td>Good balance of pace and stamina</td></tr>
+<tr><td><span class="badge badge--gallop">Gallop</span></td><td>Fast</td><td>Moderate</td><td>Standard high-speed travel</td></tr>
+<tr><td><span class="badge badge--sprint">Sprint</span></td><td>Fastest</td><td>Heavy</td><td>Maximum speed, drains stamina rapidly</td></tr>
+</table>
+
+<div class="card">
+<h3>⚡ Stamina System</h3>
+<p>Riding at top speed (sprint) consumes <strong>horse stamina</strong>. When stamina runs out, your horse automatically reduces to <strong>gallop speed</strong>. Stamina regenerates over time while riding at lower speeds.</p>
+<p><strong>Flow Sparks</strong> — Glowing energy orbs scattered across the Royal Highlands — instantly restore some of your horse's stamina when collected. Think of them as stamina pick-ups along your riding routes.</p>
+</div>
+
+<h3>Riding Controls & Accessibility</h3>
+
+<div class="control-section">
+<div class="control-item">
+<div class="ctrl-title">🎮 Steering Modes</div>
+<div class="ctrl-desc">Camera follows horse by default. Options:<br>
+<strong>Camera-Follow</strong> (default) — Camera turns with your horse<br>
+<strong>Manual</strong> — You control camera independently<br>
+<strong>Full Auto</strong> — Camera handles everything<br>
+<strong>Hybrid</strong> — Mix of follow and manual</div>
+</div>
+<div class="control-item">
+<div class="ctrl-title">📋 Menu Behavior</div>
+<div class="ctrl-desc">Horses pause automatically when you open dialogue or the map. You can adjust this setting to keep your horse moving while interacting with menus if you prefer.</div>
+</div>
+<div class="control-item">
+<div class="ctrl-title">🏃 Speed Control</div>
+<div class="ctrl-desc"><strong>Tap up/down</strong> to finely adjust speed through gaits.<br>
+<strong>Hold up</strong> to move at maximum speed.<br>
+<strong>Hold S / hold down</strong> on left stick to stop quickly.</div>
+</div>
+<div class="control-item">
+<div class="ctrl-title">🦘 Jumping & Collision</div>
+<div class="ctrl-desc">Horses can <strong>jump</strong> over obstacles! If your horse hits an obstacle, it will buckle and stop. Plan your routes and use jumps to navigate the terrain.</div>
+</div>
+</div>
+
+<div class="tip-box">
+<strong>💡 Where Can You Ride?</strong> Horses can be ridden in most locations, including your <strong>housing plot</strong>. Restricted areas: <strong>Village Center</strong>, <strong>Underground</strong>, and certain private spaces. No horsing around on the Hot Pot tables!
+</div>
+
+<h2>Stables — Fast Travel Network</h2>
+
+<div class="card">
+<h3>🏛️ Stable System</h3>
+<p>Stables serve as the <strong>fast travel network</strong> in the Royal Highlands. They're scattered throughout the zone, but — like other discoverables — <strong>you must discover them first</strong> before you can use them for travel.</p>
+<p>Once discovered, stables appear on your map and allow quick transit between locations across the Highlands.</p>
+</div>
+
+<h2>Breeding & Ranching</h2>
+
+<div class="card">
+<h3>🐴 The Ranch</h3>
+<p>The Ranching skill allows you to raise animals, collect their resources, and breed them. Start by completing the ranching quest, then <strong>Delaila</strong> will give you a recipe for a <strong>Ranch Warp</strong> item that teleports you to your personal ranch.</p>
+<p>Your ranch includes:</p>
+<ul>
+<li>Roaming areas for animals</li>
+<li>A store for supplies and new animals</li>
+<li>Storage access</li>
+<li>A breeding pen with a reference book of "Daiya family wisdom"</li>
+</ul>
+</div>
+
+<div class="card">
+<h3>📊 Animal Care — Happiness & Focus</h3>
+<table>
+<tr><th>Attribute</th><th>Effect</th><th>How to Maintain</th></tr>
+<tr><td><strong>Happiness</strong></td><td>Increases production rate</td><td>Pet and feed regularly</td></tr>
+<tr><td><strong>Focus</strong></td><td>Determines how well-fed they are; low Focus slows production</td><td>Keep Feed stocked</td></tr>
+</table>
+<p><strong>Important:</strong> Animals at <strong>Baby</strong> or <strong>Venerated</strong> age do NOT produce items or breed.</p>
+<p>Keeping too many of the <strong>same species</strong> can reduce production — diversify your ranch!</p>
+</div>
+
+<div class="card">
+<h3>🏗️ Pen Organization</h3>
+<p>Pens hold up to <strong>10 animals each</strong>. Use the permissions menu on the animal roster table to prioritize pen assignments.</p>
+<p><strong>Pen types:</strong> Any Pen • Air Pen • Water Pen • Fire Pen</p>
+<p>Check the <strong>Ranch Map</strong> to confirm which pen is which.</p>
+</div>
+
+<h3>Ranch Animals Reference</h3>
+
+<div class="animal-card card">
+<table>
+<tr><th>Animal</th><th>Produces</th><th>Focus</th><th>Care Level</th></tr>
+<tr><td>🐔 <strong>Peki</strong></td><td>Eggs daily</td><td>Low</td><td>Moderate attention</td></tr>
+<tr><td>🍄 <strong>Trufflet</strong></td><td>Mushrooms (various)</td><td>Medium</td><td>Moderate attention</td></tr>
+<tr><td>🥛 <strong>Ormuu</strong></td><td>Milk (high volume)</td><td>High</td><td>High attention needed</td></tr>
+<tr><td>🍯 <strong>Bumbles</strong></td><td>Honey (infrequent)</td><td>Low</td><td>Low — fine left alone</td></tr>
+<tr><td>✨ <strong>Goobis</strong></td><td>Forageables</td><td>—</td><td>Elemental Flow creature</td></tr>
+<tr><td>🐟 <strong>Boovars</strong></td><td>—</td><td>—</td><td>Bear-ish, loves fish</td></tr>
+<tr><td>❄️ <strong>Ferris</strong></td><td>—</td><td>—</td><td>Ferret-like, curious & mischievous</td></tr>
+<tr><td>🧂 <strong>Roli</strong></td><td>Salt crystals</td><td>—</td><td>Armadillo-like, loves digging</td></tr>
+</table>
+</div>
+
+<h2>Multiplayer Ranching</h2>
+
+<div class="card">
+<p>Visitors can come to your ranch and help care for your animals! They can <strong>pet, feed, and collect items</strong> from your animals.</p>
+<p><strong>How it works:</strong></p>
+<ul>
+<li>Visitors must travel to your Housing Plot and ring your <strong>doorbell</strong></li>
+<li>Experience from petting, feeding, and collecting is <strong>shared between visitor and owner</strong></li>
+<li>All collected items go to the <strong>owner's inventory</strong></li>
+<li>The hosting player must be present for visitors to gather produce</li>
+<li>Visitors CAN feed and pet animals even if the host is on their housing plot</li>
+</ul>
+<div class="tip-box">
+<strong>💡 XP Sharing:</strong> Only the interacting visitor and the owner gain experience. Other party members (not directly interacting) do NOT gain XP. If the host interacts, visitors gain no XP.
+</div>
+</div>
+
+<h2>Horse Traits & Breeding</h2>
+
+<div class="card">
+<p>Horses can display a variety of <strong>visual and functional traits</strong> through breeding. Traits start with realistic coats inspired by real-life breeds and extend to rarer, more fantastical options.</p>
+<p><strong>Breeding mechanics:</strong></p>
+<ul>
+<li>Horses you breed can be ridden once <strong>fully grown</strong></li>
+<li>Younger ponies need time to mature before becoming rideable</li>
+<li>The breeding pen on your ranch is where horses produce offspring</li>
+<li>Collecting a wide variety of traits is key to unlocking the <strong>Akwindu Thoroughbred</strong></li>
+</ul>
+</div>
+
+<h2>Horse Customization</h2>
+
+<div class="card">
+<p>Customize your riding experience with various options:</p>
+<ul>
+<li><strong>Steering Mode</strong> — Camera-follow, manual, full auto, or hybrid</li>
+<li><strong>Menu Behavior</strong> — Auto-pause or keep riding when menus are open</li>
+<li><strong>Speed Control</strong> — Tap/hold for fine or maximum speed adjustments</li>
+<li><strong>Stamina UI</strong> — Toggle the on-screen stamina display</li>
+<li><strong>Premium tack and cosmetics</strong> — Available in the Premium Store and Supporter Packs</li>
+</ul>
+</div>
+
+<h2>The Long Ride — Community Event</h2>
+
+<div class="card">
+<h3>🏇 May 25 – June 1</h3>
+<p><strong>The Long Ride</strong> is a limited-time community event where the community works together to rack up mount distance and collect Amber Echo.</p>
+<p><strong>Points formula:</strong> Mount distance × Amber Echo collected = your contribution. Shared milestones unlock rewards for everyone!</p>
+</div>
+
+<footer>Nova • Palia Mounts &amp; Ranching Guide • May 2026<br><small>Data sourced from Palia Build 0.202 patch notes. Game mechanics may change with updates.</small></footer>
+
+</body>
+</html>

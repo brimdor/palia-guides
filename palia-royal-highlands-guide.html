@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Palia — Royal Highlands Zone Guide</title>
+<style>
+  :root {
+    --bg-deep: #0a0c14;
+    --bg-card: rgba(255,255,255,0.04);
+    --bg-card-hover: rgba(255,255,255,0.07);
+    --text-primary: #e8e6f0;
+    --text-secondary: #9b97aa;
+    --accent-amber: #f5a623;
+    --accent-gold: #d4af37;
+    --accent-red: #e74c3c;
+    --accent-blue: #5dade2;
+    --accent-green: #58d68d;
+    --accent-yellow: #f7dc6f;
+    --accent-purple: #bb8fce;
+    --accent-pink: #f1948a;
+    --border-subtle: rgba(255,255,255,0.08);
+    --radius: 12px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg-deep);
+    color: var(--text-primary);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    line-height: 1.7;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 24px 16px 80px;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    text-align: center;
+    padding: 56px 20px 40px;
+    background: linear-gradient(135deg, rgba(212,175,55,0.08) 0%, rgba(10,12,20,0) 60%);
+    border-radius: var(--radius);
+    margin-bottom: 40px;
+    border: 1px solid var(--border-subtle);
+  }
+  .hero h1 {
+    font-size: 2.4rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--accent-gold), var(--accent-amber));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+  }
+  .hero .subtitle {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    font-weight: 300;
+  }
+  .hero .patch-badge {
+    display: inline-block;
+    margin-top: 14px;
+    padding: 5px 16px;
+    border-radius: 999px;
+    background: rgba(245,166,35,0.12);
+    color: var(--accent-amber);
+    font-size: 0.85rem;
+    font-weight: 600;
+    border: 1px solid rgba(245,166,35,0.25);
+  }
+
+  /* ── Navigation ── */
+  .toc {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 8px;
+    margin-bottom: 40px;
+  }
+  .toc a {
+    display: block;
+    padding: 10px 14px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 500;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .toc a:hover {
+    background: var(--bg-card-hover);
+    transform: translateY(-1px);
+  }
+
+  /* ── Section ── */
+  section { margin-bottom: 48px; }
+  section h2 {
+    font-size: 1.55rem;
+    font-weight: 700;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid rgba(245,166,35,0.25);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  section h2 .icon {
+    font-size: 1.4rem;
+  }
+  section h3 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin: 24px 0 10px;
+    color: var(--accent-gold);
+  }
+  section p { margin-bottom: 12px; color: var(--text-secondary); }
+  section p strong { color: var(--text-primary); }
+
+  /* ── Card ── */
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius);
+    padding: 22px 24px;
+    margin-bottom: 16px;
+    transition: background 0.2s;
+  }
+  .card:hover { background: var(--bg-card-hover); }
+  .card h3 { margin-top: 0; }
+
+  /* ── Badge ── */
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+  }
+  .badge-amber  { background: rgba(245,166,35,0.18); color: #f5a623; border: 1px solid rgba(245,166,35,0.3); }
+  .badge-red    { background: rgba(231,76,60,0.15);  color: #e74c3c; border: 1px solid rgba(231,76,60,0.3); }
+  .badge-blue   { background: rgba(93,173,226,0.15);  color: #5dade2; border: 1px solid rgba(93,173,226,0.3); }
+  .badge-green  { background: rgba(88,214,141,0.15);  color: #58d68d; border: 1px solid rgba(88,214,141,0.3); }
+  .badge-yellow { background: rgba(247,220,111,0.15); color: #f7dc6f; border: 1px solid rgba(247,220,111,0.3); }
+  .badge-purple { background: rgba(187,143,206,0.15); color: #bb8fce; border: 1px solid rgba(187,143,206,0.3); }
+  .badge-pink   { background: rgba(241,148,138,0.15); color: #f1948a; border: 1px solid rgba(241,148,138,0.3); }
+  .badge-gold   { background: rgba(212,175,55,0.15);  color: #d4af37; border: 1px solid rgba(212,175,55,0.3); }
+
+  /* ── Tip Box ── */
+  .tip {
+    background: rgba(245,166,35,0.06);
+    border-left: 3px solid var(--accent-amber);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-size: 0.93rem;
+    color: var(--text-secondary);
+  }
+  .tip .tip-label {
+    font-weight: 700;
+    color: var(--accent-amber);
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 4px;
+  }
+  .tip strong { color: var(--text-primary); }
+
+  /* ── Info Box ── */
+  .info-box {
+    background: rgba(93,173,226,0.06);
+    border-left: 3px solid var(--accent-blue);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-size: 0.93rem;
+    color: var(--text-secondary);
+  }
+  .info-box .info-label {
+    font-weight: 700;
+    color: var(--accent-blue);
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 4px;
+  }
+
+  /* ── Table ── */
+  .data-grid {
+    display: grid;
+    gap: 10px;
+    margin: 14px 0;
+  }
+  .data-row {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 8px;
+    align-items: baseline;
+    padding: 10px 14px;
+    background: var(--bg-card);
+    border-radius: 8px;
+    border: 1px solid var(--border-subtle);
+    font-size: 0.9rem;
+  }
+  .data-row .label {
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .data-row .value {
+    color: var(--text-secondary);
+  }
+
+  /* ── Flow Mask Cards ── */
+  .flow-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 12px;
+    margin: 16px 0;
+  }
+  .flow-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius);
+    padding: 18px;
+    transition: background 0.2s;
+  }
+  .flow-card:hover { background: var(--bg-card-hover); }
+  .flow-card .element-name {
+    font-weight: 700;
+    font-size: 1.05rem;
+    margin-bottom: 6px;
+  }
+  .flow-card .element-desc {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  /* ── Relic Cards ── */
+  .relic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+    margin: 16px 0;
+  }
+  .relic-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+  }
+  .relic-card .relic-name {
+    font-weight: 700;
+    color: var(--accent-gold);
+    margin-bottom: 4px;
+    font-size: 1rem;
+  }
+  .relic-card .relic-desc {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+  }
+
+  /* ── Column Layout ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  @media (max-width: 640px) { .two-col { grid-template-columns: 1fr; } }
+
+  /* ── List ── */
+  ul.styled {
+    list-style: none;
+    padding: 0;
+  }
+  ul.styled li {
+    padding: 6px 0 6px 18px;
+    position: relative;
+    color: var(--text-secondary);
+    font-size: 0.92rem;
+  }
+  ul.styled li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--accent-amber);
+    font-size: 0.85rem;
+  }
+
+  /* ── Quote ── */
+  blockquote {
+    border-left: 3px solid var(--accent-gold);
+    margin: 16px 0;
+    padding: 14px 20px;
+    background: rgba(212,175,55,0.05);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    font-style: italic;
+    color: var(--text-secondary);
+  }
+  blockquote cite {
+    display: block;
+    margin-top: 8px;
+    font-style: normal;
+    font-weight: 600;
+    color: var(--accent-gold);
+    font-size: 0.88rem;
+  }
+
+  /* ── Footer ── */
+  footer {
+    text-align: center;
+    padding: 32px 0 12px;
+    border-top: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+    font-size: 0.82rem;
+  }
+
+  /* ── Resource Pill ── */
+  .res-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0;
+  }
+  .res-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+  .res-pill .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  /* ── Event Banner ── */
+  .event-banner {
+    background: linear-gradient(135deg, rgba(245,166,35,0.1) 0%, rgba(212,175,55,0.05) 100%);
+    border: 1px solid rgba(245,166,35,0.2);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin: 16px 0;
+  }
+  .event-banner h3 {
+    margin-top: 0;
+    color: var(--accent-amber);
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════ HERO ════════════ -->
+<div class="hero">
+  <h1>🐎 Royal Highlands</h1>
+  <p class="subtitle">Palia's grandest adventure zone — sun-kissed rolling fields, old-world elegance, and secrets centuries deep.</p>
+  <span class="patch-badge">Build 0.202 · May 12, 2026</span>
+</div>
+
+<!-- ════════════ TABLE OF CONTENTS ════════════ -->
+<div class="toc">
+  <a href="#access">🌉 Zone Access</a>
+  <a href="#overview">🗺️ Zone Overview</a>
+  <a href="#amber-echo">💎 Amber Echo</a>
+  <a href="#campsites">🏕️ Campsites</a>
+  <a href="#discoverables">📦 Discoverables</a>
+  <a href="#eshelon">👤 Eshelon Bahari</a>
+  <a href="#stables">🐴 Stables & Travel</a>
+  <a href="#flow-masks">⚗️ Flow Masks</a>
+  <a href="#masked-creatures">🛡️ Masked Creatures</a>
+  <a href="#resources">🌿 New Resources</a>
+  <a href="#relics">🏺 Relics & Artifacts</a>
+  <a href="#arrows">🏹 New Arrows</a>
+  <a href="#long-ride">🏇 The Long Ride</a>
+  <a href="#dye">🎨 Outfit Dye System</a>
+  <a href="#housing">🏠 Ancient Home Line</a>
+</div>
+
+<!-- ════════════ ZONE ACCESS ════════════ -->
+<section id="access">
+  <h2><span class="icon">🌉</span> Zone Access</h2>
+  <div class="card">
+    <p>Travel to the <strong>De Mer Docks</strong> in the <strong>Elderwood</strong> and <strong>take the boat</strong> to begin your journey into the Royal Highlands.</p>
+    <div class="tip">
+      <div class="tip-label">💡 Tip</div>
+      The developers recommend finishing your <strong>Elderwood quests and adventures first</strong> before making the journey, as the Royal Highlands main story picks up directly where the Elderwood leaves off.
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ ZONE OVERVIEW ════════════ -->
+<section id="overview">
+  <h2><span class="icon">🗺️</span> Zone Overview</h2>
+  <div class="card">
+    <blockquote>
+      We wanted every corner of this new zone to feel special and intentional, with its own personality and sense of place. Mounts ended up shaping a lot of that journey, with winding paths opening up into sweeping vistas. It's the kind of place where you might set out with a goal, and then find yourself forgetting it completely and simply take in the breathtaking beauty of the world.
+      <cite>— S6 Jaddua</cite>
+    </blockquote>
+  </div>
+
+  <div class="card">
+    <p>Long before the Palia you know, the Royal Highlands were a place of <strong>royalty and prominence</strong>. The Enfields built their legacy here, shaping a region that would later be abandoned in the wake of the Unification Wars. For over <strong>four centuries</strong>, no one — except a few unique creatures — has called it home.</p>
+    <p>Now you are among the first to return. Horses roam once more, and the land itself feels different. Even Echo does not behave quite the same — <strong>Amber Echo</strong> has claimed pieces of the Highlands, holding moments of the past in perfect stillness.</p>
+  </div>
+
+  <div class="data-grid">
+    <div class="data-row">
+      <span class="label">Type</span>
+      <span class="value"><span class="badge badge-gold">Largest Adventure Zone</span></span>
+    </div>
+    <div class="data-row">
+      <span class="label">Theme</span>
+      <span class="value">Sun-kissed rolling fields, old-world elegance, regal landscape</span>
+    </div>
+    <div class="data-row">
+      <span class="label">Key Feature</span>
+      <span class="value">Horses &amp; Mounts — new traversal system</span>
+    </div>
+    <div class="data-row">
+      <span class="label">Currency</span>
+      <span class="value"><span class="badge badge-amber">Amber Echo</span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ AMBER ECHO ════════════ -->
+<section id="amber-echo">
+  <h2><span class="icon">💎</span> Amber Echo</h2>
+
+  <div class="card">
+    <p><strong>Amber Echo</strong> is the primary currency of the Royal Highlands — similar to Infected Essence from the Elderwood, but far more deeply embedded into the land itself.</p>
+
+    <ul class="styled">
+      <li>You need to <strong>progress through the Main Story</strong> before you can collect Amber Echo.</li>
+      <li>Once unlocked, Amber Echo can be gathered from <strong>nearly everything</strong> in the zone — making it a constant part of exploration.</li>
+      <li><strong>Royal Amber</strong> crystals are the physical manifestation found throughout the Highlands. They can encase mining nodes, trees, hunting creatures, and insects.</li>
+      <li>Amber Echo Crystals can be broken with your <strong>Pickaxe, Axe, or Bow &amp; Arrows</strong>. Any tier of tool works.</li>
+      <li>Breaking open crystals and gathering what's encased inside is <strong>much more rewarding</strong> than passive gathering alone.</li>
+    </ul>
+  </div>
+
+  <h3>Amber Echo Store</h3>
+  <div class="card">
+    <p>As you progress through the Main Story Quest, you'll unlock the <strong>Amber Echo Store</strong> where Subira offers a selection of items:</p>
+    <div class="data-grid">
+      <div class="data-row">
+        <span class="label">Bootleg Pyroflow Mask</span>
+        <span class="value">Works the same as a regular Pyroflow Mask — great for those who don't like hunting!</span>
+      </div>
+      <div class="data-row">
+        <span class="label">Bootleg Terraflow Mask</span>
+        <span class="value">Works the same as a regular Terraflow Mask</span>
+      </div>
+      <div class="data-row">
+        <span class="label">Bootleg Aeroflow Mask</span>
+        <span class="value">Works the same as a regular Aeroflow Mask</span>
+      </div>
+      <div class="data-row">
+        <span class="label">Bootleg Hydroflow Mask</span>
+        <span class="value">Works the same as a regular Hydroflow Mask</span>
+      </div>
+      <div class="data-row">
+        <span class="label">Amber-Touched Tracker</span>
+        <span class="value">Tracks amber-touched resources on your compass for a limited time</span>
+      </div>
+      <div class="data-row">
+        <span class="label">Masked Creature Tracker</span>
+        <span class="value">Tracks masked creatures — similar to a Hunter's Horn</span>
+      </div>
+      <div class="data-row">
+        <span class="label">Royal Arrow (Recipe)</span>
+        <span class="value">Arrow that instantly breaks Amber on hit</span>
+      </div>
+      <div class="data-row">
+        <span class="label">Firefighter's Potion</span>
+        <span class="value">When consumed, Pyroflow creatures ignore you and will not charge</span>
+      </div>
+      <div class="data-row">
+        <span class="label">Tracker Arrow</span>
+        <span class="value">Tracks hit animals — adds them to you and your party's compasses</span>
+      </div>
+      <div class="data-row">
+        <span class="label">Titan's Brew (Recipe)</span>
+        <span class="value">Several-minute buff making pickaxe and axe insta-break amber</span>
+      </div>
+      <div class="data-row">
+        <span class="label">Amber Bomb (Recipe)</span>
+        <span class="value">Insta-breaks amber in a radius — collect up to 20 Amber</span>
+      </div>
+      <div class="data-row">
+        <span class="label">Jadium Storage Chest</span>
+        <span class="value">Stores up to 2,250 items</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ CAMPSITES ════════════ -->
+<section id="campsites">
+  <h2><span class="icon">🏕️</span> Campsites</h2>
+
+  <div class="card">
+    <p>Campsites are scattered across the Royal Highlands. Each <strong>real-world day, two of them will be active</strong> for you to discover.</p>
+
+    <ul class="styled">
+      <li>Each campsite includes a <strong>Campfire</strong> you can cook at</li>
+      <li>A <strong>Traveler's Cache</strong> that may contain useful rewards</li>
+      <li><strong>Rummage piles</strong> offering daily artifact pieces and other finds</li>
+      <li>Once you find and collect from a cache, that campsite is <strong>marked on your map</strong></li>
+      <li>New Campfire recipes are <strong>more approachable</strong> — ingredients pull directly from storage, no need to carry them</li>
+      <li>Finished food is <strong>reserved for you for a short time</strong> before becoming available to others</li>
+    </ul>
+
+    <div class="tip">
+      <div class="tip-label">💡 Tip</div>
+      Campfire recipes are designed for <strong>on-the-go cooking</strong> — strong focus value for cost, without needing to return home. They can be made at star quality but are <strong>not placeable</strong>.
+    </div>
+  </div>
+
+  <h3>Campfire Recipes</h3>
+  <div class="data-grid">
+    <div class="data-row"><span class="label">Dawnspur Tea</span> <span class="value">Campsite — Traveler's Cache</span></div>
+    <div class="data-row"><span class="label">Heather Tea</span> <span class="value">Campsite — Traveler's Cache</span></div>
+    <div class="data-row"><span class="label">Fern Tea</span> <span class="value">Campsite — Traveler's Cache</span></div>
+    <div class="data-row"><span class="label">Wisteria Tea</span> <span class="value">Discovery Quest — Flame Wars</span></div>
+    <div class="data-row"><span class="label">Lotus Leaf Tea</span> <span class="value">Campsite — Traveler's Cache</span></div>
+    <div class="data-row"><span class="label">Jaakcat Stew</span> <span class="value">Accomplishment: Jaaked</span></div>
+    <div class="data-row"><span class="label">Anch 'n Grits</span> <span class="value">Campsite — Traveler's Cache</span></div>
+    <div class="data-row"><span class="label">Rice n' Beans</span> <span class="value">Main Story</span></div>
+    <div class="data-row"><span class="label">Beans on Toast</span> <span class="value">Main Story</span></div>
+    <div class="data-row"><span class="label">Breakfast Skillet</span> <span class="value">Campsite — Traveler's Cache</span></div>
+  </div>
+</section>
+
+<!-- ════════════ DISCOVERABLES ════════════ -->
+<section id="discoverables">
+  <h2><span class="icon">📦</span> Discoverables</h2>
+
+  <div class="two-col">
+    <div class="card">
+      <h3><span class="badge badge-amber">16</span> Treasure Chests</h3>
+      <p>16 treasure chests are hidden throughout the Royal Highlands. These are <strong>already unlocked</strong> and ready to be claimed immediately — no special keys or masks needed.</p>
+    </div>
+    <div class="card">
+      <h3><span class="badge badge-purple">20</span> Vaults</h3>
+      <p>20 Vaults total — <strong>16 scattered across the zone + 4 tied to quests</strong>. Each Vault is aligned with one of four elements and requires a <strong>matching Flow Mask</strong> to unlock. Any Vault you interact with is tracked on your map for later return.</p>
+    </div>
+  </div>
+
+  <div class="info-box">
+    <div class="info-label">ℹ️ Vault Elements</div>
+    Each vault requires a Flow Mask of the same element to open. The four elemental types are: <strong>Pyroflow (Red)</strong>, <strong>Hydroflow (Blue)</strong>, <strong>Terraflow (Green)</strong>, and <strong>Aeroflow (Yellow)</strong>.
+  </div>
+</section>
+
+<!-- ════════════ ESHELON ════════════ -->
+<section id="eshelon">
+  <h2><span class="icon">👤</span> Eshelon Bahari</h2>
+
+  <div class="card">
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
+      <span class="badge badge-gold">New Villager</span>
+      <span class="badge badge-purple">Vineyard Owner</span>
+      <span class="badge badge-blue">Mechanical Engineer</span>
+      <span class="badge badge-pink">Bahari Institute</span>
+    </div>
+
+    <p><strong>Eshelon Bahari</strong> arrives in style with a reputation that precedes him. As the <strong>first and only son of Duchess Kenyara Bahari</strong>, he was raised to succeed and has done little else. Whether speaking multiple languages, playing violin at a mastery level, or discussing state and politics, Eshelon commands excellence.</p>
+
+    <p>Now an expert at the <strong>Bahari Institute</strong>, he studies ancient human devices and strange energies. After being sent by the Duchess to investigate the strange explosion in the sky, he has begun uncovering something bigger and is looking to pair up with you to help continue the investigation.</p>
+  </div>
+
+  <div class="data-grid">
+    <div class="data-row"><span class="label">Full Name</span> <span class="value">Eshelon Bahari</span></div>
+    <div class="data-row"><span class="label">Occupation</span> <span class="value">Vineyard Owner, Mechanical Engineer</span></div>
+    <div class="data-row"><span class="label">Group</span> <span class="value">Majiri</span></div>
+    <div class="data-row"><span class="label">Location</span> <span class="value">Royal Highlands</span></div>
+    <div class="data-row"><span class="label">Affiliation</span> <span class="value">Bahari Institute</span></div>
+    <div class="data-row"><span class="label">Family</span> <span class="value">Kenyara (Mother) · Eshe (Aunt) · Kenli (Uncle) · Kenyatta (Cousin) · Kenjun (Grandfather) · Kendall (Great Grandfather)</span></div>
+    <div class="data-row"><span class="label">Romance</span> <span class="value">No</span></div>
+    <div class="data-row"><span class="label">Shepp</span> <span class="value">No</span></div>
+  </div>
+
+  <div class="card">
+    <h3>Enfield Artifact Store</h3>
+    <p>Eshelon is actively seeking out artifacts scattered across the region. You collect <strong>Amber Echo</strong> as you explore, and Eshelon uses it to <strong>upgrade your relics</strong>, rewarding your efforts with <strong>Certificates of Merit</strong>. These can be spent in his shop on items to support your journey.</p>
+  </div>
+</section>
+
+<!-- ════════════ STABLES ════════════ -->
+<section id="stables">
+  <h2><span class="icon">🐴</span> Stables & Fast Travel</h2>
+
+  <div class="card">
+    <p>Stables serve as <strong>fast travel points</strong> throughout the Royal Highlands and connect back to other zones. However, stables must be <strong>discovered first</strong> before they can be used for travel.</p>
+
+    <div class="tip">
+      <div class="tip-label">💡 Tip</div>
+      Explore thoroughly early on! Each stable you discover becomes a permanent fast travel hub, saving you long rides across the zone.
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Horses &amp; Mounts</h3>
+    <p>Mounts are a brand-new traversal system introduced with the Royal Highlands. Your first horse quest is immediately available upon entering the zone — <strong>not tied to Main Story progression</strong>.</p>
+    <ul class="styled">
+      <li><strong>Dawnspur</strong> — Inspired by the American Quarter Horse, once favored by Ancient Human royalty and originally bred by the Mudan. Your first horse.</li>
+      <li><strong>Akwindu Thoroughbred</strong> — Arabian-inspired breed, unlocked by collecting horse traits through breeding. Riding requires the Highlands Supporter Pack Riding License.</li>
+      <li><strong>Phoenixfire Dawnspur</strong> — Mythical variant touched by the Phoenix itself. Obtained via Binnie's side quests, with riding unlocked via Premium Store Riding License.</li>
+    </ul>
+    <p>Horses move through multiple gaits (walk, trot, canter, gallop, sprint). Riding at top speed uses <strong>stamina</strong>. <strong>Flow Sparks</strong> scattered across the Highlands restore horse stamina instantly.</p>
+  </div>
+</section>
+
+<!-- ════════════ FLOW MASKS ════════════ -->
+<section id="flow-masks">
+  <h2><span class="icon">⚗️</span> Flow Masks</h2>
+
+  <div class="card">
+    <p>Flow Masks are drops from hunting <strong>Masked Creatures</strong> (Jaakcats and Sernuk). Each mask corresponds to one of four elements and is required to <strong>unlock Vaults</strong> of the same element. They can also be <strong>sold for significant gold</strong> and have <strong>star-quality versions</strong> usable as home decor.</p>
+  </div>
+
+  <div class="flow-grid">
+    <div class="flow-card" style="border-top: 3px solid #e74c3c;">
+      <div class="element-name"><span class="badge badge-red">Pyroflow</span> — Red</div>
+      <div class="element-desc">Dropped from Pyroflow-element Jaakcats and Sernuk. The most aggressive masked creatures with frontal shields that charge at you.</div>
+    </div>
+    <div class="flow-card" style="border-top: 3px solid #5dade2;">
+      <div class="element-name"><span class="badge badge-blue">Hydroflow</span> — Blue</div>
+      <div class="element-desc">Dropped from Hydroflow-element Jaakcats and Sernuk. These creatures are shielded on their back and prone to fleeing.</div>
+    </div>
+    <div class="flow-card" style="border-top: 3px solid #58d68d;">
+      <div class="element-name"><span class="badge badge-green">Terraflow</span> — Green</div>
+      <div class="element-desc">Dropped from Terraflow-element Jaakcats and Sernuk. They stay down until alerted, then create a 360-degree shield.</div>
+    </div>
+    <div class="flow-card" style="border-top: 3px solid #f7dc6f;">
+      <div class="element-name"><span class="badge badge-yellow">Aeroflow</span> — Yellow</div>
+      <div class="element-desc">Dropped from Aeroflow-element Jaakcats and Sernuk. Their shield pulses on and off in a 360-degree sphere pattern.</div>
+    </div>
+  </div>
+
+  <div class="info-box">
+    <div class="info-label">🛡️ Bootleg Masks</div>
+    Can't hunt? Zeki sells <strong>Bootleg versions</strong> of each Flow Mask in the Amber Echo Store — they function identically to regular masks.
+  </div>
+</section>
+
+<!-- ════════════ MASKED CREATURES ════════════ -->
+<section id="masked-creatures">
+  <h2><span class="icon">🛡️</span> Masked Creatures</h2>
+
+  <div class="card">
+    <p>Since Echo is more present in the Royal Highlands, the creatures have <strong>evolved magical masks</strong> to protect themselves and combat the effects of Echo. All masked creatures summon a shield when engaged.</p>
+    <ul class="styled">
+      <li>Shooting an <strong>unshielded part</strong> stuns the creature for a few seconds and breaks the shield</li>
+      <li>Shooting the <strong>shield</strong> breaks it but prevents you from shooting again for a couple seconds</li>
+      <li><strong>Dispel Arrows</strong> are particularly effective — they bypass shields entirely</li>
+    </ul>
+  </div>
+
+  <h3>Mask Behaviors</h3>
+  <div class="flow-grid">
+    <div class="flow-card" style="border-left: 3px solid #e74c3c;">
+      <div class="element-name" style="color:#e74c3c;">Pyroflow <span style="font-weight:400;font-size:0.85rem;">(Red)</span></div>
+      <div class="element-desc">The most aggressive. Shield in front. <strong>Charges at you</strong> — getting hit blocks you from shooting for a couple seconds.</div>
+    </div>
+    <div class="flow-card" style="border-left: 3px solid #5dade2;">
+      <div class="element-name" style="color:#5dade2;">Hydroflow <span style="font-weight:400;font-size:0.85rem;">(Blue)</span></div>
+      <div class="element-desc">Shielded on their back. Prone to <strong>fleeing</strong> — chase them down or cut them off.</div>
+    </div>
+    <div class="flow-card" style="border-left: 3px solid #58d68d;">
+      <div class="element-name" style="color:#58d68d;">Terraflow <span style="font-weight:400;font-size:0.85rem;">(Green)</span></div>
+      <div class="element-desc">Stay down until alerted. Once alerted, create a <strong>360-degree shield</strong> — shoot when the shield drops or use Dispel Arrows.</div>
+    </div>
+    <div class="flow-card" style="border-left: 3px solid #f7dc6f;">
+      <div class="element-name" style="color:#f7dc6f;">Aeroflow <span style="font-weight:400;font-size:0.85rem;">(Yellow)</span></div>
+      <div class="element-desc">Shield <strong>pulses on and off</strong> in a 360-degree sphere. Time your shots for when the shield is down.</div>
+    </div>
+  </div>
+
+  <h3>New Creatures</h3>
+  <div class="two-col">
+    <div class="card">
+      <h3>Jaakcat 🐱</h3>
+      <p>Mischievous tricksters and thieves. Named after Jaak-o-lanterns which were inspired by their antics. They're quick but <strong>don't burrow or hide</strong> — if they escape, they run off until they feel safe to rest. Their rabbit-like movements make them an exciting, if unpredictable, hunting target.</p>
+    </div>
+    <div class="card">
+      <h3>Royal Sernuk 🦌</h3>
+      <p>A new variant once domesticated by the Enfields and left to wander. They've returned to the wild with a <strong>distinct appearance</strong> and are <strong>tougher than regular Sernuks</strong>, requiring more hits to take down — but they drop higher quality loot.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ NEW RESOURCES ════════════ -->
+<section id="resources">
+  <h2><span class="icon">🌿</span> New Resources</h2>
+
+  <h3>Foragables</h3>
+  <div class="data-grid">
+    <div class="data-row"><span class="label">Dawnspur Lily</span> <span class="value">Once thought extinct, these golden lilies are a favorite snack of the Dawnspur horse. Returned to the Highlands alongside them.</span></div>
+    <div class="data-row"><span class="label">Royal Heather</span> <span class="value">Unlike its commoner cousin, Royal Heather blooms year-round. When made into tea it has a delicate, almost nostalgic flavor.</span></div>
+    <div class="data-row"><span class="label">Golden Fern</span> <span class="value">Has cleansing properties — removes pollutants from the air and body when mixed into tea. Perhaps why Echo hasn't completely overrun the Highlands.</span></div>
+    <div class="data-row"><span class="label">Royal Wisteria</span> <span class="value">Toxic in all forms save one — when dried over an open flame, the seeds make a delicious (if expensive) tea.</span></div>
+  </div>
+
+  <h3>Wood &amp; Mining</h3>
+  <div class="res-grid">
+    <span class="res-pill"><span class="dot" style="background:#d4a017;"></span> Lantern Ashwood <em>(from Lantern Ash Trees)</em></span>
+    <span class="res-pill"><span class="dot" style="background:#839192;"></span> Jadium <em>(Palium-tier mining node)</em></span>
+    <span class="res-pill"><span class="dot" style="background:#d5d8dc;"></span> Whitestone <em>(new mining material)</em></span>
+    <span class="res-pill"><span class="dot" style="background:#aab7b8;"></span> Iron &amp; Gold <em>(also available)</em></span>
+  </div>
+
+  <div class="tip">
+    <div class="tip-label">💡 Tip</div>
+    <strong>Ashwood Plank</strong> recipe can be found in the Foraging Guild Store. Lantern Ash is comparable to Hardwood. Lantern Ash Trees can also drop <strong>seeds</strong> (for home-plot growing) and rare <strong>Fossilized Amber Resin</strong>.
+  </div>
+
+  <h3>Special Ingredient</h3>
+  <div class="card">
+    <p><strong>Cheese</strong> is now an <em>extremely rare drop</em> that can be obtained from a variety of activities throughout the Royal Highlands. It's used in Campfire cooking recipes.</p>
+  </div>
+</section>
+
+<!-- ════════════ RELICS & ARTIFACTS ════════════ -->
+<section id="relics">
+  <h2><span class="icon">🏺</span> Relics &amp; Artifacts</h2>
+
+  <div class="card">
+    <p>Artifacts in the Royal Highlands are all tied to the <strong>influential Enfield family</strong> — four main members, each with unique artifacts scattered throughout the world that reveal different aspects of their story, character, and history.</p>
+    <ul class="styled">
+      <li>Most artifact pieces can be found in <strong>rummage piles</strong> and are <strong>tradeable</strong> at Trading Stations in the Central Stables</li>
+      <li>A few rare pieces come from the <strong>Echo Store or treasure chests</strong> and <strong>cannot be traded</strong></li>
+      <li>Completing an artifact rewards <strong>Certificates of Merit</strong> for relic upgrades</li>
+    </ul>
+  </div>
+
+  <h3>Four Enfield Relics</h3>
+  <div class="tip">
+    <div class="tip-label">⚠️ Important</div>
+    Royal Highlands relics <strong>only work in the Royal Highlands</strong>. Previous relics from other zones will <strong>not work</strong> here. Relics can be upgraded to <strong>level 5</strong> via Eshelon after completing the Main Story.
+  </div>
+
+  <div class="relic-grid">
+    <div class="relic-card" style="border-top: 3px solid #f5a623;">
+      <div class="relic-name">Eloine's Blessing</div>
+      <div class="relic-desc">Increases the amount of Echo gathered.</div>
+    </div>
+    <div class="relic-card" style="border-top: 3px solid #58d68d;">
+      <div class="relic-name">Belafontine's Blessing</div>
+      <div class="relic-desc">Increased amount of non-Echo materials gathered.</div>
+    </div>
+    <div class="relic-card" style="border-top: 3px solid #5dade2;">
+      <div class="relic-name">Halward's Blessing</div>
+      <div class="relic-desc">Increases tool effectiveness.</div>
+    </div>
+    <div class="relic-card" style="border-top: 3px solid #bb8fce;">
+      <div class="relic-name">Amadeus' Blessing</div>
+      <div class="relic-desc">Increases the chance of receiving rare Highland-specific loot drops.</div>
+    </div>
+  </div>
+
+  <div class="info-box">
+    <div class="info-label">ℹ️ Party Bonus</div>
+    Equipping a relic applies its benefits to <strong>all members of your party</strong>, making them great for group adventures!
+  </div>
+</section>
+
+<!-- ════════════ NEW ARROWS ════════════ -->
+<section id="arrows">
+  <h2><span class="icon">🏹</span> New Arrows &amp; Tools</h2>
+
+  <div class="two-col">
+    <div class="card" style="border-top: 3px solid #f5a623;">
+      <h3>Amber Arrow</h3>
+      <p><span class="badge badge-amber">Royal Arrow</span> Also known as the Royal Arrow — <strong>instantly breaks Amber Crystals</strong> on hit with a single arrow. Recipe available from the Amber Echo Store.</p>
+    </div>
+    <div class="card" style="border-top: 3px solid #5dade2;">
+      <h3>Tracker Arrow</h3>
+      <p><span class="badge badge-blue">Utility</span> When used on a creature, the creature is <strong>added to you and your party's compasses</strong> for tracking. Perfect for coordinating hunts!</p>
+    </div>
+  </div>
+
+  <h3>Other New Items</h3>
+  <div class="data-grid">
+    <div class="data-row"><span class="label">Amber Bomb</span> <span class="value">Insta-breaks amber in a radius. Collect up to 20 Amber per use.</span></div>
+    <div class="data-row"><span class="label">Titan's Brew</span> <span class="value">Several-minute buff that makes your pickaxe and axe insta-break amber.</span></div>
+    <div class="data-row"><span class="label">Firefighter's Potion</span> <span class="value">Pyroflow creatures ignore you — no charging!</span></div>
+    <div class="data-row"><span class="label">Amber-Touched Tracker</span> <span class="value">Tracks amber-touched resources on your compass for limited time.</span></div>
+    <div class="data-row"><span class="label">Masked Creature Tracker</span> <span class="value">Tracks masked creatures, similar to a Hunter's Horn.</span></div>
+  </div>
+</section>
+
+<!-- ════════════ THE LONG RIDE ════════════ -->
+<section id="long-ride">
+  <h2><span class="icon">🏇</span> The Long Ride — Community Event</h2>
+
+  <div class="event-banner">
+    <h3>🐎 Limited-Time Event: May 25 – June 1, 2026</h3>
+    <p><strong>The Long Ride</strong> is a limited-time community event that puts the spotlight on mounts, exploration, and Amber Echo collection — all rolled into one massive, community-wide collaboration.</p>
+    <ul class="styled">
+      <li>Every <strong>meter you ride mounted</strong> and every <strong>Amber Echo you collect</strong> counts toward a shared goal</li>
+      <li>Your distance traveled on a mount gets multiplied by your Amber Echo collected: e.g., 30m × 20 Amber Echo = <strong>600 points</strong></li>
+      <li>Organize riding parties, explore casually, or go all-out on Amber Echo expeditions — <strong>every step counts</strong></li>
+      <li>Once milestones are hit, <strong>all rewards are delivered to your News Inbox</strong> — every adventurer celebrates!</li>
+    </ul>
+    <div class="tip">
+      <div class="tip-label">💡 Tip</div>
+      The <strong>Mount Multiplier</strong> is the key metric — ride further AND collect more Amber Echo to maximize your contribution. Watch the in-game News Announcements and Official Palia Discord for progress updates.
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ OUTFIT DYE SYSTEM ════════════ -->
+<section id="dye">
+  <h2><span class="icon">🎨</span> Outfit Dye System</h2>
+
+  <div class="card">
+    <blockquote>
+      We know that players have been asking for more ways to express their personality, and dyes will give players exactly that. You can take a traditional wedding dress and give it a gothic theme or change your Haute Dawg's ketchup to mustard. The possibilities are endless and I can't wait to see what the community creates!
+      <cite>— S6 Michael</cite>
+    </blockquote>
+  </div>
+
+  <div class="card">
+    <ul class="styled">
+      <li>Outfit pieces now have up to <strong>4 separate aspects</strong> you can dye</li>
+      <li>Dyes use the same <strong>Palettes</strong> as makeup and hair — <strong>4 palettes available by default</strong>, more unlockable via <strong>Tailor Tickets</strong></li>
+      <li>You apply an <strong>entire Palette at once</strong> (not individual colors) — you must unlock the full Palette to use it</li>
+      <li>Palettes typically cost <strong>25 Tailor Tickets</strong> each</li>
+      <li>Tailor Tickets can also be purchased: <strong>25 for 100 Palia Coin</strong> or <strong>200 for 800 Palia Coin</strong></li>
+      <li>This system supports <strong>all default outfits</strong> and a selection of the most popular premium outfits in 0.202, with more outfits rolling out in future patches</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ════════════ ANCIENT HOME LINE ════════════ -->
+<section id="housing">
+  <h2><span class="icon">🏠</span> Ancient Home Line — New Housing</h2>
+
+  <div class="card">
+    <p>The <strong>Ancient Home Line</strong> is directly inspired by the ruins you've explored and the way Ancient Humans lived. It brings <strong>stone foundations, dramatic verticality, and refined architectural silhouettes</strong> — the most elegant Home Line yet.</p>
+  </div>
+
+  <div class="card">
+    <h3>🏰 Third Story Upgrade</h3>
+    <p>The Ancient Home Line introduces a <strong>new capstone that increases the number of levels your home can have</strong>. This upgrade applies to <strong>all Home Lines</strong>, not just the Ancient line. Time to build upward!</p>
+  </div>
+
+  <div class="data-grid">
+    <div class="data-row"><span class="label">Ancient House</span> <span class="value">Recipe via Path of the Pony Lunar Path</span></div>
+    <div class="data-row"><span class="label">Ancient Bay Window</span> <span class="value">Recipe via Path of the Pony Lunar Path</span></div>
+    <div class="data-row"><span class="label">Ancient Balcony</span> <span class="value">Recipe via Path of the Pony Lunar Path</span></div>
+    <div class="data-row"><span class="label">Ancient Awning</span> <span class="value">Recipe via Path of the Pony Lunar Path</span></div>
+    <div class="data-row"><span class="label">Ancient Roof Connector</span> <span class="value">Recipe via Path of the Pony Lunar Path</span></div>
+    <div class="data-row"><span class="label">Ancient Wing Decoration</span> <span class="value">Recipe via Path of the Pony Lunar Path</span></div>
+    <div class="data-row"><span class="label">Ancient Steps</span> <span class="value">Recipe via Path of the Pony Lunar Path</span></div>
+    <div class="data-row"><span class="label">Ancient Dormer</span> <span class="value">Recipe via Path of the Pony Lunar Path</span></div>
+    <div class="data-row"><span class="label">Ancient Window</span> <span class="value">Recipe via Path of the Pony Lunar Path</span></div>
+    <div class="data-row"><span class="label">Ancient Railing</span> <span class="value">Recipe via Path of the Pony Lunar Path</span></div>
+    <div class="data-row"><span class="label">Ancient Pillar</span> <span class="value">Recipe via Path of the Pony Lunar Path</span></div>
+    <div class="data-row"><span class="label">Wooden Stairs (Left)</span> <span class="value">Recipe via Path of the Pony Lunar Path</span></div>
+    <div class="data-row"><span class="label">Ancient Column</span> <span class="value">Recipe via Path of the Pony Lunar Path</span></div>
+  </div>
+
+  <div class="info-box">
+    <div class="info-label">ℹ️ Compatibility</div>
+    Like other Home Lines (Alchemist's Cottage, Estate), the Ancient Home Line is <strong>fully compatible</strong> — mix and match modules to create your perfect abode. Unlocked via the <strong>Path of the Pony</strong> Lunar Path.
+  </div>
+</section>
+
+<!-- ════════════ FOOTER ════════════ -->
+<footer>
+  Nova • Palia Guide • May 2026<br>
+  <span style="opacity:0.5;">Data sourced from official Palia Build 0.202 patch notes &amp; wiki</span>
+</footer>
+
+</body>
+</html>

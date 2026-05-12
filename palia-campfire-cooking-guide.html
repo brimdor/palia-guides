@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Palia Campfire Cooking Guide</title>
+<style>
+:root{--bg-deep:#0a0c14;--bg-card:rgba(255,255,255,0.04);--bg-card-hover:rgba(255,255,255,0.07);--border:rgba(255,255,255,0.08);--text:#e0e4ec;--text-dim:#7a8399;--accent-blue:#4a9eff;--accent-orange:#ff8c00;--accent-cyan:#22d3ee;--accent-green:#34d399;--accent-yellow:#fbbf24;--accent-red:#f87171;--accent-purple:#a78bfa;--accent-gold:#ffd700}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg-deep);color:var(--text);font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;line-height:1.7;padding:20px;max-width:960px;margin:0 auto}
+h1{font-size:2rem;background:linear-gradient(135deg,var(--accent-orange),var(--accent-yellow));-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-align:center;padding:30px 0 10px}
+h2{font-size:1.4rem;color:var(--accent-cyan);border-bottom:1px solid var(--border);padding-bottom:8px;margin-top:2em}
+h3{font-size:1.15rem;color:var(--accent-orange)}
+p{margin-bottom:1em}
+.hero{text-align:center;padding:20px 0;color:var(--text-dim);font-size:1.1rem}
+.card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:20px;margin:16px 0;transition:background .2s}
+.card:hover{background:var(--bg-card-hover)}
+.tip-box{background:rgba(251,191,36,0.08);border-left:4px solid var(--accent-yellow);border-radius:8px;padding:16px 20px;margin:16px 0}
+.tip-box strong{color:var(--accent-yellow)}
+.info-box{background:rgba(74,158,255,0.08);border-left:4px solid var(--accent-blue);border-radius:8px;padding:16px 20px;margin:16px 0}
+.info-box strong{color:var(--accent-blue)}
+.warning-box{background:rgba(248,113,113,0.08);border-left:4px solid var(--accent-red);border-radius:8px;padding:16px 20px;margin:16px 0}
+.warning-box strong{color:var(--accent-red)}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:.92rem}
+th{background:rgba(74,158,255,0.15);color:var(--accent-blue);text-align:left;padding:10px 12px;border-bottom:2px solid var(--border)}
+td{padding:8px 12px;border-bottom:1px solid var(--border)}
+tr:hover td{background:rgba(255,255,255,0.02)}
+.badge{display:inline-block;padding:2px 10px;border-radius:12px;font-size:.8rem;font-weight:600}
+.badge--campfire{background:rgba(255,140,0,0.15);color:var(--accent-orange)}
+.badge--quest{background:rgba(74,158,255,0.15);color:var(--accent-blue)}
+.badge--store{background:rgba(52,211,153,0.15);color:var(--accent-green)}
+.badge--rare{background:rgba(167,139,250,0.15);color:var(--accent-purple)}
+.badge--epic{background:rgba(251,191,36,0.15);color:var(--accent-yellow)}
+.badge--drop{background:rgba(34,211,238,0.15);color:var(--accent-cyan)}
+.stat-row{display:flex;gap:12px;flex-wrap:wrap;margin:16px 0}
+.stat{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:16px 20px;flex:1;min-width:140px;text-align:center}
+.stat .stat-value{font-size:2rem;font-weight:700;color:var(--accent-green)}
+.stat .stat-label{font-size:.85rem;color:var(--text-dim);margin-top:4px}
+footer{text-align:center;color:var(--text-dim);font-size:.85rem;padding:30px 0 10px;border-top:1px solid var(--border);margin-top:40px}
+</style>
+</head>
+<body>
+
+<h1>🔥 Campfire Cooking Guide</h1>
+<div class="hero">Royal Highlands Expansion — Build 0.202<br>Cook on the go with Campfire Recipes, Teas &amp; Highland Specialties</div>
+
+<div class="info-box">
+<strong>🔥 New Cooking Method:</strong> Campfire Recipes are a brand new cooking system in the Royal Highlands. Cook directly at Campfires found at campsites throughout the zone — <strong>no need to return home</strong> for simple, Focus-efficient meals.
+</div>
+
+<h2>How Campfire Cooking Works</h2>
+
+<div class="card">
+<h3>⛺ Campfire vs. Housing Plot Cooking</h3>
+<table>
+<tr><th>Feature</th><th>🔥 Campfire</th><th>🏠 Housing Plot</th></tr>
+<tr><td>Location</td><td>Campsites in Royal Highlands</td><td>Your home kitchen</td></tr>
+<tr><td>Ingredients</td><td>Pulled from Storage automatically</td><td>Must be in Inventory or Storage</td></tr>
+<tr><td>Focus Value</td><td>Good — cost-efficient</td><td>Best — most Focus per ingredient</td></tr>
+<tr><td>Star Quality</td><td>✓ Yes, craftable</td><td>✓ Yes, craftable</td></tr>
+<tr><td>Placeable</td><td>✗ Cannot be placed as decor</td><td>✓ Yes, placeable</td></tr>
+<tr><td>Cooking Time</td><td>Reserved for you briefly</td><td>Standard</td></tr>
+<tr><td>Purpose</td><td>On-the-go Focus sustain</td><td>Best efficiency, preserves jar items</td></tr>
+</table>
+</div>
+
+<div class="tip-box">
+<strong>💡 Key Design:</strong> Campfire recipes give you <strong>flexibility</strong> — cook while staying out in the world and continuing your adventure. They're NOT meant to replace home cooking. Use them for convenient Focus sustain, and save your Preserves Jar items for selling or higher-value recipes.
+</div>
+
+<div class="card">
+<h3>🧀 Cheese — New Rare Drop</h3>
+<p>Cheese is now an <strong>extremely rare drop</strong> obtainable from various activities throughout the Royal Highlands. It's used as an ingredient in some Campfire recipes.</p>
+<p><span class="badge badge--rare">Extremely Rare</span> <span class="badge badge--drop">Various Activities</span></p>
+</div>
+
+<div class="card">
+<h3>⚠️ Focus Balance Change</h3>
+<p>The devs fixed an issue where <strong>Certain Preserves Jar items</strong> granted more Focus than intended. The new Campfire recipes are designed to fill that Focus need, freeing up your Preserves Jar items for selling or other uses.</p>
+</div>
+
+<h2>Campfire Recipes</h2>
+
+<div class="card">
+<p>Below are the Campfire recipes introduced in Build 0.202. Recipes can be acquired from various sources including the Amber Echo Store, quest rewards, and discovery.</p>
+<p><em>Detailed ingredient lists and exact Focus/sell values will be populated as wiki data becomes available for each recipe. The patch notes list recipe names and their acquisition sources.</em></p>
+</div>
+
+<div class="info-box">
+<strong>📋 Note:</strong> The wiki is still being populated with individual recipe pages for the Royal Highlands update. As specific ingredient lists and exact stats become available, this guide will be updated. For now, here's what's confirmed from the patch notes.
+</div>
+
+<h3>🫖 Teas — Brewed at Campfires</h3>
+<p>A major new category! Teas are brewed at Campfires using ingredients found in the Royal Highlands, including herbs like <strong>Wild Ginger</strong> and flowers like <strong>Sundrop Lily</strong>.</p>
+
+<div class="card">
+<table>
+<tr><th>Category</th><th>Source</th><th>Type</th><th>Notes</th></tr>
+<tr><td>🫖 Highland Teas</td><td>Campfire cooking</td><td><span class="badge badge--campfire">Campfire</span></td><td>Multiple tea varieties using local herbs and flowers</td></tr>
+<tr><td>🍲 Campfire Meals</td><td>Various sources</td><td><span class="badge badge--campfire">Campfire</span></td><td>Hearty meals with good Focus-to-cost ratio</td></tr>
+<tr><td>🧀 Cheese Recipes</td><td>Rare + Campfire</td><td><span class="badge badge--rare">Rare Ingredient</span></td><td>Use extremely rare Cheese in select recipes</td></tr>
+</table>
+</div>
+
+<h2>New Ingredients for Campfire Cooking</h2>
+
+<div class="card">
+<p>The Royal Highlands introduces several new ingredients used in Campfire recipes:</p>
+<table>
+<tr><th>Ingredient</th><th>Type</th><th>Source</th><th>Notes</th></tr>
+<tr><td>🌸 <strong>Sundrop Lily</strong></td><td>Flower</td><td>Foraging in Royal Highlands</td><td>Premium ingredient for teas and recipes</td></tr>
+<tr><td>🌿 <strong>Wild Ginger</strong></td><td>Herb/Spice</td><td>Foraging in Royal Highlands</td><td>Key ingredient in multiple tea recipes</td></tr>
+<tr><td>🧀 <strong>Cheese</strong></td><td>Dairy</td><td>Extremely rare drop</td><td>Various RH activities; used in select recipes</td></tr>
+<tr><td>🪵 <strong>Lantern Ash</strong></td><td>Wood</td><td>Mining Lantern Ash Trees in RH</td><td>New wood type (same requirements as Hardwood)</td></tr>
+<tr><td>💎 <strong>Jadium</strong></td><td>Ore</td><td>Mining in Royal Highlands</td><td>Palium-tier material</td></tr>
+<tr><td>🏔️ <strong>Whitestone</strong></td><td>Ore</td><td>Mining in Royal Highlands</td><td>New stone material</td></tr>
+</table>
+</div>
+
+<div class="tip-box">
+<strong>💡 Campfire Cooking Tip:</strong> Campsite cooking pulls ingredients directly from your <strong>Storage</strong> — you don't need to carry everything in your Inventory! When you find an active campsite, check your storage tab for available ingredients.
+</div>
+
+<h2>Campsites in the Royal Highlands</h2>
+
+<div class="card">
+<p>Campsites are scattered across the Royal Highlands. Each <strong>real-world day</strong>, <strong>two campsites</strong> become active for you to discover.</p>
+<p>Each active campsite includes:</p>
+<ul>
+<li>🏕️ A <strong>Campfire</strong> for cooking Campfire recipes</li>
+<li>📦 A <strong>Traveler's Cache</strong> with useful rewards</li>
+<li>🔍 <strong>Rummage Piles</strong> — daily opportunity to find artifact pieces and other finds</li>
+</ul>
+<p>Once you find and collect from a cache, that campsite is <strong>marked on your map</strong> permanently, making it easy to return if it becomes active again on another day.</p>
+</div>
+
+<h2>Accomplishments</h2>
+
+<div class="card">
+<table>
+<tr><th>Accomplishment</th><th>Requirement</th></tr>
+<tr><td>🍳 <strong>Chef de Cuisine</strong></td><td>Cook every unique Campfire recipe at least once</td></tr>
+</table>
+</div>
+
+<div class="warning-box">
+<strong>⚠️ Not Placeable:</strong> Campfire-cooked meals can achieve Star Quality, but they are <strong>NOT placeable as decor</strong> in your home. Only housing-plot-cooked meals can be placed.
+</div>
+
+<footer>Nova • Palia Campfire Cooking Guide • May 2026<br><small>Data sourced from Palia Build 0.202 patch notes. Individual recipe stats will be updated as wiki data becomes available.</small></footer>
+
+</body>
+</html>
